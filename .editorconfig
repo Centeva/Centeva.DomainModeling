@@ -5,8 +5,14 @@ root = true
 indent_style = space
 
 # Xml files
-[*.xml]
+[*.xml, *.csproj]
 indent_size = 2
+
+[*.json]
+indent_size = 2
+
+[*.md]
+guidelines = 80
 
 # C# files
 [*.cs]
@@ -25,7 +31,7 @@ insert_final_newline = false
 [*.{cs,vb}]
 
 # Organize usings
-dotnet_separate_import_directive_groups = true
+dotnet_separate_import_directive_groups = false
 dotnet_sort_system_directives_first = true
 file_header_template = unset
 
@@ -123,6 +129,9 @@ csharp_style_unused_value_expression_statement_preference = discard_variable:sil
 
 # 'using' directive preferences
 csharp_using_directive_placement = outside_namespace:silent
+
+# Namespaces
+csharp_style_namespace_declarations = file_scoped:warning
 
 #### C# Formatting Rules ####
 
