@@ -17,4 +17,12 @@ public class BaseEntityTests
 
         entity.Events.Should().BeEmpty();
     }
+
+    [Fact]
+    public void Constructor_ShouldSetDefaultId()
+    {
+        var entity = new TestEntity();
+
+        entity.Id.Should().Be(default);
+    }
 }
