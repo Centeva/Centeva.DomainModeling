@@ -51,7 +51,8 @@ Each entity will contain an `Events` list which you can use for storing and
 later publishing Domain Events.  These are used to implement "side effects"
 based on work done to your entities.  These events can be handled elsewhere in
 your code to better decouple them from other parts of the system.  *You will
-need to implement a method for publishing/handling these.*
+need to use MediatR in your application to publish and handle these, likely
+inside of your Entity Framework `DbContext`.*
 
 ### Aggregate Roots
 
@@ -108,3 +109,8 @@ Use `dotnet pack` to generate a NuGet package.  This library is versioned by
 Please use a Pull Request to suggest changes to this library.  You should not
 add any functionality or dependency that is not appropriate for use at the
 lowest level (the "domain" level) of an application.
+
+## Resources
+
+Take a look at https://bitbucket.org/centeva/centevaarchitecturetemplate for
+more implementation details.
