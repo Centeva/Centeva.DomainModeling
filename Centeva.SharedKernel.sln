@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D60A285E-E6AA-416A-8020-8AD5C079B074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Centeva.SharedKernel", "src\Centeva.SharedKernel\Centeva.SharedKernel.csproj", "{E6A6F76C-E92D-4B28-9045-BDBDD2745435}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Centeva.SharedKernel", "src\Centeva.SharedKernel\Centeva.SharedKernel.csproj", "{E6A6F76C-E92D-4B28-9045-BDBDD2745435}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{087DA3BC-D602-45B1-A55D-59B52ED99F61}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +20,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E6A6F76C-E92D-4B28-9045-BDBDD2745435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -33,7 +35,13 @@ Global
 		{E6A6F76C-E92D-4B28-9045-BDBDD2745435}.Release|x86.ActiveCfg = Release|Any CPU
 		{E6A6F76C-E92D-4B28-9045-BDBDD2745435}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E6A6F76C-E92D-4B28-9045-BDBDD2745435} = {D60A285E-E6AA-416A-8020-8AD5C079B074}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {688363C0-2244-4412-9B2D-7821E3F5BAE6}
 	EndGlobalSection
 EndGlobal
