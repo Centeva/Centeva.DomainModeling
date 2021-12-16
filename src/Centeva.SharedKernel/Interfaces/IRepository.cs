@@ -40,6 +40,10 @@ public interface IRepository<TEntity> : IReadRepository<TEntity> where TEntity :
     /// <summary>
     /// Persists changes to the database.
     /// </summary>
-    /// <returns>A task that represents the asynchronous operation.</returns>
-    Task SaveChangesAsync(CancellationToken cancellationToken = default);
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// The task result contains the number of entries saved.
+    /// </returns>
+    /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
