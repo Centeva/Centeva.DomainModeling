@@ -130,8 +130,10 @@ public interface IReadRepository<TEntity> where TEntity : class, IAggregateRoot
     /// result in unexpected behavior, such as SQL queries being materialized
     /// late in the process.
     /// </remarks>
-    /// <returns></returns>
+    /// <returns>
+    /// The repository's contents as an <see cref="IQueryable{T}"/>
+    /// </returns>
     [Obsolete("Use Specifications instead as this exposes unmaterialized queries")]
-    IQueryable<TEntity> Query();
+    IQueryable<TEntity> AsQueryable();
 }
 
