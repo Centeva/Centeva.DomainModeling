@@ -7,39 +7,47 @@ public interface IRepository<TEntity> : IReadRepository<TEntity> where TEntity :
     /// </summary>
     /// <param name="entity">The entity to add.</param>
     /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
+    /// <param name="saveChanges">Indicates whether changes should be persisted immediately.  You should use <see cref="SaveChangesAsync"/> at some point if this is false.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// The task result contains the <typeparamref name="T" />.
     /// </returns>
-    Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default);
-    
+    Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default, bool saveChanges = true);
+
     /// <summary>
     /// Updates an entity in the database
     /// </summary>
     /// <param name="entity">The entity to update.</param>
     /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
+    /// <param name="saveChanges">Indicates whether changes should be persisted immediately.  You should use <see cref="SaveChangesAsync"/> at some point if this is false.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
-    
+    Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default, bool saveChanges = true);
+
     /// <summary>
     /// Removes an entity in the database
     /// </summary>
     /// <param name="entity">The entity to delete.</param>
     /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
+    /// <param name="saveChanges">Indicates whether changes should be persisted immediately.  You should use <see cref="SaveChangesAsync"/> at some point if this is false.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
-    
+    Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default, bool saveChanges = true);
+
     /// <summary>
     /// Removes the given entities in the database
     /// </summary>
     /// <param name="entities">The entities to remove.</param>
     /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
+    /// <param name="saveChanges">Indicates whether changes should be persisted immediately.  You should use <see cref="SaveChangesAsync"/> at some point if this is false.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+    Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default, bool saveChanges = true);
 
     /// <summary>
     /// Persists changes to the database.
     /// </summary>
-    /// <returns>A task that represents the asynchronous operation.</returns>
-    Task SaveChangesAsync(CancellationToken cancellationToken = default);
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// The task result contains the number of entries saved.
+    /// </returns>
+    /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

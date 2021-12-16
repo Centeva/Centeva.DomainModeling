@@ -101,6 +101,28 @@ public interface IReadRepository<TEntity> where TEntity : class, IAggregateRoot
     Task<int> CountAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Returns a boolean whether any entity exists.
+    /// </summary>
+    /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation. The task result contains true if
+    /// there are any entities, otherwise false.
+    /// </returns>
+    Task<bool> AnyAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Returns a boolean whether any entities satisfy the encapsulated query logic
+    /// of the <paramref name="specification"/>.
+    /// </summary>
+    /// <param name="specification">The encapsulated query logic.</param>
+    /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation. The task result contains true if
+    /// any entities satisfy the specification, otherwise false.
+    /// </returns>
+    Task<bool> AnyAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Returns an <see cref="IQueryable{T}"/> for retrieving entities of type <typeparamref name="TEntity"/>
     /// </summary>
     /// <remarks>
@@ -108,8 +130,10 @@ public interface IReadRepository<TEntity> where TEntity : class, IAggregateRoot
     /// result in unexpected behavior, such as SQL queries being materialized
     /// late in the process.
     /// </remarks>
-    /// <returns></returns>
+    /// <returns>
+    /// The repository's contents as an <see cref="IQueryable{T}"/>
+    /// </returns>
     [Obsolete("Use Specifications instead as this exposes unmaterialized queries")]
-    IQueryable<TEntity> Query();
+    IQueryable<TEntity> AsQueryable();
 }
 
