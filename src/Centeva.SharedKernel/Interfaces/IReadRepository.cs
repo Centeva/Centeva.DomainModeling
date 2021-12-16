@@ -9,6 +9,7 @@ public interface IReadRepository<TEntity> where TEntity : class, IAggregateRoot
     /// </summary>
     /// <typeparam name="TId">The type of primary key.</typeparam>
     /// <param name="id">The value of the primary key for the entity to be found.</param>
+    /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// The task result contains the <typeparamref name="T" />, or <see langword="null"/>.
@@ -19,18 +20,20 @@ public interface IReadRepository<TEntity> where TEntity : class, IAggregateRoot
     /// Finds an entity that matches the encapsulated query logic of the <paramref name="specification"/>.
     /// </summary>
     /// <param name="specification">The encapsulated query logic.</param>
+    /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// The task result contains the <typeparamref name="T" />, or <see langword="null"/>.
     /// </returns>
-    Task<TEntity?> GetBySpecAsync<Spec>(Spec specification, CancellationToken cancellationToken = default)
-        where Spec : ISingleResultSpecification, ISpecification<TEntity>;
+    Task<TEntity?> GetBySpecAsync<TSpec>(TSpec specification, CancellationToken cancellationToken = default)
+        where TSpec : ISingleResultSpecification, ISpecification<TEntity>;
 
     /// <summary>
     /// Finds an entity that matches the encapsulated query logic of the <paramref name="specification"/>.
     /// </summary>
     /// <typeparam name="TResult">The type of the result.</typeparam>
     /// <param name="specification">The encapsulated query logic.</param>
+    /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// The task result contains the <typeparamref name="TResult" />.
@@ -40,6 +43,7 @@ public interface IReadRepository<TEntity> where TEntity : class, IAggregateRoot
     /// <summary>
     /// Finds all entities of <typeparamref name="T" /> from the database.
     /// </summary>
+    /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// The task result contains a <see cref="List{T}" /> that contains elements from the input sequence.
@@ -51,6 +55,7 @@ public interface IReadRepository<TEntity> where TEntity : class, IAggregateRoot
     /// <paramref name="specification"/>, from the database.
     /// </summary>
     /// <param name="specification">The encapsulated query logic.</param>
+    /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// The task result contains a <see cref="List{T}" /> that contains elements from the input sequence.
@@ -66,6 +71,7 @@ public interface IReadRepository<TEntity> where TEntity : class, IAggregateRoot
     /// </summary>
     /// <typeparam name="TResult">The type of the value returned by the projection.</typeparam>
     /// <param name="specification">The encapsulated query logic.</param>
+    /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// The task result contains a <see cref="List{TResult}" /> that contains elements from the input sequence.
@@ -77,6 +83,7 @@ public interface IReadRepository<TEntity> where TEntity : class, IAggregateRoot
     /// of the <paramref name="specification"/>.
     /// </summary>
     /// <param name="specification">The encapsulated query logic.</param>
+    /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>
     /// A task that represents the asynchronous operation. The task result contains the
     /// number of elements in the input sequence.
@@ -86,6 +93,7 @@ public interface IReadRepository<TEntity> where TEntity : class, IAggregateRoot
     /// <summary>
     /// Returns the total number of records.
     /// </summary>
+    /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
     /// <returns>
     /// A task that represents the asynchronous operation. The task result contains the
     /// number of elements in the input sequence.
