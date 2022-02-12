@@ -1,5 +1,7 @@
 ﻿namespace Centeva.SharedKernel.Interfaces;
 
+#pragma warning disable CA1068 // CancellationToken parameters must come last
+
 public interface IRepository<TEntity> : IReadRepository<TEntity> where TEntity : class, IAggregateRoot
 {
     /// <summary>
@@ -51,3 +53,4 @@ public interface IRepository<TEntity> : IReadRepository<TEntity> where TEntity :
     /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
+#pragma warning restore CA1068 // CancellationToken parameters must come last
