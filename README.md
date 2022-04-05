@@ -31,7 +31,7 @@ file at the root level:
 ### Entities
 
 An entity is a plain object that has a unique identifier and contains properties
-that are likely indenpendently mutable.  Two instances of an entity type that
+that are likely independently mutable.  Two instances of an entity type that
 have the same identifier should be considered to be equivalent.  In most cases
 your project will involve persisting entities to some kind of data storage, such
 as an SQL database.  However, the details of such persistence should not be
@@ -44,6 +44,10 @@ The `BaseEntity` class can be inherited for your project's entities.
   should not let your developers set this manually.  Frameworks such as Entity
   Framework Core will set this when persisting.  (Yes it can get around the
   `private` modifier.)
+
+You should strive to protect an entity's invariants using appropriate measures
+such as private setters, read-only collections, and public methods for updating
+the entity's properties.
 
 ### Domain Events
 
