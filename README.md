@@ -49,6 +49,21 @@ You should strive to protect an entity's invariants using appropriate measures
 such as private setters, read-only collections, and public methods for updating
 the entity's properties.
 
+### Value Objects
+
+A value object represents something in your domain that has no unique identity.
+They are ideally immutable and equality is determined by comparing its
+properties.
+
+Entities can (and should) contain value objects, but value objects should never
+contain entities.  
+
+Your value object classes should inherit from the `ValueObject` class to gain
+equality functionality.
+
+See https://enterprisecraftsmanship.com/posts/value-objects-explained/ for
+more information about this concept.
+
 ### Domain Events
 
 Each entity will contain an `Events` list which you can use for storing and
