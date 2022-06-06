@@ -1,7 +1,5 @@
 ﻿namespace Centeva.SharedKernel.Interfaces;
 
-#pragma warning disable CA1068 // CancellationToken parameters must come last
-
 public interface IRepository<TEntity> : IReadRepository<TEntity> where TEntity : class, IAggregateRoot
 {
     /// <summary>
@@ -9,42 +7,38 @@ public interface IRepository<TEntity> : IReadRepository<TEntity> where TEntity :
     /// </summary>
     /// <param name="entity">The entity to add.</param>
     /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
-    /// <param name="saveChanges">Indicates whether changes should be persisted immediately.  You should use <see cref="SaveChangesAsync"/> at some point if this is false.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
     /// The task result contains the <typeparamref name="T" />.
     /// </returns>
-    Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default, bool saveChanges = true);
+    Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates an entity in the database
     /// </summary>
     /// <param name="entity">The entity to update.</param>
     /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
-    /// <param name="saveChanges">Indicates whether changes should be persisted immediately.  You should use <see cref="SaveChangesAsync"/> at some point if this is false.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default, bool saveChanges = true);
+    Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Removes an entity in the database
     /// </summary>
     /// <param name="entity">The entity to delete.</param>
     /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
-    /// <param name="saveChanges">Indicates whether changes should be persisted immediately.  You should use <see cref="SaveChangesAsync"/> at some point if this is false.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default, bool saveChanges = true);
+    Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Removes the given entities in the database
     /// </summary>
     /// <param name="entities">The entities to remove.</param>
     /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
-    /// <param name="saveChanges">Indicates whether changes should be persisted immediately.  You should use <see cref="SaveChangesAsync"/> at some point if this is false.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default, bool saveChanges = true);
+    Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Persists changes to the database.
+    /// Persists changes to tracked entities to the database.
     /// </summary>
     /// <returns>
     /// A task that represents the asynchronous operation.
@@ -53,4 +47,3 @@ public interface IRepository<TEntity> : IReadRepository<TEntity> where TEntity :
     /// <param name="cancellationToken">A CancellationToken to observe while waiting for the task to complete.</param>
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
-#pragma warning restore CA1068 // CancellationToken parameters must come last
