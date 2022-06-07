@@ -1,10 +1,17 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Centeva.SharedKernel;
 
 public abstract class BaseEntity<TId>
 {
     public TId Id { get; private set; } = default!;
 
-    public List<BaseDomainEvent> Events = new();
+    private readonly List<BaseDomainEvent> _domainEvents = new();
+
+    [NotMapped] 
+    public IEnumerable<BaseDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+
+    protected void RegisterDomainEvent(BaseDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
 }
 
 public abstract class BaseEntity : BaseEntity<int> { }

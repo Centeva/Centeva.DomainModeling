@@ -1,18 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<PackageId>Centeva.SharedKernel</PackageId>
-		<Company>Centeva</Company>
-		<Description>.NET shared kernel package containing common base types and abstractions.</Description>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <PackageId>Centeva.SharedKernel</PackageId>
+    <Company>Centeva</Company>
+    <Description>.NET shared kernel package containing common base types and abstractions.</Description>
 
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Ardalis.Specification" Version="6.0.1" />
-		<PackageReference Include="MediatR.Contracts" Version="1.0.1" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Ardalis.Specification" Version="6.0.1" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
+  </ItemGroup>
 
 </Project>
