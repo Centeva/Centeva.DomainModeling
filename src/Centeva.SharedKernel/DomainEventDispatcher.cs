@@ -1,6 +1,7 @@
-﻿using MediatR;
+﻿using Centeva.SharedKernel.Interfaces;
+using MediatR;
 
-namespace Centeva.SharedKernel.Interfaces;
+namespace Centeva.SharedKernel;
 
 public class DomainEventDispatcher : IDomainEventDispatcher
 {

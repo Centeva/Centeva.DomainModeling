@@ -1,5 +1,4 @@
-﻿using Centeva.SharedKernel.Interfaces;
-using Centeva.SharedKernel.UnitTests.Fixtures;
+﻿using Centeva.SharedKernel.UnitTests.Fixtures;
 using MediatR;
 
 namespace Centeva.SharedKernel.UnitTests;
