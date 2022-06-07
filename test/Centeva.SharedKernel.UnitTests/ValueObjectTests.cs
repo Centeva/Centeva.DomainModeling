@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace Centeva.SharedKernel.UnitTests;
+﻿namespace Centeva.SharedKernel.UnitTests;
 
 // From https://github.com/dotnet-architecture/eShopOnContainers/blob/dev/src/Services/Ordering/Ordering.UnitTests/Domain/SeedWork/ValueObjectTests.cs
 public class ValueObjectTests

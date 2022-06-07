@@ -1,6 +1,3 @@
-using FluentAssertions;
-using Xunit;
-
 namespace Centeva.SharedKernel.UnitTests;
 
 public class BaseDomainEventTests
