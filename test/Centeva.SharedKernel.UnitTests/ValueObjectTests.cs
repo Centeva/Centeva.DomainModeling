@@ -11,7 +11,7 @@ public class ValueObjectTests
         var result = EqualityComparer<ValueObject>.Default.Equals(instanceA, instanceB);
 
         // Assert
-        Assert.True(result, reason);
+        result.Should().BeTrue(reason);
     }
 
     [Theory]
@@ -22,7 +22,7 @@ public class ValueObjectTests
         var result = EqualityComparer<ValueObject>.Default.Equals(instanceA, instanceB);
 
         // Assert
-        Assert.False(result, reason);
+        result.Should().BeFalse(reason);
     }
 
     private static readonly ValueObject APrettyValueObject = new ValueObjectA(1, "2", Guid.Parse("97ea43f0-6fef-4fb7-8c67-9114a7ff6ec0"), new ComplexObject(2, "3"));
