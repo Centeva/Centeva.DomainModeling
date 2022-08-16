@@ -4,7 +4,7 @@ namespace Centeva.SharedKernel;
 
 public abstract class BaseEntity<TId>
 {
-    public virtual TId Id { get; set; } = default!;
+    public TId Id { get; set; }
 
     private readonly List<BaseDomainEvent> _domainEvents = new();
 
