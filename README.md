@@ -77,8 +77,9 @@ inside of your Entity Framework `DbContext`.*
 
 Your entities can use the `IAggregateRoot` interface to implement the Domain
 Driven Design "Aggregate" pattern.  An Aggregate is a collection of objects
-(typically Entities) that is treated as a single unit for manipulation.  A good
-example is an `Order` with its collection of `OrderItem`s.  
+(typically Entities) that is treated as a single unit for manipulation and
+enforcement of invariants (validation rules).  A good example is an `Order` with 
+its collection of `OrderItem`s.  
 
 This is just a marker interface (no properties or methods) and it's up to you to
 enforce the Aggregate pattern.
