@@ -11,7 +11,9 @@ public abstract class BaseEntity<TId>
     [NotMapped] 
     public IEnumerable<BaseDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-    protected void RegisterDomainEvent(BaseDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
+    public void RegisterDomainEvent(BaseDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
+
+    public void RemoveDomainEvent(BaseDomainEvent domainEvent) => _domainEvents.Remove(domainEvent);
 
     internal void ClearDomainEvents() => _domainEvents.Clear();
 }

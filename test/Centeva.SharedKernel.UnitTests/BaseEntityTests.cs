@@ -28,4 +28,20 @@ public class BaseEntityTests
 
         entity.DomainEvents.Should().NotBeEmpty();
     }
+
+    [Fact]
+    public void RemoveDomainEvent_RemovesEvent()
+    {
+        var entity = new TestEntity("test");
+        var ev = new FakeEvent();
+
+        entity.RegisterDomainEvent(ev);
+        entity.RemoveDomainEvent(ev);
+
+        entity.DomainEvents.Should().BeEmpty();
+    }
+
+    class FakeEvent : BaseDomainEvent
+    {
+    }
 }
