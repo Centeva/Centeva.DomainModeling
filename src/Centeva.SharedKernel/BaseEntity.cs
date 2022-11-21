@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Centeva.SharedKernel.Interfaces;
 
 namespace Centeva.SharedKernel;
@@ -8,6 +9,7 @@ public abstract class BaseEntity<TId> : IEntityWithEvents
 
     private readonly List<BaseDomainEvent> _domainEvents = new();
 
+    [NotMapped]
     public IEnumerable<BaseDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
     public void RegisterDomainEvent(BaseDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
