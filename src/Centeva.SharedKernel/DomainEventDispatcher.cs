@@ -12,7 +12,7 @@ public class DomainEventDispatcher : IDomainEventDispatcher
         _publisher = publisher;
     }
 
-    public async Task DispatchAndClearEvents(IEnumerable<BaseEntity> entitiesWithEvents)
+    public async Task DispatchAndClearEvents(IEnumerable<IEntityWithEvents> entitiesWithEvents)
     {
         foreach (var entity in entitiesWithEvents)
         {
