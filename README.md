@@ -12,7 +12,7 @@ with as few dependencies as possible.
 
 ## Getting Started
 
-Import the NuGet package `Centeva.SharedKernel` from this Centeva NuGet
+Import the NuGet package `Centeva.SharedKernel` from the Centeva NuGet
 repository.  You can add this repository to your own solution by adding a
 [nuget.config](https://docs.microsoft.com/en-us/nuget/reference/nuget-config-file)
 file at the root level:
@@ -25,6 +25,15 @@ file at the root level:
   </packageSources>
 </configuration>
 ```
+
+### Using Entity Framework Core
+
+Import the `Centeva.SharedKernel.EntityFrameworkCore` package to get an 
+implementation of the Repository pattern for this ORM.  
+
+This requires EF Core, MediatR, and AutoMapper to be added to your application's
+services configuration for dependency injection.  See the documentation for 
+these tools individually for instructions.
 
 ## Usage
 
@@ -116,7 +125,12 @@ methods directly.
 
 ## Running Tests
 
-Use the standard `dotnet test` command your your Visual Studio Test Explorer.
+From Windows, use the `dotnet test` command, or your Visual Studio Test 
+Explorer.  Integration tests will use SQL Server LocalDB.
+
+To run tests in a set of containers with Docker Compose, which is useful for 
+build pipelines and non-Windows development environments, use the 
+`ci/run-tests.sh` or `ci/run-tests.bat` scripts.
 
 ## Deployment
 

@@ -9,12 +9,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Centeva.SharedKernel", "src
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{087DA3BC-D602-45B1-A55D-59B52ED99F61}"
 	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		Dockerfile = Dockerfile
+		GitVersion.yml = GitVersion.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{83D17138-B0BE-40AA-892C-610F1FB6CD20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Centeva.SharedKernel.UnitTests", "test\Centeva.SharedKernel.UnitTests\Centeva.SharedKernel.UnitTests.csproj", "{95FF509D-5720-43DB-AAE3-188449C1AC8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Centeva.SharedKernel.UnitTests", "test\Centeva.SharedKernel.UnitTests\Centeva.SharedKernel.UnitTests.csproj", "{95FF509D-5720-43DB-AAE3-188449C1AC8C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Centeva.SharedKernel.EntityFrameworkCore", "src\Centeva.SharedKernel.EntityFrameworkCore\Centeva.SharedKernel.EntityFrameworkCore.csproj", "{69C95565-28DE-4ABE-851D-9D560B2D1540}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Centeva.SharedKernel.EntityFrameworkCore.IntegrationTests", "test\Centeva.SharedKernel.EntityFrameworkCore.IntegrationTests\Centeva.SharedKernel.EntityFrameworkCore.IntegrationTests.csproj", "{28621E65-9F09-40A8-999F-2C9A4A6BE8EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +57,30 @@ Global
 		{95FF509D-5720-43DB-AAE3-188449C1AC8C}.Release|x64.Build.0 = Release|Any CPU
 		{95FF509D-5720-43DB-AAE3-188449C1AC8C}.Release|x86.ActiveCfg = Release|Any CPU
 		{95FF509D-5720-43DB-AAE3-188449C1AC8C}.Release|x86.Build.0 = Release|Any CPU
+		{69C95565-28DE-4ABE-851D-9D560B2D1540}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69C95565-28DE-4ABE-851D-9D560B2D1540}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69C95565-28DE-4ABE-851D-9D560B2D1540}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{69C95565-28DE-4ABE-851D-9D560B2D1540}.Debug|x64.Build.0 = Debug|Any CPU
+		{69C95565-28DE-4ABE-851D-9D560B2D1540}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{69C95565-28DE-4ABE-851D-9D560B2D1540}.Debug|x86.Build.0 = Debug|Any CPU
+		{69C95565-28DE-4ABE-851D-9D560B2D1540}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69C95565-28DE-4ABE-851D-9D560B2D1540}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69C95565-28DE-4ABE-851D-9D560B2D1540}.Release|x64.ActiveCfg = Release|Any CPU
+		{69C95565-28DE-4ABE-851D-9D560B2D1540}.Release|x64.Build.0 = Release|Any CPU
+		{69C95565-28DE-4ABE-851D-9D560B2D1540}.Release|x86.ActiveCfg = Release|Any CPU
+		{69C95565-28DE-4ABE-851D-9D560B2D1540}.Release|x86.Build.0 = Release|Any CPU
+		{28621E65-9F09-40A8-999F-2C9A4A6BE8EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28621E65-9F09-40A8-999F-2C9A4A6BE8EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28621E65-9F09-40A8-999F-2C9A4A6BE8EF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{28621E65-9F09-40A8-999F-2C9A4A6BE8EF}.Debug|x64.Build.0 = Debug|Any CPU
+		{28621E65-9F09-40A8-999F-2C9A4A6BE8EF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{28621E65-9F09-40A8-999F-2C9A4A6BE8EF}.Debug|x86.Build.0 = Debug|Any CPU
+		{28621E65-9F09-40A8-999F-2C9A4A6BE8EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28621E65-9F09-40A8-999F-2C9A4A6BE8EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28621E65-9F09-40A8-999F-2C9A4A6BE8EF}.Release|x64.ActiveCfg = Release|Any CPU
+		{28621E65-9F09-40A8-999F-2C9A4A6BE8EF}.Release|x64.Build.0 = Release|Any CPU
+		{28621E65-9F09-40A8-999F-2C9A4A6BE8EF}.Release|x86.ActiveCfg = Release|Any CPU
+		{28621E65-9F09-40A8-999F-2C9A4A6BE8EF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +88,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E6A6F76C-E92D-4B28-9045-BDBDD2745435} = {D60A285E-E6AA-416A-8020-8AD5C079B074}
 		{95FF509D-5720-43DB-AAE3-188449C1AC8C} = {83D17138-B0BE-40AA-892C-610F1FB6CD20}
+		{69C95565-28DE-4ABE-851D-9D560B2D1540} = {D60A285E-E6AA-416A-8020-8AD5C079B074}
+		{28621E65-9F09-40A8-999F-2C9A4A6BE8EF} = {83D17138-B0BE-40AA-892C-610F1FB6CD20}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {688363C0-2244-4412-9B2D-7821E3F5BAE6}

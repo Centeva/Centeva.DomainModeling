@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  tests:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      WAIT_HOSTS: database:1433
+    volumes:
+        - ./TestResults:/var/temp
+    depends_on:
+      - database
+
+  database:
+    image: mcr.microsoft.com/mssql/server:2019-CU18-ubuntu-20.04
+    environment:
+        SA_PASSWORD: "Centeva1234!"
+        ACCEPT_EULA: "Y"
