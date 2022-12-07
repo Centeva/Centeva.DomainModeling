@@ -112,7 +112,7 @@ public abstract class BaseRepository<T> : IRepository<T> where T : class
     /// <inheritdoc/>
     public virtual async Task<TResult?> FirstOrDefaultProjectedAsync<TResult>(ISpecification<T> specification, CancellationToken cancellationToken = default)
     {
-        return await ApplySpecification(specification).ProjectTo<TResult>(_mappingConfigurationProvider)
+        return await ApplySpecification(specification).AsNoTracking().ProjectTo<TResult>(_mappingConfigurationProvider)
             .FirstOrDefaultAsync(cancellationToken);
     }
 
@@ -132,7 +132,7 @@ public abstract class BaseRepository<T> : IRepository<T> where T : class
     /// <inheritdoc/>
     public virtual async Task<TResult?> SingleOrDefaultProjectedAsync<TResult>(ISingleResultSpecification<T> specification, CancellationToken cancellationToken = default)
     {
-        return await ApplySpecification(specification).ProjectTo<TResult>(_mappingConfigurationProvider)
+        return await ApplySpecification(specification).AsNoTracking().ProjectTo<TResult>(_mappingConfigurationProvider)
             .SingleOrDefaultAsync(cancellationToken);
     }
 
@@ -153,13 +153,13 @@ public abstract class BaseRepository<T> : IRepository<T> where T : class
     /// <inheritdoc/>
     public virtual async Task<List<TResult>> ListProjectedAsync<TResult>(CancellationToken cancellationToken = default)
     {
-        return await _dbContext.Set<T>().ProjectTo<TResult>(_mappingConfigurationProvider).ToListAsync(cancellationToken);
+        return await _dbContext.Set<T>().AsNoTracking().ProjectTo<TResult>(_mappingConfigurationProvider).ToListAsync(cancellationToken);
     }
 
     /// <inheritdoc/>
     public virtual async Task<List<TResult>> ListProjectedAsync<TResult>(ISpecification<T> specification, CancellationToken cancellationToken = default)
     {
-        return await ApplySpecification(specification).ProjectTo<TResult>(_mappingConfigurationProvider).ToListAsync(cancellationToken);
+        return await ApplySpecification(specification).AsNoTracking().ProjectTo<TResult>(_mappingConfigurationProvider).ToListAsync(cancellationToken);
     }
 
     /// <inheritdoc/>
