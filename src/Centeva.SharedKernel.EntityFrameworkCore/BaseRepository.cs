@@ -1,4 +1,5 @@
-﻿using Ardalis.Specification;
+﻿using System.Linq.Expressions;
+using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -52,7 +53,7 @@ public abstract class BaseRepository<T> : IRepository<T> where T : class
 
         return entities;
     }
-    
+
     /// <inheritdoc/>
     public virtual async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
     {
@@ -84,7 +85,7 @@ public abstract class BaseRepository<T> : IRepository<T> where T : class
 
         await SaveChangesAsync(cancellationToken);
     }
-    
+
     /// <inheritdoc/>
     public virtual async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
@@ -117,6 +118,14 @@ public abstract class BaseRepository<T> : IRepository<T> where T : class
     }
 
     /// <inheritdoc/>
+    public async Task<TResult?> FirstOrDefaultProjectedAsync<TResult>(ISpecification<T> specification, Expression<Func<T, TResult>> projection,
+        CancellationToken cancellationToken = default)
+    {
+        return await ApplySpecification(specification).AsNoTracking().Select(projection)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
+    /// <inheritdoc/>
     public virtual async Task<T?> SingleOrDefaultAsync(ISingleResultSpecification<T> specification, CancellationToken cancellationToken = default)
     {
         return await ApplySpecification(specification).SingleOrDefaultAsync(cancellationToken);
@@ -137,9 +146,23 @@ public abstract class BaseRepository<T> : IRepository<T> where T : class
     }
 
     /// <inheritdoc/>
+    public async Task<TResult?> SingleOrDefaultProjectedAsync<TResult>(ISingleResultSpecification<T> specification, Expression<Func<T, TResult>> projection,
+        CancellationToken cancellationToken = default)
+    {
+        return await ApplySpecification(specification).AsNoTracking().Select(projection)
+            .SingleOrDefaultAsync(cancellationToken);
+    }
+
+    /// <inheritdoc/>
     public virtual async Task<List<T>> ListAsync(CancellationToken cancellationToken = default)
     {
         return await _dbContext.Set<T>().ToListAsync(cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<List<TResult>> ListProjectedAsync<TResult>(Expression<Func<T, TResult>> projection, CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Set<T>().AsNoTracking().Select(projection).ToListAsync(cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -160,6 +183,13 @@ public abstract class BaseRepository<T> : IRepository<T> where T : class
     public virtual async Task<List<TResult>> ListProjectedAsync<TResult>(ISpecification<T> specification, CancellationToken cancellationToken = default)
     {
         return await ApplySpecification(specification).AsNoTracking().ProjectTo<TResult>(_mappingConfigurationProvider).ToListAsync(cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<List<TResult>> ListProjectedAsync<TResult>(ISpecification<T> specification, Expression<Func<T, TResult>> projection,
+        CancellationToken cancellationToken = default)
+    {
+        return await ApplySpecification(specification).AsNoTracking().Select(projection).ToListAsync(cancellationToken);
     }
 
     /// <inheritdoc/>

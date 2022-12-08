@@ -1,4 +1,5 @@
-﻿using Ardalis.Specification;
+﻿using System.Linq.Expressions;
+using Ardalis.Specification;
 
 namespace Centeva.SharedKernel.Interfaces;
 
@@ -49,6 +50,18 @@ public interface IReadRepository<T> where T : class
     Task<TResult?> FirstOrDefaultProjectedAsync<TResult>(ISpecification<T> specification, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Returns the first element of a sequence, projected to a target <typeparamref name="TResult" /> using the provided expression, or a default value if the sequence contains no elements.
+    /// </summary>
+    /// <param name="specification">The encapsulated query logic.</param>
+    /// <param name="projection">An Expression that maps <typeparamref name="T"/> to <typeparamref name="TResult"/>.</param>
+    /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// The task result contains the <typeparamref name="TResult" />, or <see langword="null"/>.
+    /// </returns>
+    Task<TResult?> FirstOrDefaultProjectedAsync<TResult>(ISpecification<T> specification, Expression<Func<T, TResult>> projection, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Returns the only element of a sequence, or a default value if the sequence is empty; this method throws an exception if there is more than one element in the sequence.
     /// </summary>
     /// <param name="specification">The encapsulated query logic.</param>
@@ -83,6 +96,19 @@ public interface IReadRepository<T> where T : class
     Task<TResult?> SingleOrDefaultProjectedAsync<TResult>(ISingleResultSpecification<T> specification, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Returns the first element of a sequence, projected to a target <typeparamref name="TResult" /> using the provided expression,
+    /// or a default value if the sequence is empty; this method throws an exception if there is more than one element in the sequence.
+    /// </summary>
+    /// <param name="specification">The encapsulated query logic.</param>
+    /// <param name="projection">An Expression that maps <typeparamref name="T"/> to <typeparamref name="TResult"/>.</param>
+    /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// The task result contains the <typeparamref name="TResult" />, or <see langword="null"/>.
+    /// </returns>
+    Task<TResult?> SingleOrDefaultProjectedAsync<TResult>(ISingleResultSpecification<T> specification, Expression<Func<T, TResult>> projection, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Finds all entities of <typeparamref name="T" /> from the database.
     /// </summary>
     /// <returns>
@@ -98,7 +124,6 @@ public interface IReadRepository<T> where T : class
     /// </para>
     /// </summary>
     /// <typeparam name="TResult">The type of the value returned by the projection.</typeparam>
-    /// <param name="specification">The encapsulated query logic.</param>
     /// <param name="cancellationToken"></param>
     /// <returns>
     /// A task that represents the asynchronous operation.
@@ -107,7 +132,22 @@ public interface IReadRepository<T> where T : class
     Task<List<TResult>> ListProjectedAsync<TResult>(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Finds all entities of <typeparamref name="T" />, that matches the encapsulated query logic of the
+    /// Finds all entities of <typeparamref name="T" /> from the database.
+    /// <para>
+    /// Projects each entity into a new form using the provided expression, being <typeparamref name="TResult" />.
+    /// </para>
+    /// </summary>
+    /// <typeparam name="TResult">The type of the value returned by the projection.</typeparam>
+    /// <param name="projection">An Expression that maps <typeparamref name="T"/> to <typeparamref name="TResult"/>.</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// The task result contains a <see cref="List{TResult}" /> that contains elements from the input sequence.
+    /// </returns>
+    Task<List<TResult>> ListProjectedAsync<TResult>(Expression<Func<T, TResult>> projection, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Finds all entities of <typeparamref name="T" />, that match the encapsulated query logic of the
     /// <paramref name="specification"/>, from the database.
     /// </summary>
     /// <param name="specification">The encapsulated query logic.</param>
@@ -133,8 +173,7 @@ public interface IReadRepository<T> where T : class
     /// The task result contains a <see cref="List{TResult}" /> that contains elements from the input sequence.
     /// </returns>
     Task<List<TResult>> ListAsync<TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default);
-
-
+    
     /// <summary>
     /// Finds all entities of <typeparamref name="T" />, that matches the encapsulated query logic of the
     /// <paramref name="specification"/>, from the database.
@@ -150,6 +189,23 @@ public interface IReadRepository<T> where T : class
     /// The task result contains a <see cref="List{TResult}" /> that contains elements from the input sequence.
     /// </returns>
     Task<List<TResult>> ListProjectedAsync<TResult>(ISpecification<T> specification, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Finds all entities of <typeparamref name="T" />, that match the encapsulated query logic of the
+    /// <paramref name="specification"/>, from the database.
+    /// <para>
+    /// Projects each entity into a new form using the provided expression, being <typeparamref name="TResult" />.
+    /// </para>
+    /// </summary>
+    /// <typeparam name="TResult">The type of the value returned by the projection.</typeparam>
+    /// <param name="specification">The encapsulated query logic.</param>
+    /// <param name="projection">An Expression that maps <typeparamref name="T"/> to <typeparamref name="TResult"/>.</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>
+    /// A task that represents the asynchronous operation.
+    /// The task result contains a <see cref="List{TResult}" /> that contains elements from the input sequence.
+    /// </returns>
+    Task<List<TResult>> ListProjectedAsync<TResult>(ISpecification<T> specification, Expression<Func<T, TResult>> projection, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns a number that represents how many entities satisfy the encapsulated query logic
