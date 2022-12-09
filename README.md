@@ -8,6 +8,7 @@ with as few dependencies as possible.
 
 * [.NET 6](https://dot.net)
 * [MediatR](https://github.com/jbogard/MediatR)
+* [AutoMapper](https://automapper.org/)
 * [Ardalis.Specification](https://github.com/ardalis/Specification)
 
 ## Getting Started
@@ -15,12 +16,14 @@ with as few dependencies as possible.
 Import the NuGet package `Centeva.SharedKernel` from the Centeva NuGet
 repository.  You can add this repository to your own solution by adding a
 [nuget.config](https://docs.microsoft.com/en-us/nuget/reference/nuget-config-file)
-file at the root level:
+file in the same folder as your solution (.sln):
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <packageSources>
+    <clear />
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
     <add key="Centeva Public" value="https://builds.centeva.com/guestAuth/app/nuget/feed/CentevaPackages/default/v3/index.json" />
   </packageSources>
 </configuration>
@@ -28,11 +31,11 @@ file at the root level:
 
 ### Using Entity Framework Core
 
-Import the `Centeva.SharedKernel.EntityFrameworkCore` package to get an 
+Import the `Centeva.SharedKernel.EntityFrameworkCore` package to get an
 implementation of the Repository pattern for this ORM.  
 
 This requires EF Core, MediatR, and AutoMapper to be added to your application's
-services configuration for dependency injection.  See the documentation for 
+services configuration for dependency injection.  See the documentation for
 these tools individually for instructions.
 
 ## Usage
@@ -61,17 +64,17 @@ the entity's properties.
 ### Value Objects
 
 A value object represents something in your domain that has no unique identity.
-They are ideally immutable and equality is determined by comparing its
+A value object is ideally immutable and equality is determined by comparing its
 properties.
 
 Entities can (and should) contain value objects, but value objects should never
-contain entities.  
+contain entities.
 
 Your value object classes should inherit from the `ValueObject` class to gain
 equality functionality.
 
-See https://enterprisecraftsmanship.com/posts/value-objects-explained/ for
-more information about this concept.
+See https://enterprisecraftsmanship.com/posts/value-objects-explained/ for more
+information about this concept.
 
 ### Domain Events
 
@@ -87,11 +90,12 @@ inside of your Entity Framework `DbContext`.*
 Your entities can use the `IAggregateRoot` interface to implement the Domain
 Driven Design "Aggregate" pattern.  An Aggregate is a collection of objects
 (typically Entities) that is treated as a single unit for manipulation and
-enforcement of invariants (validation rules).  A good example is an `Order` with 
+enforcement of invariants (validation rules).  A good example is an `Order` with
 its collection of `OrderItem`s.  
 
 This is just a marker interface (no properties or methods) and it's up to you to
-enforce the Aggregate pattern.
+enforce the Aggregate pattern.  (See below for information about enforicing in
+your repositories.)
 
 ### Repositories
 
@@ -102,15 +106,26 @@ objects.  Read-only operations are defined in `IReadRepository` while
 the Interface Segregation Principle, but allows implementers to add features
 such as caching that would only apply to read operations.  
 
-Note that implementations of these interfaces can only provide access to objects
-that implement the `IAggregateRoot` marker interface.
+The package Centeva.SharedKernel.EntityFrameworkCore provides an abstract
+implementation of `IRepository` named `BaseRepository`.  You can use it by
+creating a derived class in your project.  Additionally, if you want to enforce
+that repositories can only access aggregate roots, then your derived class
+should look like this:
+
+```csharp
+public class EfRepository<TEntity> : BaseRepository<TEntity>, IRepository<TEntity> where TEntity : class, IAggregateRoot
+{
+    public EfRepository(ApplicationDbContext dbContext, IConfigurationProvider mappingConfigurationProvider) 
+      : base(dbContext, mappingConfigurationProvider) { }
+}
+```
 
 ### Specifications
 
 The Specification pattern is used to pull query logic out of other places in an
 application and into self-contained, shareable, testable classes.  This
 eliminates the need to add custom query methods to your Repository, and avoids
-other anti-patterns such as leaked IQueryable objects.
+other anti-patterns such as leaked `IQueryable` objects.
 
 See the [documentation for the Ardalis.Specification
 library](https://ardalis.github.io/Specification/) for more information and
@@ -120,16 +135,16 @@ examples.
 
 `IDateTimeProvider` can be used as an abstraction for the system clock, which
 should be considered an external dependency in your application.  Your time-
-based tests will be happier if you mock this interface instead of using Date
+based tests will be happier if you mock this interface instead of using DateTime
 methods directly.
 
 ## Running Tests
 
-From Windows, use the `dotnet test` command, or your Visual Studio Test 
+From Windows, use the `dotnet test` command, or your Visual Studio Test
 Explorer.  Integration tests will use SQL Server LocalDB.
 
-To run tests in a set of containers with Docker Compose, which is useful for 
-build pipelines and non-Windows development environments, use the 
+To run tests in a set of containers with Docker Compose, which is useful for
+build pipelines and non-Windows development environments, use the
 `ci/run-tests.sh` or `ci/run-tests.bat` scripts.
 
 ## Deployment
