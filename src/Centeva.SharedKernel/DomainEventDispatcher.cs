@@ -12,7 +12,7 @@ public class DomainEventDispatcher : IDomainEventDispatcher
         _publisher = publisher;
     }
 
-    public async Task DispatchAndClearEvents(IEnumerable<IEntityWithEvents> entitiesWithEvents)
+    public async Task DispatchAndClearEvents(IEnumerable<IEntityWithEvents> entitiesWithEvents, CancellationToken cancellationToken = default)
     {
         foreach (var entity in entitiesWithEvents)
         {
@@ -20,7 +20,7 @@ public class DomainEventDispatcher : IDomainEventDispatcher
             entity.ClearDomainEvents();
             foreach (var domainEvent in events)
             {
-                await _publisher.Publish(domainEvent).ConfigureAwait(false);
+                await _publisher.Publish(domainEvent, cancellationToken).ConfigureAwait(false);
             }
         }
     }
