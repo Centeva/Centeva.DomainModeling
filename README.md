@@ -31,14 +31,26 @@ file in the same folder as your solution (.sln):
 
 ### Using Entity Framework Core
 
-Import the `Centeva.SharedKernel.EntityFrameworkCore` package to get an
-implementation of the Repository pattern for this ORM.  
+Import the `Centeva.SharedKernel.EFCore` package to get an implementation of
+the Repository pattern for this ORM.
 
-This requires EF Core, MediatR, and AutoMapper to be added to your application's
+This requires EF Core and MediatR to be added to your application's
 services configuration for dependency injection.  See the documentation for
 these tools individually for instructions.
 
-## Usage
+### Using AutoMapper for Projection Support
+
+You can use AutoMapper to provide 
+[projection support](https://docs.automapper.org/en/latest/Projection.html) for
+your Repository, which will allow you to map your entities to another type and
+only request the data you need from the database.
+
+Import the `Centeva.SharedKernel.EFCore.AutoMapper` package and add AutoMapper
+to your application's services configuration for dependency injection.  See the
+[AutoMapper documentaion](https://docs.automapper.org/en/latest/Dependency-injection.html#asp-net-core)
+for details.
+
+## Technical Patterns
 
 ### Entities
 
@@ -106,14 +118,25 @@ objects.  Read-only operations are defined in `IReadRepository` while
 the Interface Segregation Principle, but allows implementers to add features
 such as caching that would only apply to read operations.  
 
-The package Centeva.SharedKernel.EntityFrameworkCore provides an abstract
+The package `Centeva.SharedKernel.EFCore` provides an abstract
 implementation of `IRepository` named `BaseRepository`.  You can use it by
 creating a derived class in your project.  Additionally, if you want to enforce
 that repositories can only access aggregate roots, then your derived class
 should look like this:
 
 ```csharp
-public class EfRepository<TEntity> : BaseRepository<TEntity>, IRepository<TEntity> where TEntity : class, IAggregateRoot
+public class EfRepository<T> : BaseRepository<T>, IRepository<T> where T : class, IAggregateRoot
+{
+    public EfRepository(ApplicationDbContext dbContext) 
+      : base(dbContext) { }
+}
+```
+
+If you are using the AutoMapper project feature, then derive your repository 
+from the `BaseProjectedRepository` class like this:
+
+```csharp
+public class EfRepository<T> : BaseProjectedRepository<T>, IRepository<T>, IProjectedReadRepository<T> where T : class, IAggregateRoot
 {
     public EfRepository(ApplicationDbContext dbContext, IConfigurationProvider mappingConfigurationProvider) 
       : base(dbContext, mappingConfigurationProvider) { }
