@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <PackageId>Centeva.SharedKernel.EntityFrameworkCore</PackageId>
+    <PackageId>Centeva.SharedKernel.EFCore</PackageId>
     <Company>Centeva</Company>
     <Description>Entity Framework Core implementation of Repository pattern from Centeva.SharedKernel</Description>
 
