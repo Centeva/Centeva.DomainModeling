@@ -27,7 +27,7 @@ public class ValueObjectTests
 
     private static readonly ValueObject APrettyValueObject = new ValueObjectA(1, "2", Guid.Parse("97ea43f0-6fef-4fb7-8c67-9114a7ff6ec0"), new ComplexObject(2, "3"));
 
-    public static readonly TheoryData<ValueObject?, ValueObject?, string> EqualValueObjects = new TheoryData<ValueObject?, ValueObject?, string>
+    public static readonly TheoryData<ValueObject?, ValueObject?, string> EqualValueObjects = new()
     {
         {
             null,
@@ -56,7 +56,7 @@ public class ValueObjectTests
         }
     };
 
-    public static readonly TheoryData<ValueObject?, ValueObject?, string?> NonEqualValueObjects = new TheoryData<ValueObject?, ValueObject?, string?>
+    public static readonly TheoryData<ValueObject?, ValueObject?, string?> NonEqualValueObjects = new()
     {
         {
             new ValueObjectA(a: 1, b: "2", c: Guid.Parse("97ea43f0-6fef-4fb7-8c67-9114a7ff6ec0"), d: new ComplexObject(2, "3")),
