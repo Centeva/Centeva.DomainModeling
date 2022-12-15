@@ -1,6 +1,6 @@
 ﻿namespace Centeva.SharedKernel.Interfaces;
 
-public interface IQueryableRepository<TEntity> : IRepository<TEntity> where TEntity : class, IAggregateRoot
+public interface IQueryableRepository<TEntity> : IRepository<TEntity> where TEntity : class
 {
     /// <summary>
     /// Returns an <see cref="IQueryable{T}"/> for retrieving entities of type <typeparamref name="TEntity"/>
@@ -13,6 +13,6 @@ public interface IQueryableRepository<TEntity> : IRepository<TEntity> where TEnt
     /// <returns>
     /// The repository's contents as an <see cref="IQueryable{T}"/>
     /// </returns>
-    [Obsolete("Use Specifications instead as this exposes unmaterialized queries")]
+    [Obsolete("Use Specifications and projection instead as this exposes unmaterialized queries")]
     IQueryable<TEntity> AsQueryable();
 }
