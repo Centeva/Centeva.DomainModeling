@@ -14,7 +14,7 @@ services:
       - database
 
   database:
-    image: mcr.microsoft.com/mssql/server:2019-CU18-ubuntu-20.04
+    image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
         SA_PASSWORD: "Centeva1234!"
         ACCEPT_EULA: "Y"
