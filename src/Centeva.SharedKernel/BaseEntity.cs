@@ -3,6 +3,10 @@ using Centeva.SharedKernel.Interfaces;
 
 namespace Centeva.SharedKernel;
 
+/// <summary>
+/// Base class for all entities that use the Id property to track identity
+/// </summary>
+/// <typeparam name="TId">Type of <see cref="Id"/> property</typeparam>
 public abstract class BaseEntity<TId> : IEntityWithEvents
 {
     public TId Id { get; set; } = default!;
