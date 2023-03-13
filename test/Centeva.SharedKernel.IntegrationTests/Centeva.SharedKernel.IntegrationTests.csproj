@@ -28,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Centeva.SharedKernel.EFCore.AutoMapper\Centeva.SharedKernel.EFCore.AutoMapper.csproj" />
     <ProjectReference Include="..\..\src\Centeva.SharedKernel.EFCore\Centeva.SharedKernel.EFCore.csproj" />
+    <ProjectReference Include="..\Centeva.SharedKernel.UnitTests\Centeva.SharedKernel.UnitTests.csproj" />
   </ItemGroup>
 
 </Project>

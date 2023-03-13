@@ -1,0 +1,71 @@
+﻿using Centeva.SharedKernel.Testing;
+using Centeva.SharedKernel.UnitTests.Fixtures.Entities;
+using Centeva.SharedKernel.UnitTests.Fixtures.Seeds;
+using Centeva.SharedKernel.UnitTests.Fixtures.Specs;
+
+namespace Centeva.SharedKernel.UnitTests.FakeRepository;
+public class ListTests
+{
+    private readonly FakeRepository<Person, Guid>  _repository = new();
+
+    [Fact]
+    public async Task WithoutSpec_ReturnsAllEntities()
+    {
+        await _repository.AddRangeAsync(PersonSeed.Get());
+
+        var result = await _repository.ListAsync();
+
+        result.Should().HaveCount(3);
+    }
+
+    [Fact]
+    public async Task WhenNoEntities_ReturnsEmptyList()
+    {
+        var result = await _repository.ListAsync();
+
+        result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task WithSpec_ReturnsMatchingEntities()
+    {
+        await _repository.AddRangeAsync(PersonSeed.Get());
+
+        var result = await _repository.ListAsync(new PersonByNameSpec("Doe"));
+
+        result.Should().HaveCount(2);
+    }
+
+    [Fact]
+    public async Task WithoutSpecUsingProjection_ReturnsAllProjectedEntities()
+    {
+        var entities = PersonSeed.Get();
+        await _repository.AddRangeAsync(entities);
+
+        var result = await _repository.ListAsync(x => x.Name);
+
+        result.Should().BeEquivalentTo(entities.Select(x => x.Name).ToList());
+    }
+
+    [Fact]
+    public async Task WithSpecUsingProjection_ReturnsMatchingProjectedEntities()
+    {
+        var entities = PersonSeed.Get();
+        await _repository.AddRangeAsync(entities);
+
+        var result = await _repository.ListAsync(new PersonByNameSpec("Doe"), x => x.Name);
+
+        result.Should().BeEquivalentTo(entities.Where(x => x.Name.Contains("Doe")).Select(x => x.Name).ToList());
+    }
+
+    [Fact]
+    public async Task WithSelectSpec_ReturnsMatchingProjectedEntities()
+    {
+        var entities = PersonSeed.Get();
+        await _repository.AddRangeAsync(entities);
+
+        var result = await _repository.ListAsync(new PersonNameSpec(PersonSeed.ValidPersonId));
+
+        result.Should().ContainSingle(PersonSeed.ValidPersonName);
+    }
+}

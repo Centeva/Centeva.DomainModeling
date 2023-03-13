@@ -1,11 +1,11 @@
 ﻿using System.Linq.Expressions;
-using Centeva.SharedKernel.IntegrationTests.Fixtures.Entities;
+using Centeva.SharedKernel.UnitTests.Fixtures.Entities;
 
-namespace Centeva.SharedKernel.IntegrationTests.Fixtures.ProjectedModels;
+namespace Centeva.SharedKernel.UnitTests.Fixtures.ProjectedModels;
 
 public class PersonWithAddressesDto
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string? Name { get; set; }
     public List<AddressDto> Addresses { get; set; } = new();
 

@@ -1,6 +1,6 @@
-﻿using Centeva.SharedKernel.IntegrationTests.Fixtures.Entities;
+﻿using Centeva.SharedKernel.UnitTests.Fixtures.Entities;
 
-namespace Centeva.SharedKernel.IntegrationTests.Fixtures.Seeds;
+namespace Centeva.SharedKernel.UnitTests.Fixtures.Seeds;
 
 public static class AddressSeed
 {
@@ -13,7 +13,7 @@ public static class AddressSeed
                 Street = "123 Main",
                 PostalCode = "00000",
                 City = "Anytown",
-                PersonId = 1
+                PersonId = PersonSeed.ValidPersonId
             },
             new Address()
             {
@@ -21,7 +21,7 @@ public static class AddressSeed
                 Street = "PO Box 1",
                 PostalCode = "00000",
                 City = "Anytown",
-                PersonId = 1
+                PersonId = PersonSeed.ValidPersonId
             },
             new Address()
             {
@@ -29,7 +29,7 @@ public static class AddressSeed
                 Street = "1 South Highway",
                 PostalCode = "12345",
                 City = "Somewhere",
-                PersonId = 2
+                PersonId = PersonSeed.ValidPersonId2
             },
             new Address()
             {
@@ -37,15 +37,15 @@ public static class AddressSeed
                 Street = "1 Out There Road",
                 PostalCode = "99999",
                 City = "Erewhon",
-                PersonId = 2
+                PersonId = PersonSeed.ValidPersonId2
             },
-            new Address()
+                new Address()
             {
                 Id = 5,
                 Street = "500 South Main, Apt 1",
                 PostalCode = "11111",
                 City = "Beach Town",
-                PersonId = 3
+                PersonId = PersonSeed.ValidPersonId3
             }
         };
 }

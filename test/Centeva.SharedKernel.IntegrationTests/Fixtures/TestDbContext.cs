@@ -1,5 +1,5 @@
-﻿using Centeva.SharedKernel.IntegrationTests.Fixtures.Entities;
-using Centeva.SharedKernel.IntegrationTests.Fixtures.Seeds;
+﻿using Centeva.SharedKernel.UnitTests.Fixtures.Entities;
+using Centeva.SharedKernel.UnitTests.Fixtures.Seeds;
 using Microsoft.EntityFrameworkCore;
 
 namespace Centeva.SharedKernel.IntegrationTests.Fixtures;

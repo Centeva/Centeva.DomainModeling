@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification.EntityFrameworkCore;
 using AutoMapper;
-using Centeva.SharedKernel.IntegrationTests.Fixtures.Entities;
+using Centeva.SharedKernel.UnitTests.Fixtures.Entities;
 
 namespace Centeva.SharedKernel.IntegrationTests.Fixtures;
 

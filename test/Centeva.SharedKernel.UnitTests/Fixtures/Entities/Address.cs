@@ -1,9 +1,9 @@
-﻿namespace Centeva.SharedKernel.IntegrationTests.Fixtures.Entities;
+﻿namespace Centeva.SharedKernel.UnitTests.Fixtures.Entities;
 
 public class Address
 {
     public int Id { get; set; }
-    public int PersonId { get; set; }
+    public Guid PersonId { get; set; }
     public Person? Person { get; set; }
     public string? Street { get; set; }
     public string? City { get; set; }

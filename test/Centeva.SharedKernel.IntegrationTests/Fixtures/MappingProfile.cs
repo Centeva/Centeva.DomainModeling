@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Centeva.SharedKernel.IntegrationTests.Fixtures.Entities;
-using Centeva.SharedKernel.IntegrationTests.Fixtures.ProjectedModels;
+using Centeva.SharedKernel.UnitTests.Fixtures.Entities;
+using Centeva.SharedKernel.UnitTests.Fixtures.ProjectedModels;
 
 namespace Centeva.SharedKernel.IntegrationTests.Fixtures;
 

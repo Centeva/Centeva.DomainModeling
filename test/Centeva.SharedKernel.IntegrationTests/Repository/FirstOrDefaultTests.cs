@@ -1,6 +1,6 @@
 ﻿using Centeva.SharedKernel.IntegrationTests.Fixtures;
-using Centeva.SharedKernel.IntegrationTests.Fixtures.ProjectedModels;
-using Centeva.SharedKernel.IntegrationTests.Fixtures.Specs;
+using Centeva.SharedKernel.UnitTests.Fixtures.ProjectedModels;
+using Centeva.SharedKernel.UnitTests.Fixtures.Specs;
 using FluentAssertions;
 
 namespace Centeva.SharedKernel.IntegrationTests.Repository;

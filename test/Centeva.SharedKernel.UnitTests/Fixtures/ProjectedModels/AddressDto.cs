@@ -1,4 +1,4 @@
-﻿namespace Centeva.SharedKernel.IntegrationTests.Fixtures.ProjectedModels;
+﻿namespace Centeva.SharedKernel.UnitTests.Fixtures.ProjectedModels;
 
 public class AddressDto
 {
