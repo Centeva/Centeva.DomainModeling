@@ -6,7 +6,7 @@ public class LoggerFactoryProvider
 {
     public static readonly ILoggerFactory LoggerFactoryInstance = LoggerFactory.Create(builder =>
     {
-        builder.AddFilter("Centeva.Domain", LogLevel.Debug);
+        builder.AddFilter("Centeva.DomainModeling", LogLevel.Debug);
         builder.AddConsole();
     });
 }
