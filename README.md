@@ -1,8 +1,7 @@
 ﻿# Centeva Shared Kernel
 
-This package contains types (classes and interfaces) that are likely to be
-shared between multiple solutions.  As a result, it should be kept as simple and
-with as few dependencies as possible.
+This package contains types (classes and interfaces) for building the domain
+layer of your application.  
 
 ## Built With
 
@@ -29,10 +28,16 @@ file in the same folder as your solution (.sln):
 </configuration>
 ```
 
+You should only need to reference this package from the lowest layer of your
+solution.  If you are using multiple projects to separate Core/Domain,
+Application, and Web API layers (i.e., "Clean" or "Ports and Adapters"
+architecture) then reference from the Core project.
+
 ### Using Entity Framework Core
 
 Import the `Centeva.SharedKernel.EFCore` package to get an implementation of the
-Repository pattern for this ORM.
+Repository pattern for this ORM.  Reference this package from your
+Infrastructure project if your solution separates concerns by project.
 
 This requires EF Core and MediatR to be added to your application's services
 configuration for dependency injection.  See the documentation for these tools
@@ -66,13 +71,14 @@ like Entity Framework annotation attributes like `[Table]`.)
 
 The `BaseEntity` class can be inherited for your project's entities.  
 
-* The `Id` property (your unique identities) has a `public` setter but try to
-  avoid using it in application code.  However, it can be helpful when seeding
-  data both in tests and in your application.
+* The `Id` property (your entity's unique identifier) has a `public` setter but
+  try to avoid using it in application code, especially if your database is
+  auto-generating values.  However, it can be helpful when seeding data both in
+  tests and in your application.
 
 You should strive to protect an entity's invariants using appropriate measures
-such as private setters, read-only collections, and public methods for updating
-the entity's properties.
+such as private setters, read-only collections, constructors, and public methods
+for updating the entity's properties.
 
 In addition, register Domain Events within your entity's methods if you expect
 to have side effects as a result of calling those methods (such as changes to
@@ -93,14 +99,18 @@ equality functionality.
 See https://enterprisecraftsmanship.com/posts/value-objects-explained/ for more
 information about this concept.
 
-### Aggregate Roots
+### Aggregates
 
-Your entities can use the `IAggregateRoot` interface to implement the Domain
-Driven Design "Aggregate" pattern.  An Aggregate is a collection of objects
-(Entities and Value Objects) that is treated as a single unit for manipulation
-and enforcement of invariants (validation rules).  A good example is an `Order`
-with its collection of `OrderItem`s.  
+An Aggregate is a collection of domain objects (Entities and Value Objects) that
+is treated as a single unit for manipulation and enforcement of invariants
+(validation rules).  A good example is an `Order` with its collection of
+`OrderItem`s.  
 
+One of the entities in an aggregate is the main entity or "root" and holds
+references to the other ones.  An aggregate is retrieved via its root and
+outside entities should strive to reference other aggregates only via the root.
+
+You can use the `IAggregateRoot` interface to mark the roots of your aggregates.
 This is just a marker interface (no properties or methods) and it's up to you to
 enforce the Aggregate pattern.  (See below for information about enforicing in
 your repositories.)
@@ -117,7 +127,7 @@ application to publish and handle these, likely inside of your Entity Framework
 
 ### Repositories
 
-A Repository is a pattern used to control and constrain access to data.  It
+Repository is a pattern used to control and constrain access to data.  It
 defines standard CRUD operations on a set of entities of the same type.
 Read-only operations are defined in `IReadRepository` while `IRepository` adds
 update operations to those.  This not only better adheres to the Interface
@@ -153,7 +163,7 @@ public class EfRepository<T> : BaseProjectedRepository<T>, IRepository<T>, IProj
 
 ### Specifications
 
-The Specification pattern is used to pull query logic out of other places in an
+Specification is a pattern used to pull query logic out of other places in an
 application and into self-contained, shareable, testable classes.  This
 eliminates the need to add custom query methods to your Repository, and avoids
 other anti-patterns such as leaked `IQueryable` objects.
@@ -161,13 +171,6 @@ other anti-patterns such as leaked `IQueryable` objects.
 See the [documentation for the Ardalis.Specification
 library](https://ardalis.github.io/Specification/) for more information and
 examples.
-
-### Other Interfaces
-
-`IDateTimeProvider` can be used as an abstraction for the system clock, which
-should be considered an external dependency in your application.  Your time-
-based tests will be happier if you mock this interface instead of using DateTime
-methods directly.
 
 ## Running Tests
 
@@ -192,5 +195,5 @@ lowest level (the "domain" level) of an application.
 
 ## Resources
 
-Take a look at <https://bitbucket.org/centeva/centeva.templates> for
-more implementation details.
+Take a look at <https://bitbucket.org/centeva/centeva.templates> for more
+implementation details.
