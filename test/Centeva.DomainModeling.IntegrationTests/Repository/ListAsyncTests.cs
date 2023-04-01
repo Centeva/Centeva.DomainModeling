@@ -1,6 +1,5 @@
 ﻿using Centeva.DomainModeling.IntegrationTests.Fixtures;
 using Centeva.DomainModeling.UnitTests.Fixtures.ProjectedModels;
-using FluentAssertions;
 
 namespace Centeva.DomainModeling.IntegrationTests.Repository;
 

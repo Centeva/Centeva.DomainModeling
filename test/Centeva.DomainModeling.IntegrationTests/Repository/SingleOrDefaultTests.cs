@@ -2,7 +2,6 @@
 using Centeva.DomainModeling.UnitTests.Fixtures.ProjectedModels;
 using Centeva.DomainModeling.UnitTests.Fixtures.Seeds;
 using Centeva.DomainModeling.UnitTests.Fixtures.Specs;
-using FluentAssertions;
 
 namespace Centeva.DomainModeling.IntegrationTests.Repository;
 

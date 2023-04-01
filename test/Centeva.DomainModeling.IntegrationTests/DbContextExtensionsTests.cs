@@ -1,7 +1,6 @@
 ﻿using Centeva.DomainModeling.EFCore;
 using Centeva.DomainModeling.IntegrationTests.Fixtures;
 using Centeva.DomainModeling.UnitTests.Fixtures.Entities;
-using FluentAssertions;
 
 namespace Centeva.DomainModeling.IntegrationTests;
 
