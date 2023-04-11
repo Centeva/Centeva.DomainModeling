@@ -13,8 +13,8 @@ RUN /bin/bash -c 'ls -la /wait; chmod +x /wait; ls -la /wait'
 RUN dotnet tool install dotnet-reportgenerator-globaltool --version 5.1.12 --tool-path /tools
 
 CMD /wait \
-    && dotnet test -f net6.0 /test/Centeva.SharedKernel.UnitTests/Centeva.SharedKernel.UnitTests.csproj --logger trx --collect:'XPlat Code Coverage' \
-    && mv /test/Centeva.SharedKernel.UnitTests/TestResults/*/coverage.cobertura.xml /var/tmp/coverage.unit.cobertura.xml \
-    && dotnet test -f net6.0 /test/Centeva.SharedKernel.IntegrationTests/Centeva.SharedKernel.IntegrationTests.csproj --logger trx --collect:'XPlat Code Coverage' \
-    && mv /test/Centeva.SharedKernel.IntegrationTests/TestResults/*/coverage.cobertura.xml /var/tmp/coverage.efcoreintegration.cobertura.xml \
+    && dotnet test -f net6.0 /test/Centeva.DomainModeling.UnitTests/Centeva.DomainModeling.UnitTests.csproj --logger trx --collect:'XPlat Code Coverage' \
+    && mv /test/Centeva.DomainModeling.UnitTests/TestResults/*/coverage.cobertura.xml /var/tmp/coverage.unit.cobertura.xml \
+    && dotnet test -f net6.0 /test/Centeva.DomainModeling.IntegrationTests/Centeva.DomainModeling.IntegrationTests.csproj --logger trx --collect:'XPlat Code Coverage' \
+    && mv /test/Centeva.DomainModeling.IntegrationTests/TestResults/*/coverage.cobertura.xml /var/tmp/coverage.efcoreintegration.cobertura.xml \
     && tools/reportgenerator -reports:/var/tmp/coverage.*.cobertura.xml -targetdir:/var/tmp/coverage -reporttypes:'TeamCitySummary'
