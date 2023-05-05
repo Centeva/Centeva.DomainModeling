@@ -22,7 +22,7 @@ public interface IRepository<T>: IReadRepository<T> where T : class
     /// A task that represents the asynchronous operation.
     /// The task result contains the <typeparamref name="IEnumerable<T>" />.
     /// </returns>
-    Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<T>> AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates an entity in the database

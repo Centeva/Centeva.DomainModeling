@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Centeva.DomainModeling.IntegrationTests.Fixtures;
 
-public class SharedDatabaseFixture : IDisposable
+public sealed class SharedDatabaseFixture : IDisposable
 {
     // Docker
     public const string ConnectionStringDocker = "Data Source=database;Initial Catalog=CentevaDomainModelingEFCoreTests;PersistSecurityInfo=True;User ID=sa;Password=Centeva1234!";
 
     // (localdb)
-    public const string ConnectionStringLocalDb = "Server=(localdb)\\mssqllocaldb;Integrated Security=SSPI;Initial Catalog=CentevaDomainModelingEFCoreTests;ConnectRetryCount=0";
+    public const string ConnectionStringLocalDb = "Server=(localdb)\\mssqllocaldb;Integrated Security=true;Initial Catalog=CentevaDomainModelingEFCoreTests;ConnectRetryCount=0";
 
-    private static readonly object _lock = new object();
+    private static readonly object _lock = new();
     private static bool _databaseInitialized;
 
     public SharedDatabaseFixture()

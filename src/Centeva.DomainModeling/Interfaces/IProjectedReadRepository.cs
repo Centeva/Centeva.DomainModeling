@@ -42,11 +42,11 @@ public interface IProjectedReadRepository<T> : IReadRepository<T> where T : clas
     /// <param name="cancellationToken"></param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains a <see cref="List{TResult}" /> that contains elements from the input sequence.
+    /// The task result contains a <see cref="IReadOnlyList{TResult}" /> that contains elements from the input sequence.
     /// </returns>
-    Task<List<TResult>> ListProjectedAsync<TResult>(CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<TResult>> ListProjectedAsync<TResult>(CancellationToken cancellationToken = default);
 
-  
+
     /// <summary>
     /// Finds all entities of <typeparamref name="T" />, that matches the encapsulated query logic of the
     /// <paramref name="specification"/>, from the database.
@@ -59,8 +59,8 @@ public interface IProjectedReadRepository<T> : IReadRepository<T> where T : clas
     /// <param name="cancellationToken"></param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains a <see cref="List{TResult}" /> that contains elements from the input sequence.
+    /// The task result contains a <see cref="IReadOnlyList{TResult}" /> that contains elements from the input sequence.
     /// </returns>
-    Task<List<TResult>> ListProjectedAsync<TResult>(ISpecification<T> specification, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<TResult>> ListProjectedAsync<TResult>(ISpecification<T> specification, CancellationToken cancellationToken = default);
 }
 

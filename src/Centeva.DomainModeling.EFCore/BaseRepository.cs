@@ -40,13 +40,13 @@ public abstract class BaseRepository<T> : IRepository<T> where T : class
     }
 
     /// <inheritdoc/>
-    public virtual async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+    public virtual async Task<IReadOnlyList<T>> AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
     {
         _dbContext.Set<T>().AddRange(entities);
 
         await SaveChangesAsync(cancellationToken);
 
-        return entities;
+        return entities.ToList();
     }
 
     /// <inheritdoc/>
@@ -134,19 +134,19 @@ public abstract class BaseRepository<T> : IRepository<T> where T : class
     }
 
     /// <inheritdoc/>
-    public virtual async Task<List<T>> ListAsync(CancellationToken cancellationToken = default)
+    public virtual async Task<IReadOnlyList<T>> ListAsync(CancellationToken cancellationToken = default)
     {
         return await _dbContext.Set<T>().ToListAsync(cancellationToken);
     }
 
     /// <inheritdoc/>
-    public async Task<List<TResult>> ListAsync<TResult>(Expression<Func<T, TResult>> projection, CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<TResult>> ListAsync<TResult>(Expression<Func<T, TResult>> projection, CancellationToken cancellationToken = default)
     {
         return await _dbContext.Set<T>().AsNoTracking().Select(projection).ToListAsync(cancellationToken);
     }
 
     /// <inheritdoc/>
-    public virtual async Task<List<T>> ListAsync(ISpecification<T> specification, CancellationToken cancellationToken = default)
+    public virtual async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> specification, CancellationToken cancellationToken = default)
     {
         var queryResult = await ApplySpecification(specification).ToListAsync(cancellationToken);
 
@@ -154,14 +154,14 @@ public abstract class BaseRepository<T> : IRepository<T> where T : class
     }
 
     /// <inheritdoc/>
-    public async Task<List<TResult>> ListAsync<TResult>(ISpecification<T> specification, Expression<Func<T, TResult>> projection,
+    public async Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecification<T> specification, Expression<Func<T, TResult>> projection,
         CancellationToken cancellationToken = default)
     {
         return await ApplySpecification(specification).AsNoTracking().Select(projection).ToListAsync(cancellationToken);
     }
 
     /// <inheritdoc/>
-    public virtual async Task<List<TResult>> ListAsync<TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default)
+    public virtual async Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default)
     {
         var queryResult = await ApplySpecification(specification).ToListAsync(cancellationToken);
 

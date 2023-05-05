@@ -77,34 +77,34 @@ public class FakeRepository<TEntity, TKey> : IRepository<TEntity>
         return Task.FromResult(_entities.Find(x => x.Id.Equals(id)));
     }
 
-    public Task<List<TEntity>> ListAsync(CancellationToken cancellationToken = default)
+    public Task<IReadOnlyList<TEntity>> ListAsync(CancellationToken cancellationToken = default)
     {
-        return Task.FromResult(_entities);
+        return Task.FromResult<IReadOnlyList<TEntity>>(_entities);
     }
 
-    public Task<List<TResult>> ListAsync<TResult>(Expression<Func<TEntity, TResult>> projection,
+    public Task<IReadOnlyList<TResult>> ListAsync<TResult>(Expression<Func<TEntity, TResult>> projection,
         CancellationToken cancellationToken = default)
     {
-        return Task.FromResult(_entities.Select(projection.Compile()).ToList());
+        return Task.FromResult<IReadOnlyList<TResult>>(_entities.Select(projection.Compile()).ToList());
     }
 
-    public Task<List<TEntity>> ListAsync(ISpecification<TEntity> specification,
+    public Task<IReadOnlyList<TEntity>> ListAsync(ISpecification<TEntity> specification,
         CancellationToken cancellationToken = default)
     {
-        return Task.FromResult(specification.Evaluate(_entities).ToList());
+        return Task.FromResult<IReadOnlyList<TEntity>>(specification.Evaluate(_entities).ToList());
     }
 
-    public Task<List<TResult>> ListAsync<TResult>(ISpecification<TEntity> specification,
+    public Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecification<TEntity> specification,
         Expression<Func<TEntity, TResult>> projection,
         CancellationToken cancellationToken = default)
     {
-        return Task.FromResult(specification.Evaluate(_entities).Select(projection.Compile()).ToList());
+        return Task.FromResult<IReadOnlyList<TResult>>(specification.Evaluate(_entities).Select(projection.Compile()).ToList());
     }
 
-    public Task<List<TResult>> ListAsync<TResult>(ISpecification<TEntity, TResult> specification,
+    public Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecification<TEntity, TResult> specification,
         CancellationToken cancellationToken = default)
     {
-        return Task.FromResult(specification.Evaluate(_entities).ToList());
+        return Task.FromResult<IReadOnlyList<TResult>>(specification.Evaluate(_entities).ToList());
     }
 
     public Task<TEntity?> SingleOrDefaultAsync(ISingleResultSpecification<TEntity> specification,
@@ -133,10 +133,10 @@ public class FakeRepository<TEntity, TKey> : IRepository<TEntity>
         return Task.FromResult(entity);
     }
 
-    public Task<IEnumerable<TEntity>> AddRangeAsync(IEnumerable<TEntity> entities,
+    public Task<IReadOnlyList<TEntity>> AddRangeAsync(IEnumerable<TEntity> entities,
         CancellationToken cancellationToken = default)
     {
-        IEnumerable<TEntity> entitiesList = entities.ToList();
+        IReadOnlyList<TEntity> entitiesList = entities.ToList();
         _entities.AddRange(entitiesList);
 
         return Task.FromResult(entitiesList);

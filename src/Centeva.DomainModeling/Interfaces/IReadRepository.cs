@@ -90,9 +90,9 @@ public interface IReadRepository<T> where T : class
     /// </summary>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains a <see cref="List{T}" /> that contains elements from the input sequence.
+    /// The task result contains a <see cref="IReadOnlyList{T}" /> that contains elements from the input sequence.
     /// </returns>
-    Task<List<T>> ListAsync(CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<T>> ListAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Finds all entities of <typeparamref name="T" /> from the database.
@@ -105,9 +105,9 @@ public interface IReadRepository<T> where T : class
     /// <param name="cancellationToken"></param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains a <see cref="List{TResult}" /> that contains elements from the input sequence.
+    /// The task result contains a <see cref="IReadOnlyList{TResult}" /> that contains elements from the input sequence.
     /// </returns>
-    Task<List<TResult>> ListAsync<TResult>(Expression<Func<T, TResult>> projection, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<TResult>> ListAsync<TResult>(Expression<Func<T, TResult>> projection, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Finds all entities of <typeparamref name="T" />, that match the encapsulated query logic of the
@@ -117,9 +117,9 @@ public interface IReadRepository<T> where T : class
     /// <param name="cancellationToken"></param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains a <see cref="List{T}" /> that contains elements from the input sequence.
+    /// The task result contains a <see cref="IReadOnlyList{T}" /> that contains elements from the input sequence.
     /// </returns>
-    Task<List<T>> ListAsync(ISpecification<T> specification, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<T>> ListAsync(ISpecification<T> specification, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Finds all entities of <typeparamref name="T" />, that matches the encapsulated query logic of the
@@ -133,10 +133,10 @@ public interface IReadRepository<T> where T : class
     /// <param name="cancellationToken"></param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains a <see cref="List{TResult}" /> that contains elements from the input sequence.
+    /// The task result contains a <see cref="IReadOnlyList{TResult}" /> that contains elements from the input sequence.
     /// </returns>
-    Task<List<TResult>> ListAsync<TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default);
-    
+    Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default);
+
     /// <summary>
     /// Finds all entities of <typeparamref name="T" />, that match the encapsulated query logic of the
     /// <paramref name="specification"/>, from the database.
@@ -150,9 +150,9 @@ public interface IReadRepository<T> where T : class
     /// <param name="cancellationToken"></param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains a <see cref="List{TResult}" /> that contains elements from the input sequence.
+    /// The task result contains a <see cref="IReadOnlyList{TResult}" /> that contains elements from the input sequence.
     /// </returns>
-    Task<List<TResult>> ListAsync<TResult>(ISpecification<T> specification, Expression<Func<T, TResult>> projection, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecification<T> specification, Expression<Func<T, TResult>> projection, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns a number that represents how many entities satisfy the encapsulated query logic
