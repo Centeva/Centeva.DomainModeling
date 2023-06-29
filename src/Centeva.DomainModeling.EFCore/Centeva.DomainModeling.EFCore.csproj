@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="7.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.19" />
   </ItemGroup>
 
   <ItemGroup>
