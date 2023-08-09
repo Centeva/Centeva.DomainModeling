@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>Centeva.DomainModeling.Testing</PackageId>
     <Description>Unit testing helpers for projects that use Centeva.DomainModeling</Description>
   </PropertyGroup>
 

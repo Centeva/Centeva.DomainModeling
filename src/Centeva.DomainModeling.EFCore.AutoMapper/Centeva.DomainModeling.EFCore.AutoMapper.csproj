@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>Centeva.DomainModeling.EFCore.AutoMapper</PackageId>
     <Description>AutoMapper projection implementation for EF Core-based repository in Centeva.DomainModeling</Description>
   </PropertyGroup>
 

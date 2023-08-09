@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>Centeva.DomainModeling</PackageId>
     <Description>Provides building blocks for modeling the domain of a .NET solution, DDD-style.</Description>
   </PropertyGroup>
 
