@@ -31,26 +31,32 @@ public abstract class BaseProjectedRepository<T> : BaseRepository<T>, IProjected
     /// <inheritdoc/>
     public virtual async Task<TResult?> FirstOrDefaultProjectedAsync<TResult>(ISpecification<T> specification, CancellationToken cancellationToken = default)
     {
-        return await ApplySpecification(specification).AsNoTracking().ProjectTo<TResult>(_mappingConfigurationProvider)
+        return await ApplySpecification(specification)
+            .ProjectTo<TResult>(_mappingConfigurationProvider)
             .FirstOrDefaultAsync(cancellationToken);
     }
 
     /// <inheritdoc/>
     public virtual async Task<TResult?> SingleOrDefaultProjectedAsync<TResult>(ISingleResultSpecification<T> specification, CancellationToken cancellationToken = default)
     {
-        return await ApplySpecification(specification).AsNoTracking().ProjectTo<TResult>(_mappingConfigurationProvider)
+        return await ApplySpecification(specification)
+            .ProjectTo<TResult>(_mappingConfigurationProvider)
             .SingleOrDefaultAsync(cancellationToken);
     }
 
     /// <inheritdoc/>
     public virtual async Task<IReadOnlyList<TResult>> ListProjectedAsync<TResult>(CancellationToken cancellationToken = default)
     {
-        return await _dbContext.Set<T>().AsNoTracking().ProjectTo<TResult>(_mappingConfigurationProvider).ToListAsync(cancellationToken);
+        return await _dbContext.Set<T>()
+            .ProjectTo<TResult>(_mappingConfigurationProvider)
+            .ToListAsync(cancellationToken);
     }
 
     /// <inheritdoc/>
     public virtual async Task<IReadOnlyList<TResult>> ListProjectedAsync<TResult>(ISpecification<T> specification, CancellationToken cancellationToken = default)
     {
-        return await ApplySpecification(specification).AsNoTracking().ProjectTo<TResult>(_mappingConfigurationProvider).ToListAsync(cancellationToken);
+        return await ApplySpecification(specification)
+            .ProjectTo<TResult>(_mappingConfigurationProvider)
+            .ToListAsync(cancellationToken);
     }
 }
