@@ -10,7 +10,7 @@ namespace Centeva.DomainModeling.EFCore;
 /// Repository implementation for Entity Framework Core, using AutoMapper for external projections.
 /// </summary>
 /// <remarks>
-/// Based on <see cref="RepositoryBase{T}"/> but methods are duplicated to keep everything together.
+/// Based on <see cref="RepositoryBase{T}"/> but methods are duplicated to reduce coupling and unexpected changes.
 /// </remarks>
 /// <typeparam name="T"></typeparam>
 public abstract class BaseRepository<T> : IRepository<T> where T : class
