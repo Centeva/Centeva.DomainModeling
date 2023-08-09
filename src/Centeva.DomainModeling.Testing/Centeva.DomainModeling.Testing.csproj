@@ -1,13 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
     <PackageId>Centeva.DomainModeling.Testing</PackageId>
-    <Company>Centeva</Company>
     <Description>Unit testing helpers for projects that use Centeva.DomainModeling</Description>
-
-      <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

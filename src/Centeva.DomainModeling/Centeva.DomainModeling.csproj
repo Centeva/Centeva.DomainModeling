@@ -1,13 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
     <PackageId>Centeva.DomainModeling</PackageId>
-    <Company>Centeva</Company>
     <Description>Provides building blocks for modeling the domain of a .NET solution, DDD-style.</Description>
-
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
