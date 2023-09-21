@@ -1,6 +1,9 @@
 ﻿namespace Centeva.DomainModeling.Interfaces;
 
+/// <summary>
+/// Interface for sending domain events.  Typically used to dispatch events after persistence using a tool like MediatR.
+/// </summary>
 public interface IDomainEventDispatcher
 {
-    Task DispatchAndClearEvents(IEnumerable<IEntityWithEvents> entitiesWithEvents, CancellationToken cancellationToken = default);
+    Task DispatchAndClearEvents(IEnumerable<ObjectWithEvents> entitiesWithEvents, CancellationToken cancellationToken = default);
 }
