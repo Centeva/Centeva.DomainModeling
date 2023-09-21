@@ -19,29 +19,22 @@ public class BaseEntityTests
     }
 
     [Fact]
-    public void RegisterDomainEvent_AddsEvent()
+    public void RegisterDomainEvent_AddsDomainEventToEntity()
     {
         var entity = new TestEntity();
-        var ev = new TestEvent();
-        entity.RegisterDomainEvent(ev);
 
-        entity.DomainEvents.Should().ContainSingle(x => x == ev);
-    }
+        entity.AddTestEvent();
 
-    [Fact]
-    public void RemoveDomainEvent_RemovesEvent()
-    {
-        var entity = new TestEntity();
-        var ev = new TestEvent();
-
-        entity.RegisterDomainEvent(ev);
-        entity.RemoveDomainEvent(ev);
-
-        entity.DomainEvents.Should().BeEmpty();
+        entity.DomainEvents.Should().HaveCount(1);
+        entity.DomainEvents.Should().AllBeOfType<TestEvent>();
     }
 
     class TestEntity : BaseEntity
     {
+        public void AddTestEvent()
+        {
+            RegisterDomainEvent(new TestEvent());
+        }
     }
 
     class TestEvent : BaseDomainEvent

@@ -11,5 +11,5 @@ namespace Centeva.DomainModeling;
 /// <see cref="IDomainEventDispatcher"/>
 public abstract class BaseDomainEvent : INotification
 {
-    public DateTimeOffset Occurred { get; protected set; } = DateTimeOffset.UtcNow;
+    public DateTime DateOccurred { get; protected set; } = DateTime.UtcNow;
 }

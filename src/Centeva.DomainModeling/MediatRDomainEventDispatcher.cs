@@ -19,16 +19,16 @@ namespace Centeva.DomainModeling;
 ///    }
 /// </code>
 /// </example>
-public class DomainEventDispatcher : IDomainEventDispatcher
+public class MediatRDomainEventDispatcher : IDomainEventDispatcher
 {
     private readonly IPublisher _publisher;
 
-    public DomainEventDispatcher(IPublisher publisher)
+    public MediatRDomainEventDispatcher(IPublisher publisher)
     {
         _publisher = publisher;
     }
 
-    public async Task DispatchAndClearEvents(IEnumerable<IEntityWithEvents> entitiesWithEvents, CancellationToken cancellationToken = default)
+    public async Task DispatchAndClearEvents(IEnumerable<ObjectWithEvents> entitiesWithEvents, CancellationToken cancellationToken = default)
     {
         foreach (var entity in entitiesWithEvents)
         {
