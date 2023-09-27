@@ -1,6 +1,8 @@
 <Project>
   <PropertyGroup>
     <Company>Centeva</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
 
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>

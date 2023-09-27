@@ -12,21 +12,7 @@ layer for your application.
 
 ## Getting Started
 
-Import the NuGet package `Centeva.DomainModeling` from the Centeva NuGet
-repository.  You can add this repository to your own solution by adding a
-[nuget.config](https://docs.microsoft.com/en-us/nuget/reference/nuget-config-file)
-file in the same folder as your solution (.sln):
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-  <packageSources>
-    <clear />
-    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
-    <add key="Centeva Public" value="https://builds.centeva.com/guestAuth/app/nuget/feed/CentevaPackages/default/v3/index.json" />
-  </packageSources>
-</configuration>
-```
+Add a reference to `Centeva.DomainModeling` in your project.
 
 You should only need to reference this package from the lowest layer of your
 solution.  If you are using multiple projects to separate Core/Domain,
@@ -35,8 +21,8 @@ architecture) then reference from the Core project.
 
 ### Using Entity Framework Core
 
-Import the `Centeva.DomainModeling.EFCore` package to get an implementation of the
-Repository pattern for this ORM.  Reference this package from your
+Reference the `Centeva.DomainModeling.EFCore` package to get an implementation
+of the Repository pattern for this ORM.  Reference this package from your
 Infrastructure project if your solution separates concerns by project.
 
 This requires EF Core and MediatR to be added to your application's services
@@ -137,8 +123,8 @@ that would only apply to read operations.
 If you are implementing Aggregates, your repositories should only operate on the
 root of each Aggregate, as child entities should never be directly accessed.
 
-The package `Centeva.DomainModeling.EFCore` provides an abstract implementation of
-`IRepository` named `BaseRepository`.  You can use it by creating a derived
+The package `Centeva.DomainModeling.EFCore` provides an abstract implementation
+of `IRepository` named `BaseRepository`.  You can use it by creating a derived
 class in your project.  Additionally, if you want to enforce that repositories
 can only access aggregate roots, then your derived class should look like this:
 

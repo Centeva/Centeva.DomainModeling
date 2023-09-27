@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Needed for nuget package -->
+    <None Include="..\..\README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Centeva.DomainModeling\Centeva.DomainModeling.csproj" />
   </ItemGroup>
 
