@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <Description>Unit testing helpers for projects that use Centeva.DomainModeling</Description>
+    <PackageProjectTags>repository;ddd;testing;xunit</PackageProjectTags>
   </PropertyGroup>
 
   <ItemGroup>
