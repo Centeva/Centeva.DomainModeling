@@ -18,31 +18,38 @@ patterns, but they are intended to be used together.
 
 To find out more about this approach, here are some resources:
 
-* [Domain Driven Design by Eric Evans](https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215) (book)
-* [Implementing Domain Driven Design by Vaughn Vernon](https://www.amazon.com/Implementing-Domain-Driven-Design-Vaughn-Vernon/dp/0321834577) (book)
-* [DDD Part 2: Tactical Domain-Driven Design](https://vaadin.com/blog/ddd-part-2-tactical-domain-driven-design) (blog post)
-* [Centeva Web API Template](https://bitbucket.org/centeva/centeva.templates/) (template project)
+* [Domain Driven Design by Eric
+  Evans](https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215)
+  (book)
+* [Implementing Domain Driven Design by Vaughn
+  Vernon](https://www.amazon.com/Implementing-Domain-Driven-Design-Vaughn-Vernon/dp/0321834577)
+  (book)
+* [DDD Part 2: Tactical Domain-Driven
+  Design](https://vaadin.com/blog/ddd-part-2-tactical-domain-driven-design)
+  (blog post)
+* [Centeva Web API Template](https://bitbucket.org/centeva/centeva.templates/)
+  (template project)
 
 ### Entities
 
-An _Entity_ is a plain object for which its identity is important.  This is 
-implemented with a unique `Id` that is assigned when the entity is created and 
-is not changed for the lifetime of the entity.   
+An _Entity_ is a plain object for which its identity is important.  This is
+implemented with a unique `Id` that is assigned when the entity is created and
+is not changed for the lifetime of the entity.
 
-Two instances of an entity type that have the same `Id` should be 
-considered to be equivalent.  
+Two instances of an entity type that have the same `Id` should be considered to
+be equivalent.  
 
-An entity is mutable and its properties can be changed.  However, it is 
+An entity is mutable and its properties can be changed.  However, it is
 preferrable to avoid having public setters for all of those properties.  Instead
 you should use methods to update the entity's properties.  This allows you to
 enforce _invariants_ (validation rules) and to publish _Domain Events_ when the
-entity is changed.  Use additional measures such to protect an entity's 
+entity is changed.  Use additional measures such to protect an entity's
 invariants such as constructors, guard clauses, and read-only collections.
 
 In most cases your project will involve persisting entities to some kind of data
-storage, such as a database.  However, the details of such persistence
-should not be contained within the definitions of those entities.  (Avoid things
-like Entity Framework annotation attributes like `[Table]`.)
+storage, such as a database.  However, the details of such persistence should
+not be contained within the definitions of those entities.  (Avoid things like
+Entity Framework annotation attributes like `[Table]`.)
 
 The `BaseEntity` class can be inherited for your project's entities.  
 
@@ -53,14 +60,14 @@ The `BaseEntity` class can be inherited for your project's entities.
 
 ### Value Objects
 
-A _Value Object_ represents something in your domain which determines its identity
-by its properties.  Two value object instances are considered equal if their
-relevant properties are equal.  Because of this, a value object is ideally 
+A _Value Object_ represents something in your domain which determines its
+identity by its properties.  Two value object instances are considered equal if
+their relevant properties are equal.  Because of this, a value object is ideally
 immutable.  For example, two Addresses are considered equal if they have the
 same street address, city, state, and zip code.
 
 Value object classes can and should contain business logic, especially for
-ensuring valid properties. 
+ensuring valid properties.
 
 Entities can (and should) contain value objects, but value objects should never
 contain entities.
@@ -68,14 +75,14 @@ contain entities.
 Your value object classes should inherit from the `ValueObject` class to gain
 equality functionality.
 
-See https://enterprisecraftsmanship.com/posts/value-objects-explained/ for more
-information about this concept.
+See <https://enterprisecraftsmanship.com/posts/value-objects-explained/> for
+more information about this concept.
 
 ### Aggregates
 
-An _Aggregate_ is a collection of domain objects (Entities and Value Objects) that
-is treated as a single unit for manipulation and enforcement of invariants. An
-aggregate should adhere to the following rules:
+An _Aggregate_ is a collection of domain objects (Entities and Value Objects)
+that is treated as a single unit for manipulation and enforcement of invariants.
+An aggregate should adhere to the following rules:
 
 * The aggregate is created, retrieved, and updated as a whole.
 * The aggregate is always in a constistent and valid state.
@@ -96,15 +103,15 @@ events will be interest to other parts of your model, and can be _handled_ to
 produce side effects, such as sending emails or updating other entities.
 
 Each entity inheriting from `BaseEntity` contains a `DomainEvents` list which
-you can use for storing and later publishing Domain Events.  You will use the 
-`IDomainEventDispatcher` in your application to publish and handle these, likely 
+you can use for storing and later publishing Domain Events.  You will use the
+`IDomainEventDispatcher` in your application to publish and handle these, likely
 inside of your Entity Framework `DbContext` or a domain service.
 
 ### Repositories
 
 _Repository_ is a pattern used to control and constrain access to data.  It
-defines standard CRUD operations on a set of entities of the same type.  If you 
-are implementing Aggregates, your repositories should only operate on the root 
+defines standard CRUD operations on a set of entities of the same type.  If you
+are implementing Aggregates, your repositories should only operate on the root
 of each Aggregate, as child entities should never be directly accessed.
 
 Read-only operations are defined in `IReadRepository` while `IRepository` adds
@@ -159,13 +166,13 @@ might publish a `CustomerDeletedEvent` when a customer is deleted, since the
 `Customer` entity itself cannot publish an event when it is deleted.
 
 There is no base implementation of a Domain Service in this library.  You can
-create regular C# classes and interfaces for these when they have dependencies 
-on other parts of your application, or use a static class and method for simpler 
+create regular C# classes and interfaces for these when they have dependencies
+on other parts of your application, or use a static class and method for simpler
 cases.
 
 ### Factories
 
-_Factories_ are used to encapsulate logic for creating new aggregates.  They are 
+_Factories_ are used to encapsulate logic for creating new aggregates.  They are
 useful when:
 
 * Complex business logic is involved in creating an aggregate.
@@ -174,7 +181,7 @@ useful when:
 * You need to create multiple aggregates at once.
 
 There is no base implementation of a Factory in this library.  You can create
-one via a static method on an aggregate class for simple cases, or with a 
+one via a static method on an aggregate class for simple cases, or with a
 separate factory class for more complex cases.
 
 ## Getting Started
@@ -232,5 +239,5 @@ lowest level (the "domain" level) of an application.
 
 ## Resources
 
-Take a look at <https://bitbucket.org/centeva/centeva.templates> for more
-ideas on how to use this library in your application.
+Take a look at <https://bitbucket.org/centeva/centeva.templates> for more ideas
+on how to use this library in your application.
