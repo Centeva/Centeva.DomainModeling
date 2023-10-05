@@ -1,14 +1,188 @@
 ﻿# Centeva.DomainModeling
 
 This package contains types (classes and interfaces) for building a rich domain
-layer for your application.  
+layer for your application using some Domain Driven Design tactical patterns.  
 
 ## Built With
 
 * [.NET 6](https://dot.net)
 * [MediatR](https://github.com/jbogard/MediatR)
-* [AutoMapper](https://automapper.org/)
 * [Ardalis.Specification](https://github.com/ardalis/Specification)
+* [AutoMapper](https://automapper.org/)
+
+## Technical Patterns
+
+You can use these coding patterns as part of a Domain Driven Design approach to
+building your application.  You don't have to be using DDD to benefit from these
+patterns, but they are intended to be used together.
+
+To find out more about this approach, here are some resources:
+
+* [Domain Driven Design by Eric
+  Evans](https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215)
+  (book)
+* [Implementing Domain Driven Design by Vaughn
+  Vernon](https://www.amazon.com/Implementing-Domain-Driven-Design-Vaughn-Vernon/dp/0321834577)
+  (book)
+* [DDD Part 2: Tactical Domain-Driven
+  Design](https://vaadin.com/blog/ddd-part-2-tactical-domain-driven-design)
+  (blog post)
+* [Centeva Web API Template](https://bitbucket.org/centeva/centeva.templates/)
+  (template project)
+
+### Entities
+
+An _Entity_ is a plain object for which its identity is important.  This is
+implemented with a unique `Id` that is assigned when the entity is created and
+is not changed for the lifetime of the entity.
+
+Two instances of an entity type that have the same `Id` should be considered to
+be equivalent.  
+
+An entity is mutable and its properties can be changed.  However, it is
+preferrable to avoid having public setters for all of those properties.  Instead
+you should use methods to update the entity's properties.  This allows you to
+enforce _invariants_ (validation rules) and to publish _Domain Events_ when the
+entity is changed.  Use additional measures such to protect an entity's
+invariants such as constructors, guard clauses, and read-only collections.
+
+In most cases your project will involve persisting entities to some kind of data
+storage, such as a database.  However, the details of such persistence should
+not be contained within the definitions of those entities.  (Avoid things like
+Entity Framework annotation attributes like `[Table]`.)
+
+The `BaseEntity` class can be inherited for your project's entities.  
+
+* The `Id` property (your entity's unique identifier) has a public setter but
+  try to avoid using it in application code, especially if your database is
+  auto-generating values.  However, it can be helpful when seeding data both in
+  tests and in your application.
+
+### Value Objects
+
+A _Value Object_ represents something in your domain which determines its
+identity by its properties.  Two value object instances are considered equal if
+their relevant properties are equal.  Because of this, a value object is ideally
+immutable.  For example, two Addresses are considered equal if they have the
+same street address, city, state, and zip code.
+
+Value object classes can and should contain business logic, especially for
+ensuring valid properties.
+
+Entities can (and should) contain value objects, but value objects should never
+contain entities.
+
+Your value object classes should inherit from the `ValueObject` class to gain
+equality functionality.
+
+See <https://enterprisecraftsmanship.com/posts/value-objects-explained/> for
+more information about this concept.
+
+### Aggregates
+
+An _Aggregate_ is a collection of domain objects (Entities and Value Objects)
+that is treated as a single unit for manipulation and enforcement of invariants.
+An aggregate should adhere to the following rules:
+
+* The aggregate is created, retrieved, and updated as a whole.
+* The aggregate is always in a constistent and valid state.
+* One of the entities in an aggregate is the main entity or "root" and holds
+references to the other ones.  
+* An aggregate should only reference the root of other aggregates.
+
+You can use the `IAggregateRoot` interface to mark the roots of your aggregates.
+This is just a marker interface (no properties or methods) and it's up to you to
+enforce the Aggregate pattern.  (See below for information about enforcing in
+your repositories.)
+
+### Domain Events
+
+_Domain Events_ describe things that happen in your domain model.  They are
+typically used to publish information about changes to your entities.  These
+events will be interest to other parts of your model, and can be _handled_ to
+produce side effects, such as sending emails or updating other entities.
+
+Each entity inheriting from `BaseEntity` contains a `DomainEvents` list which
+you can use for storing and later publishing Domain Events.  You will use the
+`IDomainEventDispatcher` in your application to publish and handle these, likely
+inside of your Entity Framework `DbContext` or a domain service.
+
+### Repositories
+
+_Repository_ is a pattern used to control and constrain access to data.  It
+defines standard CRUD operations on a set of entities of the same type.  If you
+are implementing Aggregates, your repositories should only operate on the root
+of each Aggregate, as child entities should never be directly accessed.
+
+Read-only operations are defined in `IReadRepository` while `IRepository` adds
+update operations to those.  This not only better adheres to the Interface
+Segregation Principle, but allows implementers to add features such as caching
+that would only apply to read operations.  
+
+The package `Centeva.DomainModeling.EFCore` provides an abstract implementation
+of `IRepository` named `BaseRepository`.  You can use it by creating a derived
+class in your project.  Additionally, if you want to enforce that repositories
+can only access aggregate roots, then your derived class should look like this:
+
+```csharp
+public class EfRepository<T> : BaseRepository<T>, IRepository<T> where T : class, IAggregateRoot
+{
+    public EfRepository(ApplicationDbContext dbContext) 
+      : base(dbContext) { }
+}
+```
+
+If you are using the AutoMapper project feature, then derive your repository
+from the `BaseProjectedRepository` class like this:
+
+```csharp
+public class EfRepository<T> : BaseProjectedRepository<T>, IRepository<T>, IProjectedReadRepository<T> where T : class, IAggregateRoot
+{
+    public EfRepository(ApplicationDbContext dbContext, IConfigurationProvider mappingConfigurationProvider) 
+      : base(dbContext, mappingConfigurationProvider) { }
+}
+```
+
+### Specifications
+
+_Specification_ is a pattern used to pull query logic out of other places in an
+application and into self-contained, shareable, testable classes.  This
+eliminates the need to add custom query methods to your Repository, and avoids
+other anti-patterns such as leaked `IQueryable` objects.
+
+See the [documentation for the Ardalis.Specification
+library](https://ardalis.github.io/Specification/) for more information and
+examples.
+
+### Domain Services
+
+_Domain Services_ are used to encapsulate domain logic that doesn't belong in an
+entity or value object.  They are typically used to coordinate operations
+between multiple entities or aggregates.  They are also useful for encapsulating
+domain logic that is not specific to a single entity or aggregate.
+
+Domain Services can publish Domain Events.  For example, a `CustomerService`
+might publish a `CustomerDeletedEvent` when a customer is deleted, since the
+`Customer` entity itself cannot publish an event when it is deleted.
+
+There is no base implementation of a Domain Service in this library.  You can
+create regular C# classes and interfaces for these when they have dependencies
+on other parts of your application, or use a static class and method for simpler
+cases.
+
+### Factories
+
+_Factories_ are used to encapsulate logic for creating new aggregates.  They are
+useful when:
+
+* Complex business logic is involved in creating an aggregate.
+* You need to create an aggregate differently depending on the inputs.
+* There is a large amount of input data.
+* You need to create multiple aggregates at once.
+
+There is no base implementation of a Factory in this library.  You can create
+one via a static method on an aggregate class for simple cases, or with a
+separate factory class for more complex cases.
 
 ## Getting Started
 
@@ -39,124 +213,8 @@ request the data you need from the database.
 Import the `Centeva.DomainModeling.EFCore.AutoMapper` package, add AutoMapper to
 your application's services configuration for dependency injection, and derive
 your Repository classes from `BaseProjectedRepository`.  See the [AutoMapper
-documentaion](https://docs.automapper.org/en/latest/Dependency-injection.html#asp-net-core)
+documentation](https://docs.automapper.org/en/latest/Dependency-injection.html#asp-net-core)
 for information on dependency injection setup.
-
-## Technical Patterns
-
-### Entities
-
-An entity is a plain object that has a unique identifier and contains properties
-that are likely independently mutable.  Two instances of an entity type that
-have the same identifier should be considered to be equivalent.  
-
-In most cases your project will involve persisting entities to some kind of data
-storage, such as an SQL database.  However, the details of such persistence
-should not be contained within the definitions of those entities.  (Avoid things
-like Entity Framework annotation attributes like `[Table]`.)
-
-The `BaseEntity` class can be inherited for your project's entities.  
-
-* The `Id` property (your entity's unique identifier) has a `public` setter but
-  try to avoid using it in application code, especially if your database is
-  auto-generating values.  However, it can be helpful when seeding data both in
-  tests and in your application.
-
-You should strive to protect an entity's invariants using appropriate measures
-such as private setters, read-only collections, constructors, and public methods
-for updating the entity's properties.
-
-In addition, register Domain Events within your entity's methods if you expect
-to have side effects as a result of calling those methods (such as changes to
-other unconnected entities.)
-
-### Value Objects
-
-A value object represents something in your domain that has no unique identity.
-A value object is ideally immutable and equality is determined by comparing its
-properties.
-
-Entities can (and should) contain value objects, but value objects should never
-contain entities.
-
-Your value object classes should inherit from the `ValueObject` class to gain
-equality functionality.
-
-See https://enterprisecraftsmanship.com/posts/value-objects-explained/ for more
-information about this concept.
-
-### Aggregates
-
-An Aggregate is a collection of domain objects (Entities and Value Objects) that
-is treated as a single unit for manipulation and enforcement of invariants
-(validation rules).  A good example is an `Order` with its collection of
-`OrderItem`s.  
-
-One of the entities in an aggregate is the main entity or "root" and holds
-references to the other ones.  An aggregate is retrieved via its root and
-outside entities should strive to reference other aggregates only via the root.
-
-You can use the `IAggregateRoot` interface to mark the roots of your aggregates.
-This is just a marker interface (no properties or methods) and it's up to you to
-enforce the Aggregate pattern.  (See below for information about enforicing in
-your repositories.)
-
-### Domain Events
-
-Each entity inheriting from `BaseEntity` contains a `DomainEvents` list which
-you can use for storing and later publishing Domain Events.  These are used to
-implement "side effects" based on work done to your entities.  These events can
-be handled elsewhere in your code to better decouple them from other parts of
-the system.  *You will need to use the `DomainEventDispatcher` in your
-application to publish and handle these, likely inside of your Entity Framework
-`DbContext`.*
-
-### Repositories
-
-Repository is a pattern used to control and constrain access to data.  It
-defines standard CRUD operations on a set of entities of the same type.
-Read-only operations are defined in `IReadRepository` while `IRepository` adds
-update operations to those.  This not only better adheres to the Interface
-Segregation Principle, but allows implementers to add features such as caching
-that would only apply to read operations.  
-
-If you are implementing Aggregates, your repositories should only operate on the
-root of each Aggregate, as child entities should never be directly accessed.
-
-The package `Centeva.DomainModeling.EFCore` provides an abstract implementation
-of `IRepository` named `BaseRepository`.  You can use it by creating a derived
-class in your project.  Additionally, if you want to enforce that repositories
-can only access aggregate roots, then your derived class should look like this:
-
-```csharp
-public class EfRepository<T> : BaseRepository<T>, IRepository<T> where T : class, IAggregateRoot
-{
-    public EfRepository(ApplicationDbContext dbContext) 
-      : base(dbContext) { }
-}
-```
-
-If you are using the AutoMapper project feature, then derive your repository
-from the `BaseProjectedRepository` class like this:
-
-```csharp
-public class EfRepository<T> : BaseProjectedRepository<T>, IRepository<T>, IProjectedReadRepository<T> where T : class, IAggregateRoot
-{
-    public EfRepository(ApplicationDbContext dbContext, IConfigurationProvider mappingConfigurationProvider) 
-      : base(dbContext, mappingConfigurationProvider) { }
-}
-```
-
-### Specifications
-
-Specification is a pattern used to pull query logic out of other places in an
-application and into self-contained, shareable, testable classes.  This
-eliminates the need to add custom query methods to your Repository, and avoids
-other anti-patterns such as leaked `IQueryable` objects.
-
-See the [documentation for the Ardalis.Specification
-library](https://ardalis.github.io/Specification/) for more information and
-examples.
 
 ## Running Tests
 
@@ -181,5 +239,5 @@ lowest level (the "domain" level) of an application.
 
 ## Resources
 
-Take a look at <https://bitbucket.org/centeva/centeva.templates> for more
-implementation details.
+Take a look at <https://bitbucket.org/centeva/centeva.templates> for more ideas
+on how to use this library in your application.
