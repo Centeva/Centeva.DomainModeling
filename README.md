@@ -27,7 +27,7 @@ To find out more about this approach, here are some resources:
 * [DDD Part 2: Tactical Domain-Driven
   Design](https://vaadin.com/blog/ddd-part-2-tactical-domain-driven-design)
   (blog post)
-* [Centeva Web API Template](https://bitbucket.org/centeva/centeva.templates/)
+* [Centeva Web API Template](https://github.com/Centeva/Centeva.Templates)
   (template project)
 
 ### Entities
