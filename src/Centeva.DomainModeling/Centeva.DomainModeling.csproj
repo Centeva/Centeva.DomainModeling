@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <Description>Provides building blocks for modeling the domain of a .NET solution, DDD-style.</Description>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
