@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <Description>Provides building blocks for modeling the domain of a .NET solution, DDD-style.</Description>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.Specification" Version="7.0.0" />
+    <PackageReference Include="Ardalis.Specification" Version="8.0.0" />
     <PackageReference Include="MediatR" Version="12.2.0" />
   </ItemGroup>
 

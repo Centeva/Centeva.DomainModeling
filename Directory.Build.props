@@ -6,9 +6,5 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Centeva/Centeva.DomainModeling</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Centeva/Centeva.DomainModeling</PackageProjectUrl>
-
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 </Project>

@@ -3,6 +3,9 @@
   <PropertyGroup>
     <Description>AutoMapper projection implementation for EF Core-based repository in Centeva.DomainModeling</Description>
     <PackageProjectTags>repository;ddd;ef;entity framework;entity framework core;ef core;automapper;projection</PackageProjectTags>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   
   <ItemGroup>
