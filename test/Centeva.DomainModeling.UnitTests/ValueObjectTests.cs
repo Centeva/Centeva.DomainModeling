@@ -5,7 +5,7 @@ public class ValueObjectTests
 {
     [Theory]
     [MemberData(nameof(EqualValueObjects))]
-    public void Equals_EqualValueObjects_ReturnsTrue(ValueObject instanceA, ValueObject instanceB, string reason)
+    public void Equals_EqualValueObjects_ReturnsTrue(ValueObject? instanceA, ValueObject? instanceB, string reason)
     {
         // Act
         var result = EqualityComparer<ValueObject>.Default.Equals(instanceA, instanceB);
@@ -16,7 +16,7 @@ public class ValueObjectTests
 
     [Theory]
     [MemberData(nameof(NonEqualValueObjects))]
-    public void Equals_NonEqualValueObjects_ReturnsFalse(ValueObject instanceA, ValueObject instanceB, string reason)
+    public void Equals_NonEqualValueObjects_ReturnsFalse(ValueObject? instanceA, ValueObject? instanceB, string reason)
     {
         // Act
         var result = EqualityComparer<ValueObject>.Default.Equals(instanceA, instanceB);
@@ -56,7 +56,7 @@ public class ValueObjectTests
         }
     };
 
-    public static readonly TheoryData<ValueObject?, ValueObject?, string?> NonEqualValueObjects = new()
+    public static readonly TheoryData<ValueObject?, ValueObject?, string> NonEqualValueObjects = new()
     {
         {
             new ValueObjectA(a: 1, b: "2", c: Guid.Parse("97ea43f0-6fef-4fb7-8c67-9114a7ff6ec0"), d: new ComplexObject(2, "3")),
