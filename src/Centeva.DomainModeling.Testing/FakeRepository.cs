@@ -17,7 +17,7 @@ public class FakeRepository<TEntity> : FakeRepository<TEntity, int> where TEntit
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
 /// <typeparam name="TKey"></typeparam>
-public class FakeRepository<TEntity, TKey> : IRepository<TEntity>
+public class FakeRepository<TEntity, TKey> : IBaseRepository<TEntity>
     where TEntity : BaseEntity<TKey>
     where TKey : notnull
 {

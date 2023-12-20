@@ -7,15 +7,15 @@ using Microsoft.EntityFrameworkCore;
 namespace Centeva.DomainModeling.EFCore;
 
 /// <summary>
-/// Repository implementation for Entity Framework Core, using AutoMapper for external projections.
+/// Base Repository implementation for Entity Framework Core.  Inherit from this in your project.
 /// </summary>
 /// <remarks>
-/// Based on <see cref="RepositoryBase{T}"/> but methods are duplicated to reduce coupling and unexpected changes.
+/// Based on <see cref="Ardalis.Specification.EntityFrameworkCore.RepositoryBase{T}"/> but methods are duplicated to reduce coupling and unexpected changes.
 /// </remarks>
 /// <typeparam name="T"></typeparam>
-public abstract class BaseRepository<T> : IRepository<T> where T : class
+public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
 {
-    private readonly DbContext _dbContext;
+    protected readonly DbContext _dbContext;
     private readonly ISpecificationEvaluator _specificationEvaluator;
 
     protected BaseRepository(DbContext dbContext)

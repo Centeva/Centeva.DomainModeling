@@ -6,7 +6,7 @@ namespace Centeva.DomainModeling.Interfaces;
 /// Defines additional repository methods that can project entities to a target type, likely using AutoMapper.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public interface IProjectedReadRepository<T> : IReadRepository<T> where T : class
+public interface IProjectedReadRepository<T> : IBaseReadRepository<T> where T : class
 {
     /// <summary>
     /// Returns the first element of a sequence, projected to a target <typeparamref name="TResult" /> using an external tool like AutoMapper,

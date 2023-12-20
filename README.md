@@ -114,18 +114,26 @@ defines standard CRUD operations on a set of entities of the same type. If you
 are implementing Aggregates, your repositories should only operate on the root
 of each Aggregate, as child entities should never be directly accessed.
 
-Read-only operations are defined in `IReadRepository` while `IRepository` adds
-update operations to those. This not only better adheres to the Interface
-Segregation Principle, but allows implementers to add features such as caching
-that would only apply to read operations.
+Read-only operations are defined in `IBaseReadRepository` while
+`IBaseRepository` adds update operations to those. This not only better adheres
+to the Interface Segregation Principle, but allows implementers to add features
+such as caching that would only apply to read operations.
+
+It is recommended that you create your own `IRepository` and `IReadRepository`
+interfaces that inherit from the base interfaces, in case your project needs to
+extend the default functionality.
 
 The package `Centeva.DomainModeling.EFCore` provides an abstract implementation
-of `IRepository` named `BaseRepository`. You can use it by creating a derived
-class in your project. Additionally, if you want to enforce that repositories
-can only access aggregate roots, then your derived class should look like this:
+of `IBaseRepository` named `BaseRepository`. You can use it by creating a
+derived class in your project. Additionally, if you want to enforce that
+repositories can only access aggregate roots, then your derived class should
+look like this:
 
 ```csharp
-public class EfRepository<T> : BaseRepository<T>, IRepository<T> where T : class, IAggregateRoot
+public interface IRepository<T> : IBaseRepository<T> where T : class, IAggregateRoot { }
+public interface IReadRepository<T> : IBaseReadRepository<T> where T : class, IAggregateRoot { }
+
+public class EfRepository<T> : BaseRepository<T>, IBaseRepository<T> where T : class, IAggregateRoot
 {
     public EfRepository(ApplicationDbContext dbContext)
       : base(dbContext) { }
@@ -136,7 +144,10 @@ If you are using the AutoMapper project feature, then derive your repository
 from the `BaseProjectedRepository` class like this:
 
 ```csharp
-public class EfRepository<T> : BaseProjectedRepository<T>, IRepository<T>, IProjectedReadRepository<T> where T : class, IAggregateRoot
+public interface IRepository<T> : IBaseRepository<T> where T : class, IAggregateRoot { }
+public interface IReadRepository<T> : IProjectedReadRepository<T> where T : class, IAggregateRoot { }
+
+public class EfRepository<T> : BaseProjectedRepository<T>, IRepository<T>, IReadRepository<T> where T : class, IAggregateRoot
 {
     public EfRepository(ApplicationDbContext dbContext, IConfigurationProvider mappingConfigurationProvider)
       : base(dbContext, mappingConfigurationProvider) { }
@@ -195,13 +206,43 @@ architecture) then reference from the Core project.
 
 ### Using Entity Framework Core
 
-Reference the `Centeva.DomainModeling.EFCore` package to get an implementation
-of the Repository pattern for this ORM. Reference this package from your
-Infrastructure project if your solution separates concerns by project.
+Reference the `Centeva.DomainModeling.EFCore` package to get a base
+implementation of the Repository pattern for this ORM. Reference this package
+from your Infrastructure project if your solution separates concerns by project.
 
-This requires EF Core and MediatR to be added to your application's services
-configuration for dependency injection. See the documentation for these tools
-individually for instructions.
+Create `IReadRepository` and `IRepository` interfaces in your Core project that
+inherit from `IBaseReadRepository` and `IBaseRepository` respectively. Then
+create a derived class in your Infrastructure project that inherits from
+`BaseRepository` and implements those interfaces.
+
+Register your derived Repository class with your application's dependency
+injection container:
+
+```csharp
+services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
+```
+
+This requires EF Core and MediatR to also be added to your application's
+services configuration for dependency injection. See the documentation for these
+tools individually for instructions.
+
+Use your repository by injecting it into your application's services. For
+example:
+
+```csharp
+public class CustomerService
+{
+    private readonly IRepository<Customer> _customerRepository;
+
+    public CustomerService(IRepository<Customer> customerRepository)
+    {
+        _customerRepository = customerRepository;
+    }
+
+    //...
+}
+```
 
 ### Using AutoMapper for Projection Support
 
