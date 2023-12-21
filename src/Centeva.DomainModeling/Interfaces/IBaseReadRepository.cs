@@ -3,7 +3,7 @@ using Ardalis.Specification;
 
 namespace Centeva.DomainModeling.Interfaces;
 
-public interface IReadRepository<T> where T : class
+public interface IBaseReadRepository<T> where T : class
 {
     /// <summary>
     /// Finds an entity with the given primary key value.

@@ -1,5 +1,4 @@
 ﻿using Ardalis.Specification.EntityFrameworkCore;
-using AutoMapper;
 using Centeva.DomainModeling.UnitTests.Fixtures.Entities;
 
 namespace Centeva.DomainModeling.IntegrationTests.Fixtures;
@@ -7,7 +6,6 @@ namespace Centeva.DomainModeling.IntegrationTests.Fixtures;
 public abstract class IntegrationTestBase : IClassFixture<SharedDatabaseFixture>
 {
     protected TestDbContext _dbContext;
-    protected IConfigurationProvider _mappingConfigurationProvider;
 
     protected Repository<Person> _personRepository;
     protected Repository<Address> _addressRepository;
@@ -15,9 +13,8 @@ public abstract class IntegrationTestBase : IClassFixture<SharedDatabaseFixture>
     protected IntegrationTestBase(SharedDatabaseFixture fixture)
     {
         _dbContext = fixture.CreateContext();
-        _mappingConfigurationProvider = new MapperConfiguration(config => config.AddProfile<MappingProfile>());
 
-        _personRepository = new Repository<Person>(_dbContext, SpecificationEvaluator.Default, _mappingConfigurationProvider);
-        _addressRepository = new Repository<Address>(_dbContext, SpecificationEvaluator.Default, _mappingConfigurationProvider);
+        _personRepository = new Repository<Person>(_dbContext, SpecificationEvaluator.Default);
+        _addressRepository = new Repository<Address>(_dbContext, SpecificationEvaluator.Default);
     }
 }

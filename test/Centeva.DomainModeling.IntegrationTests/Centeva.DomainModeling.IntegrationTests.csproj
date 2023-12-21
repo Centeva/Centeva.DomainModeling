@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Centeva.DomainModeling.EFCore.AutoMapper\Centeva.DomainModeling.EFCore.AutoMapper.csproj" />
     <ProjectReference Include="..\..\src\Centeva.DomainModeling.EFCore\Centeva.DomainModeling.EFCore.csproj" />
     <ProjectReference Include="..\Centeva.DomainModeling.UnitTests\Centeva.DomainModeling.UnitTests.csproj" />
   </ItemGroup>
