@@ -1,16 +1,12 @@
 ﻿using Ardalis.Specification;
-using AutoMapper;
-using Centeva.DomainModeling.EFCore.AutoMapper;
+using Centeva.DomainModeling.EFCore;
 
 namespace Centeva.DomainModeling.IntegrationTests.Fixtures;
 
-public class Repository<T> : BaseProjectedRepository<T> where T : class
+public class Repository<T> : BaseRepository<T> where T : class
 {
-    protected readonly TestDbContext _dbContext;
-
-    public Repository(TestDbContext dbContext, ISpecificationEvaluator specificationEvaluator, IConfigurationProvider configurationProvider) 
-        : base(dbContext, configurationProvider, specificationEvaluator)
+    public Repository(TestDbContext dbContext, ISpecificationEvaluator specificationEvaluator) 
+        : base(dbContext, specificationEvaluator)
     {
-        _dbContext = dbContext;
     }
 }

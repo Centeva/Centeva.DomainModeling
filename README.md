@@ -8,7 +8,6 @@ layer for your application using some Domain Driven Design tactical patterns.
 - [.NET 6](https://dot.net)
 - [MediatR](https://github.com/jbogard/MediatR)
 - [Ardalis.Specification](https://github.com/ardalis/Specification)
-- [AutoMapper](https://automapper.org/)
 
 ## Technical Patterns
 
@@ -123,6 +122,11 @@ It is recommended that you create your own `IRepository` and `IReadRepository`
 interfaces that inherit from the base interfaces, in case your project needs to
 extend the default functionality.
 
+```csharp
+public interface IRepository<T> : IBaseRepository<T> where T : class, IAggregateRoot { }
+public interface IReadRepository<T> : IBaseReadRepository<T> where T : class, IAggregateRoot { }
+```
+
 The package `Centeva.DomainModeling.EFCore` provides an abstract implementation
 of `IBaseRepository` named `BaseRepository`. You can use it by creating a
 derived class in your project. Additionally, if you want to enforce that
@@ -130,27 +134,10 @@ repositories can only access aggregate roots, then your derived class should
 look like this:
 
 ```csharp
-public interface IRepository<T> : IBaseRepository<T> where T : class, IAggregateRoot { }
-public interface IReadRepository<T> : IBaseReadRepository<T> where T : class, IAggregateRoot { }
-
-public class EfRepository<T> : BaseRepository<T>, IBaseRepository<T> where T : class, IAggregateRoot
+public class EfRepository<T> : BaseRepository<T>, IRepository<T> where T : class, IAggregateRoot
 {
     public EfRepository(ApplicationDbContext dbContext)
       : base(dbContext) { }
-}
-```
-
-If you are using the AutoMapper project feature, then derive your repository
-from the `BaseProjectedRepository` class like this:
-
-```csharp
-public interface IRepository<T> : IBaseRepository<T> where T : class, IAggregateRoot { }
-public interface IReadRepository<T> : IProjectedReadRepository<T> where T : class, IAggregateRoot { }
-
-public class EfRepository<T> : BaseProjectedRepository<T>, IRepository<T>, IReadRepository<T> where T : class, IAggregateRoot
-{
-    public EfRepository(ApplicationDbContext dbContext, IConfigurationProvider mappingConfigurationProvider)
-      : base(dbContext, mappingConfigurationProvider) { }
 }
 ```
 
@@ -243,19 +230,6 @@ public class CustomerService
     //...
 }
 ```
-
-### Using AutoMapper for Projection Support
-
-You can use AutoMapper to provide [projection
-support](https://docs.automapper.org/en/latest/Projection.html) for your
-Repositories, which will allow you to map your entities to another type and only
-request the data you need from the database.
-
-Import the `Centeva.DomainModeling.EFCore.AutoMapper` package, add AutoMapper to
-your application's services configuration for dependency injection, and derive
-your Repository classes from `BaseProjectedRepository`. See the [AutoMapper
-documentation](https://docs.automapper.org/en/latest/Dependency-injection.html#asp-net-core)
-for information on dependency injection setup.
 
 ## Running Tests
 
