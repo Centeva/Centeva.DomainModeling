@@ -202,17 +202,19 @@ inherit from `IBaseReadRepository` and `IBaseRepository` respectively. Then
 create a derived class in your Infrastructure project that inherits from
 `BaseRepository` and implements those interfaces.
 
-Register your derived Repository class with your application's dependency
-injection container:
+Register your derived Repository class, the domain event dispatches, and EF Core
+with your application's dependency injection container:
 
 ```csharp
 services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
+services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
+services.AddDbContext...
+serviecs.AddMediatR...
 ```
 
-This requires EF Core and MediatR to also be added to your application's
-services configuration for dependency injection. See the documentation for these
-tools individually for instructions.
+See the documentation for the Entity Framework Core and MediatR packages for 
+more information on how to use them. 
 
 Use your repository by injecting it into your application's services. For
 example:
