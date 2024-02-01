@@ -141,6 +141,10 @@ public class EfRepository<T> : BaseRepository<T>, IRepository<T> where T : class
 }
 ```
 
+Note that the provided Repository implementation will call EF Core's
+`SaveChangesAsync` method on each operation.  If you need some other
+behavior then you may need to modify for your project.
+
 ### Specifications
 
 _Specification_ is a pattern used to pull query logic out of other places in an
