@@ -5,10 +5,10 @@ namespace Centeva.DomainModeling.IntegrationTests.Fixtures;
 
 public abstract class IntegrationTestBase : IClassFixture<SharedDatabaseFixture>
 {
-    protected TestDbContext _dbContext;
+    protected readonly TestDbContext _dbContext;
 
-    protected Repository<Person> _personRepository;
-    protected Repository<Address> _addressRepository;
+    protected readonly Repository<Person> _personRepository;
+    protected readonly Repository<Address> _addressRepository;
 
     protected IntegrationTestBase(SharedDatabaseFixture fixture)
     {
