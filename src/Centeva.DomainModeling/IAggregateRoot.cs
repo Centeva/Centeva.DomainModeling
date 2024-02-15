@@ -1,4 +1,4 @@
-namespace Centeva.DomainModeling.Interfaces;
+namespace Centeva.DomainModeling;
 
 /// <summary>
 /// You can apply this interface to an entity to mark it as an aggregate

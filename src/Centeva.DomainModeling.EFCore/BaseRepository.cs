@@ -1,7 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
-using Centeva.DomainModeling.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Centeva.DomainModeling.EFCore;

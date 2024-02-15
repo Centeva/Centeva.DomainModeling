@@ -1,6 +1,6 @@
-﻿namespace Centeva.DomainModeling.Interfaces;
+﻿namespace Centeva.DomainModeling;
 
-public interface IBaseRepository<T>: IBaseReadRepository<T> where T : class
+public interface IBaseRepository<T> : IBaseReadRepository<T> where T : class
 {
     /// <summary>
     /// Adds an entity in the database.

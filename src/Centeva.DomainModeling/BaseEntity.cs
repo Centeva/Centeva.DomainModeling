@@ -1,6 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
-using Centeva.DomainModeling.Interfaces;
-
 namespace Centeva.DomainModeling;
 
 /// <summary>

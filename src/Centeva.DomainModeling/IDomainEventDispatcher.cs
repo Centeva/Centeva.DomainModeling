@@ -1,4 +1,4 @@
-﻿namespace Centeva.DomainModeling.Interfaces;
+﻿namespace Centeva.DomainModeling;
 
 /// <summary>
 /// Interface for sending domain events.  Typically used to dispatch events after persistence using a tool like MediatR.

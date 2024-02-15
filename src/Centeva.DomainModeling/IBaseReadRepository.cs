@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Ardalis.Specification;
 
-namespace Centeva.DomainModeling.Interfaces;
+namespace Centeva.DomainModeling;
 
 public interface IBaseReadRepository<T> where T : class
 {

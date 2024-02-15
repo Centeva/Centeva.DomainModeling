@@ -1,5 +1,4 @@
-﻿using Centeva.DomainModeling.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Centeva.DomainModeling.EFCore;
 
