@@ -1,5 +1,4 @@
-﻿using Centeva.DomainModeling.Interfaces;
-using MediatR;
+﻿using MediatR;
 
 namespace Centeva.DomainModeling;
 

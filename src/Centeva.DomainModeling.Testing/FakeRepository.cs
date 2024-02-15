@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using Ardalis.Specification;
-using Centeva.DomainModeling.Interfaces;
 
 namespace Centeva.DomainModeling.Testing;
 
