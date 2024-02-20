@@ -40,6 +40,7 @@ jobs:
           source-url: https://nuget.pkg.github.com/centeva/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          DOTNET_INSTALL_DIR: '~/dotnet'
 
       - name: Build
         run: dotnet build --configuration Release /p:Version=${{ steps.gitversion.outputs.semVer }}
