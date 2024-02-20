@@ -113,37 +113,20 @@ defines standard CRUD operations on a set of entities of the same type. If you
 are implementing Aggregates, your repositories should only operate on the root
 of each Aggregate, as child entities should never be directly accessed.
 
-Read-only operations are defined in `IBaseReadRepository` while
-`IBaseRepository` adds update operations to those. This not only better adheres
+Read-only operations are defined in `IReadRepository` while
+`IRepository` adds update operations to those. This not only better adheres
 to the Interface Segregation Principle, but allows implementers to add features
 such as caching that would only apply to read operations.
 
-It is recommended that you create your own `IRepository` and `IReadRepository`
-interfaces that inherit from the base interfaces, in case your project needs to
-extend the default functionality.
-
-```csharp
-public interface IRepository<T> : IBaseRepository<T> where T : class, IAggregateRoot { }
-public interface IReadRepository<T> : IBaseReadRepository<T> where T : class, IAggregateRoot { }
-```
+You can inherit from these interfaces in your own project if you need to extend
+the default functionality.
 
 The package `Centeva.DomainModeling.EFCore` provides an abstract implementation
-of `IBaseRepository` named `BaseRepository`. You can use it by creating a
-derived class in your project. Additionally, if you want to enforce that
-repositories can only access aggregate roots, then your derived class should
-look like this:
-
-```csharp
-public class EfRepository<T> : BaseRepository<T>, IRepository<T> where T : class, IAggregateRoot
-{
-    public EfRepository(ApplicationDbContext dbContext)
-      : base(dbContext) { }
-}
-```
+of `IRepository` named `BaseRepository`. See below for details.
 
 Note that the provided Repository implementation will call EF Core's
-`SaveChangesAsync` method on each operation.  If you need some other
-behavior then you may need to modify for your project.
+`SaveChangesAsync` method on each operation.  If you need some other behavior
+then you may need to modify for your project.
 
 ### Specifications
 
@@ -201,12 +184,18 @@ Reference the `Centeva.DomainModeling.EFCore` package to get a base
 implementation of the Repository pattern for this ORM. Reference this package
 from your Infrastructure project if your solution separates concerns by project.
 
-Create `IReadRepository` and `IRepository` interfaces in your Core project that
-inherit from `IBaseReadRepository` and `IBaseRepository` respectively. Then
-create a derived class in your Infrastructure project that inherits from
-`BaseRepository` and implements those interfaces.
+Create a derived class in your Infrastructure project that inherits from
+`BaseRepository` and implements the interfaces:
 
-Register your derived Repository class, the domain event dispatches, and EF Core
+```csharp
+public class EfRepository<T> : BaseRepository<T> where T : class, IAggregateRoot
+{
+    public EfRepository(ApplicationDbContext dbContext)
+      : base(dbContext) { }
+}
+```
+
+Register your derived Repository class, the domain event dispatcher, and EF Core
 with your application's dependency injection container:
 
 ```csharp
