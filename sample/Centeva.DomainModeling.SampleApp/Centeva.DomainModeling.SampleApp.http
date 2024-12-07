@@ -1,0 +1,16 @@
+@Centeva.DomainModeling.SampleApp_HostAddress = https://localhost:7219
+
+POST {{Centeva.DomainModeling.SampleApp_HostAddress}}/todoitems
+Content-Type: application/json
+
+{
+  "name": "Test",
+  "description": "This is a test"
+}
+
+###
+
+@id=0
+GET {{Centeva.DomainModeling.SampleApp_HostAddress}}/todoitems/{{id}}
+
+###
