@@ -9,6 +9,7 @@ public static class DbContextExtensions
     /// </summary>
     /// <param name="dbContext"></param>
     /// <returns></returns>
+    [Obsolete("Use DispatchDomainEventsInterceptor to handle domain events.  This will be removed in a future release.")]
     public static List<ObjectWithEvents> GetEntitiesWithEvents(this DbContext dbContext) =>
         dbContext.ChangeTracker
             .Entries<ObjectWithEvents>()

@@ -18,7 +18,7 @@ public class TestDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.AddInterceptors(new PostSaveEventDispatchingInterceptor(_domainEventDispatcher));
+        optionsBuilder.AddInterceptors(new DispatchDomainEventsInterceptor(_domainEventDispatcher));
         // Configure logging so that test output contains SQL statements, etc.
         optionsBuilder.UseLoggerFactory(LoggerFactoryProvider.LoggerFactoryInstance);
         base.OnConfiguring(optionsBuilder);
