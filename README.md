@@ -5,7 +5,7 @@ layer for your application using some Domain Driven Design tactical patterns.
 
 ## Built With
 
-- [.NET 6](https://dot.net)
+- [.NET 8](https://dot.net)
 - [MediatR](https://github.com/jbogard/MediatR)
 - [Ardalis.Specification](https://github.com/ardalis/Specification)
 
