@@ -42,8 +42,8 @@ An entity is mutable and its properties can be changed. However, it is
 preferrable to avoid having public setters for all of those properties. Instead
 you should use methods to update the entity's properties. This allows you to
 enforce _invariants_ (validation rules) and to publish _Domain Events_ when the
-entity is changed. Use additional measures such to protect an entity's
-invariants such as constructors, guard clauses, and read-only collections.
+entity is changed. Use additional measures to protect an entity's invariants 
+such as constructors, guard clauses, and read-only collections.
 
 In most cases your project will involve persisting entities to some kind of data
 storage, such as a database. However, the details of such persistence should
