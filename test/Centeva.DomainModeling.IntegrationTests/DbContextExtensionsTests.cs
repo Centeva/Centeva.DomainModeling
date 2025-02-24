@@ -19,7 +19,7 @@ public class DbContextExtensionsTests : IntegrationTestBase
         _dbContext.People.Add(person);
         _dbContext.Addresses.Add(address);
 
-        person.DomainEvents.Should().ContainSingle();
-        _dbContext.GetEntitiesWithEvents().Should().OnlyContain(x => x == person);
+        person.DomainEvents.ShouldHaveSingleItem();
+        _dbContext.GetEntitiesWithEvents().ShouldContain(person);
     }
 }

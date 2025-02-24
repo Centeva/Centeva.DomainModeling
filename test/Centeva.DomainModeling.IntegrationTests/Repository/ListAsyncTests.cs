@@ -12,9 +12,9 @@ public class ListAsyncTests : IntegrationTestBase
     {
         var result = await _personRepository.ListAsync<PersonDto>(PersonDto.FromPerson);
 
-        result.Should().NotBeNull();
-        result.Should().NotBeEmpty();
-        result[0].Name.Should().NotBeNullOrWhiteSpace();
+        result.ShouldNotBeNull();
+        result.ShouldNotBeEmpty();
+        result[0].Name.ShouldNotBeNullOrWhiteSpace();
     }
 
     [Fact]
@@ -22,9 +22,9 @@ public class ListAsyncTests : IntegrationTestBase
     {
         var result = await _personRepository.ListAsync<PersonWithAddressesDto>(PersonWithAddressesDto.FromPerson);
 
-        result.Should().NotBeNull();
-        result.Should().NotBeEmpty();
-        result[0].Addresses.Should().NotBeEmpty();
-        result[0].Addresses[0].Street.Should().NotBeNullOrWhiteSpace();
+        result.ShouldNotBeNull();
+        result.ShouldNotBeEmpty();
+        result[0].Addresses.ShouldNotBeEmpty();
+        result[0].Addresses[0].Street.ShouldNotBeNullOrWhiteSpace();
     }
 }

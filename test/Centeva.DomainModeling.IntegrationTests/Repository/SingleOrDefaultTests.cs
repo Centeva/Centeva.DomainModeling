@@ -14,8 +14,8 @@ public class SingleOrDefaultAsyncTests : IntegrationTestBase
     {
         var result = await _personRepository.SingleOrDefaultAsync<PersonDto>(new PersonByNameSpec(PersonSeed.ValidPersonName), PersonDto.FromPerson);
 
-        result.Should().NotBeNull();
-        result!.Name.Should().Be(PersonSeed.ValidPersonName);
+        result.ShouldNotBeNull();
+        result!.Name.ShouldBe(PersonSeed.ValidPersonName);
     }
 
     [Fact]
@@ -23,9 +23,9 @@ public class SingleOrDefaultAsyncTests : IntegrationTestBase
     {
         var result = await _personRepository.SingleOrDefaultAsync<PersonWithAddressesDto>(new PersonByNameSpec(PersonSeed.ValidPersonName), PersonWithAddressesDto.FromPerson);
 
-        result.Should().NotBeNull();
-        result!.Addresses.Should().NotBeEmpty();
-        result.Addresses[0].Street.Should().NotBeNullOrWhiteSpace();
+        result.ShouldNotBeNull();
+        result!.Addresses.ShouldNotBeEmpty();
+        result.Addresses[0].Street.ShouldNotBeNullOrWhiteSpace();
     }
 
     [Fact]
@@ -33,7 +33,7 @@ public class SingleOrDefaultAsyncTests : IntegrationTestBase
     {
         var act = () => _personRepository.SingleOrDefaultAsync<PersonDto>(new PersonByNameSpec("Doe"), PersonDto.FromPerson);
 
-        await act.Should().ThrowAsync<InvalidOperationException>();
+        await act.ShouldThrowAsync<InvalidOperationException>();
     }
 
     [Fact]
@@ -41,6 +41,6 @@ public class SingleOrDefaultAsyncTests : IntegrationTestBase
     {
         var result = await _personRepository.SingleOrDefaultAsync<PersonDto>(new PersonByNameSpec("Not Found"), PersonDto.FromPerson);
 
-        result.Should().BeNull();
+        result.ShouldBeNull();
     }
 }

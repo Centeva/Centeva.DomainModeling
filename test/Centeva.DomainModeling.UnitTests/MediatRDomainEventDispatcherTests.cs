@@ -32,6 +32,6 @@ public class MediatRDomainEventDispatcherTests
     {
         await _sut.DispatchAndClearEvents(new List<ObjectWithEvents> {_entity});
 
-        _entity.DomainEvents.Should().BeEmpty();
+        _entity.DomainEvents.ShouldBeEmpty();
     }
 }

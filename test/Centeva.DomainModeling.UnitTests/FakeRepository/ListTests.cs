@@ -15,7 +15,7 @@ public class ListTests
 
         var result = await _repository.ListAsync();
 
-        result.Should().HaveCount(3);
+        result.Count.ShouldBe(3);
     }
 
     [Fact]
@@ -23,7 +23,7 @@ public class ListTests
     {
         var result = await _repository.ListAsync();
 
-        result.Should().BeEmpty();
+        result.ShouldBeEmpty();
     }
 
     [Fact]
@@ -33,7 +33,7 @@ public class ListTests
 
         var result = await _repository.ListAsync(new PersonByNameSpec("Doe"));
 
-        result.Should().HaveCount(2);
+        result.Count.ShouldBe(2);
     }
 
     [Fact]
@@ -44,7 +44,7 @@ public class ListTests
 
         var result = await _repository.ListAsync(x => x.Name);
 
-        result.Should().BeEquivalentTo(entities.Select(x => x.Name).ToList());
+        result.ShouldBeEquivalentTo(entities.Select(x => x.Name).ToList());
     }
 
     [Fact]
@@ -55,7 +55,7 @@ public class ListTests
 
         var result = await _repository.ListAsync(new PersonByNameSpec("Doe"), x => x.Name);
 
-        result.Should().BeEquivalentTo(entities.Where(x => x.Name.Contains("Doe")).Select(x => x.Name).ToList());
+        result.ShouldBeEquivalentTo(entities.Where(x => x.Name.Contains("Doe")).Select(x => x.Name).ToList());
     }
 
     [Fact]
@@ -66,6 +66,7 @@ public class ListTests
 
         var result = await _repository.ListAsync(new PersonNameSpec(PersonSeed.ValidPersonId));
 
-        result.Should().ContainSingle(PersonSeed.ValidPersonName);
+        result.Count.ShouldBe(1);
+        result.ShouldContain(PersonSeed.ValidPersonName);
     }
 }

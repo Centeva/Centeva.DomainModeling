@@ -16,8 +16,8 @@ public class SingleOrDefaultTests
 
         var result = await _repository.SingleOrDefaultAsync(new PersonByNameSpec(PersonSeed.ValidPersonName));
 
-        result.Should().NotBeNull();
-        result!.Id.Should().Be(PersonSeed.ValidPersonId);
+        result.ShouldNotBeNull();
+        result!.Id.ShouldBe(PersonSeed.ValidPersonId);
     }
 
     [Fact]
@@ -25,7 +25,7 @@ public class SingleOrDefaultTests
     {
         var result = await _repository.SingleOrDefaultAsync(new PersonByNameSpec("bad"));
 
-        result.Should().BeNull();
+        result.ShouldBeNull();
     }
 
     [Fact]
@@ -37,7 +37,7 @@ public class SingleOrDefaultTests
 
         var act = () => _repository.SingleOrDefaultAsync(spec);
 
-        await act.Should().ThrowAsync<Exception>();
+        await act.ShouldThrowAsync<Exception>();
     }
 
     [Fact]
@@ -47,6 +47,6 @@ public class SingleOrDefaultTests
 
         var result = await _repository.SingleOrDefaultAsync(new PersonNameSpec(PersonSeed.ValidPersonId));
 
-        result.Should().Be(PersonSeed.ValidPersonName);
+        result.ShouldBe(PersonSeed.ValidPersonName);
     }
 }

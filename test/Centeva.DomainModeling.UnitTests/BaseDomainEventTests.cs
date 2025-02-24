@@ -12,6 +12,6 @@ public class BaseDomainEventTests
         var newEvent = new TestEvent();
 
         // Not really another way to test this
-        newEvent.DateOccurred.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromMilliseconds(100));
+        newEvent.DateOccurred.ShouldBe(DateTime.UtcNow, TimeSpan.FromMilliseconds(100));
     }
 }

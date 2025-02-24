@@ -7,7 +7,7 @@ public class BaseEntityTests
     {
         var entity = new TestEntity();
 
-        entity.DomainEvents.Should().BeEmpty();
+        entity.DomainEvents.ShouldBeEmpty();
     }
 
     [Fact]
@@ -15,7 +15,7 @@ public class BaseEntityTests
     {
         var entity = new TestEntity();
 
-        entity.Id.Should().Be(default);
+        entity.Id.ShouldBe(default);
     }
 
     [Fact]
@@ -25,8 +25,8 @@ public class BaseEntityTests
 
         entity.AddTestEvent();
 
-        entity.DomainEvents.Should().HaveCount(1);
-        entity.DomainEvents.Should().AllBeOfType<TestEvent>();
+        entity.DomainEvents.ShouldHaveSingleItem();
+        entity.DomainEvents.ShouldAllBe(x => x is TestEvent);
     }
 
     class TestEntity : BaseEntity

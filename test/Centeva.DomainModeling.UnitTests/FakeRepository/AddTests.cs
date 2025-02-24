@@ -20,7 +20,7 @@ public class AddTests
         var person = new Person(Guid.NewGuid(), "Test");
         await _repository.AddAsync(person);
 
-        _entities.Should().ContainSingle(x => x == person);
+        _entities.ShouldContain(x => x == person);
     }
 
     [Fact]
@@ -29,7 +29,7 @@ public class AddTests
         var person = new Person(Guid.NewGuid(), "Test");
         var result = await _repository.AddAsync(person);
 
-        result.Should().Be(person);
+        result.ShouldBe(person);
     }
 
     [Fact]
@@ -38,7 +38,7 @@ public class AddTests
         var people = PersonSeed.Get();
         await _repository.AddRangeAsync(people);
 
-        _entities.Should().BeEquivalentTo(people);
+        _entities.ShouldBeEquivalentTo(people);
     }
 
     [Fact]
@@ -47,6 +47,6 @@ public class AddTests
         var people = PersonSeed.Get();
         var result = await _repository.AddRangeAsync(people);
 
-        result.Should().BeEquivalentTo(people);
+        result.ShouldBeEquivalentTo(people);
     }
 }

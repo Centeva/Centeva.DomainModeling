@@ -15,7 +15,7 @@ public class AggregateTests
 
         var result = await _repository.AnyAsync();
 
-        result.Should().BeTrue();
+        result.ShouldBeTrue();
     }
 
     [Fact]
@@ -23,7 +23,7 @@ public class AggregateTests
     {
         var result = await _repository.AnyAsync();
 
-        result.Should().BeFalse();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -33,7 +33,7 @@ public class AggregateTests
 
         var result = await _repository.AnyAsync(new PersonByNameSpec(PersonSeed.ValidPersonName));
 
-        result.Should().BeTrue();
+        result.ShouldBeTrue();
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class AggregateTests
 
         var result = await _repository.AnyAsync(new PersonByNameSpec("bad"));
 
-        result.Should().BeFalse();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -53,7 +53,7 @@ public class AggregateTests
 
         var result = await _repository.CountAsync();
 
-        result.Should().Be(3);
+        result.ShouldBe(3);
     }
 
     [Fact]
@@ -63,6 +63,6 @@ public class AggregateTests
 
         var result = await _repository.CountAsync(new PersonByNameSpec(PersonSeed.ValidPersonName));
 
-        result.Should().Be(1);
+        result.ShouldBe(1);
     }
 }

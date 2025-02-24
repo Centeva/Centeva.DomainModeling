@@ -13,8 +13,8 @@ public class FirstOrDefaultAsyncTests : IntegrationTestBase
     {
         var result = await _personRepository.FirstOrDefaultAsync<PersonDto>(new PersonSpec(), PersonDto.FromPerson, CancellationToken.None);
 
-        result.Should().NotBeNull();
-        result!.Name.Should().NotBeNullOrWhiteSpace();
+        result.ShouldNotBeNull();
+        result!.Name.ShouldNotBeNullOrWhiteSpace();
     }
 
     [Fact]
@@ -22,8 +22,8 @@ public class FirstOrDefaultAsyncTests : IntegrationTestBase
     {
         var result = await _personRepository.FirstOrDefaultAsync<PersonWithAddressesDto>(new PersonSpec(), PersonWithAddressesDto.FromPerson);
 
-        result.Should().NotBeNull();
-        result!.Addresses.Should().NotBeEmpty();
-        result.Addresses[0].Street.Should().NotBeNullOrWhiteSpace();
+        result.ShouldNotBeNull();
+        result!.Addresses.ShouldNotBeEmpty();
+        result.Addresses[0].Street.ShouldNotBeNullOrWhiteSpace();
     }
 }

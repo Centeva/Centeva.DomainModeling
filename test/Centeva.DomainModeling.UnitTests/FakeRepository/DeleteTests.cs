@@ -21,7 +21,7 @@ public class DeleteTests
         var entityToDelete = _entities[0];
         await _repository.DeleteAsync(entityToDelete);
 
-        _entities.Should().NotContain(entityToDelete);
+        _entities.ShouldNotContain(entityToDelete);
     }
 
     [Fact]
@@ -30,8 +30,8 @@ public class DeleteTests
         var entityToDelete = new Person(Guid.NewGuid(), "Test");
         await _repository.DeleteAsync(entityToDelete);
 
-        _entities.Should().NotContain(entityToDelete);
-        _entities.Should().HaveCount(3);
+        _entities.ShouldNotContain(entityToDelete);
+        _entities.Count.ShouldBe(3);
     }
 
     [Fact]
@@ -39,6 +39,6 @@ public class DeleteTests
     {
         await _repository.DeleteRangeAsync(_entities.ToList());
 
-        _entities.Should().BeEmpty();
+        _entities.ShouldBeEmpty();
     }
 }

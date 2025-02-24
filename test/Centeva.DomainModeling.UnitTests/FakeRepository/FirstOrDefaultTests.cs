@@ -15,8 +15,8 @@ public class FirstOrDefaultTests
 
         var result = await _repository.FirstOrDefaultAsync(new PersonByNameSpec(PersonSeed.ValidPersonName));
 
-        result.Should().NotBeNull();
-        result!.Id.Should().Be(PersonSeed.ValidPersonId);
+        result.ShouldNotBeNull();
+        result!.Id.ShouldBe(PersonSeed.ValidPersonId);
     }
 
     [Fact]
@@ -24,7 +24,7 @@ public class FirstOrDefaultTests
     {
         var result = await _repository.FirstOrDefaultAsync(new PersonByNameSpec("bad"));
 
-        result.Should().BeNull();
+        result.ShouldBeNull();
     }
 
     [Fact]
@@ -34,7 +34,7 @@ public class FirstOrDefaultTests
 
         var result = await _repository.FirstOrDefaultAsync(new PersonByNameSpec(PersonSeed.ValidPersonName), x => x.Id, CancellationToken.None);
 
-        result.Should().Be(PersonSeed.ValidPersonId);
+        result.ShouldBe(PersonSeed.ValidPersonId);
     }
 
     [Fact]
@@ -44,6 +44,6 @@ public class FirstOrDefaultTests
 
         var result = await _repository.FirstOrDefaultAsync(new PersonNameSpec(PersonSeed.ValidPersonId));
 
-        result.Should().Be(PersonSeed.ValidPersonName);
+        result.ShouldBe(PersonSeed.ValidPersonName);
     }
 }

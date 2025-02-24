@@ -14,7 +14,7 @@ public class GetByIdTests
 
         var result = await _repository.GetByIdAsync(PersonSeed.ValidPersonId);
 
-        result.Should().NotBeNull();
+        result.ShouldNotBeNull();
     }
 
     [Fact]
@@ -22,6 +22,6 @@ public class GetByIdTests
     {
         var result = await _repository.GetByIdAsync(Guid.NewGuid());
 
-        result.Should().BeNull();
+        result.ShouldBeNull();
     }
 }
