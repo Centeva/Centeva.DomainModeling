@@ -7,7 +7,7 @@ public class PersonNameSpec : Specification<Person, string>, ISingleResultSpecif
     public PersonNameSpec(Guid id)
     {
         Query
-            .Select(x => x.Name)
-            .Where(x => x.Id == id);
+            .Where(x => x.Id == id)
+            .Select(x => x.Name);
     }
 }

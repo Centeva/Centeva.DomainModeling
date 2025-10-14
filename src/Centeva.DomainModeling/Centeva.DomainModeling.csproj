@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Description>Provides building blocks for modeling the domain of a .NET solution, DDD-style.</Description>
@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.Specification" Version="8.0.0" />
+    <PackageReference Include="Ardalis.Specification" Version="9.3.1" />
     <PackageReference Include="MediatR" Version="12.4.1" />
   </ItemGroup>
 
