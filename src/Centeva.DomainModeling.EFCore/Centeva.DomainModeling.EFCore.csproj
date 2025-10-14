@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Description>Entity Framework Core implementation of the Repository pattern from Centeva.DomainModeling</Description>
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="9.3.1" />
   </ItemGroup>
 
   <ItemGroup>
