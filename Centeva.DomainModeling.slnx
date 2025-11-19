@@ -1,0 +1,25 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/sample/">
+    <Project Path="sample/Centeva.DomainModeling.SampleApp/Centeva.DomainModeling.SampleApp.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Centeva.DomainModeling.EFCore/Centeva.DomainModeling.EFCore.csproj" />
+    <Project Path="src/Centeva.DomainModeling.Testing/Centeva.DomainModeling.Testing.csproj" />
+    <Project Path="src/Centeva.DomainModeling/Centeva.DomainModeling.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Centeva.DomainModeling.IntegrationTests/Centeva.DomainModeling.IntegrationTests.csproj" />
+    <Project Path="test/Centeva.DomainModeling.UnitTests/Centeva.DomainModeling.UnitTests.csproj" />
+  </Folder>
+</Solution>
