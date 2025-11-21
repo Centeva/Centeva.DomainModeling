@@ -23,8 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Centeva.DomainModeling.Mediator\Centeva.DomainModeling.Mediator.csproj" />
     <ProjectReference Include="..\..\src\Centeva.DomainModeling.Testing\Centeva.DomainModeling.Testing.csproj" />
     <ProjectReference Include="..\..\src\Centeva.DomainModeling\Centeva.DomainModeling.csproj" />
+    <ProjectReference Include="..\..\src\Centeva.DomainModeling.MediatR\Centeva.DomainModeling.MediatR.csproj" />
   </ItemGroup>
 
 </Project>

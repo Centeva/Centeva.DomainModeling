@@ -1,4 +1,4 @@
-﻿namespace Centeva.DomainModeling.SampleApp.Models;
+﻿namespace Centeva.DomainModeling.SampleApp.TodoItems;
 
 public class TodoItem : BaseEntity, IAggregateRoot
 {

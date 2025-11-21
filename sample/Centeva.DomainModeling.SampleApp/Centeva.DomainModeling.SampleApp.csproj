@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mediator.SourceGenerator" Version="3.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.9">
       <PrivateAssets>all</PrivateAssets>
@@ -17,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Centeva.DomainModeling.EFCore\Centeva.DomainModeling.EFCore.csproj" />
+    <ProjectReference Include="..\..\src\Centeva.DomainModeling.Mediator\Centeva.DomainModeling.Mediator.csproj" />
   </ItemGroup>
 
 </Project>

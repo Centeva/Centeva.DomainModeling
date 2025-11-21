@@ -10,12 +10,12 @@ namespace Centeva.DomainModeling;
 /// </remarks>
 public abstract class ObjectWithEvents
 {
-    private readonly List<BaseDomainEvent> _domainEvents = new();
+    private readonly List<IDomainEvent> _domainEvents = [];
 
     [NotMapped]
-    public IEnumerable<BaseDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+    public IEnumerable<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-    protected void RegisterDomainEvent(BaseDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
+    protected void RegisterDomainEvent(IDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
 
     internal void ClearDomainEvents() => _domainEvents.Clear();
 }

@@ -1,4 +1,4 @@
-﻿using Centeva.DomainModeling.SampleApp.Models;
+﻿using Centeva.DomainModeling.SampleApp.TodoItems;
 using Microsoft.EntityFrameworkCore;
 
 namespace Centeva.DomainModeling.SampleApp.Persistence;

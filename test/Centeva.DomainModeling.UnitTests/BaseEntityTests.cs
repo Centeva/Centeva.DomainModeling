@@ -37,7 +37,7 @@ public class BaseEntityTests
         }
     }
 
-    class TestEvent : BaseDomainEvent
+    class TestEvent : IDomainEvent
     {
     }
 }
