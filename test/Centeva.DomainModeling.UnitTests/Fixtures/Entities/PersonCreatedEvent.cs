@@ -1,4 +1,6 @@
-﻿namespace Centeva.DomainModeling.UnitTests.Fixtures.Entities;
+﻿using Centeva.DomainModeling.MediatR;
+
+namespace Centeva.DomainModeling.UnitTests.Fixtures.Entities;
 
 public class PersonCreatedEvent : BaseDomainEvent
 {

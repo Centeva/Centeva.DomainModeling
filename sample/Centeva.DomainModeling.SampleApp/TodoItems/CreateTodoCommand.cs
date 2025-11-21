@@ -1,7 +1,7 @@
-﻿namespace Centeva.DomainModeling.SampleApp.Models;
+﻿namespace Centeva.DomainModeling.SampleApp.TodoItems;
 
 public class CreateTodoCommand
 {
-    public string Name { get; set; }
+    public required string Name { get; set; }
     public string? Description { get; set; }
 }

@@ -1,5 +1,6 @@
 using Centeva.DomainModeling;
 using Centeva.DomainModeling.EFCore;
+using Centeva.DomainModeling.Mediator;
 using Centeva.DomainModeling.SampleApp.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,10 +12,10 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-// MediatR
+// Mediator
 builder.Services
-    .AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<Program>())
-    .AddSingleton<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
+    .AddMediator()
+    .AddSingleton<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
 
 // Configure EF Core
 var folder = Environment.SpecialFolder.LocalApplicationData;
@@ -31,6 +32,15 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 builder.Services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
 
 var app = builder.Build();
+
+// Create database if it doesn't exist (will not run migrations to bring existing DB up to date)
+if (app.Environment.IsDevelopment())
+{
+    await using var serviceScope = app.Services.CreateAsyncScope();
+    await using var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+    await dbContext.Database.EnsureCreatedAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -1,4 +1,6 @@
-﻿namespace Centeva.DomainModeling.SampleApp.Models;
+﻿using Centeva.DomainModeling.Mediator;
+
+namespace Centeva.DomainModeling.SampleApp.TodoItems;
 
 public class TodoItemCreatedEvent(TodoItem item) : BaseDomainEvent
 {

@@ -1,6 +1,6 @@
-﻿using MediatR;
+﻿using Mediator;
 
-namespace Centeva.DomainModeling.SampleApp.Models;
+namespace Centeva.DomainModeling.SampleApp.TodoItems;
 
 public class TodoItemCreatedNotifier : INotificationHandler<TodoItemCreatedEvent>
 {
@@ -11,10 +11,10 @@ public class TodoItemCreatedNotifier : INotificationHandler<TodoItemCreatedEvent
         _logger = logger;
     }
 
-    public Task Handle(TodoItemCreatedEvent domainEvent, CancellationToken cancellationToken)
+    public ValueTask Handle(TodoItemCreatedEvent domainEvent, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Created a new Todo Item: {item}", domainEvent.Item);
 
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 }

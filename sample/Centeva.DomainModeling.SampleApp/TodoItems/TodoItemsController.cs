@@ -1,5 +1,4 @@
-﻿using Centeva.DomainModeling.SampleApp.Models;
-using Centeva.DomainModeling.SampleApp.Persistence;
+﻿using Centeva.DomainModeling.SampleApp.Persistence;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Centeva.DomainModeling.SampleApp.TodoItems;

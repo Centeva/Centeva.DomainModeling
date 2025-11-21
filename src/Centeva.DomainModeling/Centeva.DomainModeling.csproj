@@ -17,7 +17,10 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.Specification" Version="9.3.1" />
-    <PackageReference Include="MediatR" Version="12.4.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Centeva.DomainModeling.MediatR" />
+    <InternalsVisibleTo Include="Centeva.DomainModeling.Mediator" />
+  </ItemGroup>
 </Project>

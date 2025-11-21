@@ -1,6 +1,6 @@
-using MediatR;
+using Mediator;
 
-namespace Centeva.DomainModeling;
+namespace Centeva.DomainModeling.Mediator;
 
 /// <summary>
 /// Used to trigger side effects within an application or bounded context, usually
@@ -8,7 +8,7 @@ namespace Centeva.DomainModeling;
 /// aggregates.
 /// </summary>
 /// <see cref="IDomainEventDispatcher"/>
-public abstract class BaseDomainEvent : INotification
+public abstract class BaseDomainEvent : INotification, IDomainEvent
 {
     public DateTime DateOccurred { get; protected set; } = DateTime.UtcNow;
 }

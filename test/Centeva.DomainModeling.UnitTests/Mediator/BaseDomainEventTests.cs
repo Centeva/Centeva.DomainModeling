@@ -1,8 +1,9 @@
-namespace Centeva.DomainModeling.UnitTests;
+
+namespace Centeva.DomainModeling.UnitTests.Mediator;
 
 public class BaseDomainEventTests
 {
-    public class TestEvent : BaseDomainEvent
+    public class TestEvent : DomainModeling.Mediator.BaseDomainEvent
     {
     }
 

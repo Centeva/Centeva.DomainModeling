@@ -15,8 +15,10 @@
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/Centeva.DomainModeling.EFCore/Centeva.DomainModeling.EFCore.csproj" />
+    <Project Path="src/Centeva.DomainModeling.Mediator/Centeva.DomainModeling.Mediator.csproj" Id="7c54048e-7592-4bf4-8cc5-6d3d60a7f045" />
     <Project Path="src/Centeva.DomainModeling.Testing/Centeva.DomainModeling.Testing.csproj" />
     <Project Path="src/Centeva.DomainModeling/Centeva.DomainModeling.csproj" />
+    <Project Path="src/Centeva.DomainModeling.MediatR/Centeva.DomainModeling.MediatR.csproj" Id="4784ba45-a858-4f14-b18d-fd96e922c4bb" />
   </Folder>
   <Folder Name="/test/">
     <Project Path="test/Centeva.DomainModeling.IntegrationTests/Centeva.DomainModeling.IntegrationTests.csproj" />

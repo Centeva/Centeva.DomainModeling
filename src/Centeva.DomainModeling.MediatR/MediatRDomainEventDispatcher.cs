@@ -1,23 +1,10 @@
 ﻿using MediatR;
 
-namespace Centeva.DomainModeling;
+namespace Centeva.DomainModeling.MediatR;
 
 /// <summary>
 /// Used to dispatch domain events, usually as part of the data persistence process.
 /// </summary>
-/// <example>
-/// Run as part of your Entity Framework Core save process:
-/// <code>
-///    public override async Task&lt;int&gt; SaveChangesAsync(CancellationToken cancellationToken = default)
-///    {
-///        var result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-///
-///        await _domainEventDispatcher.DispatchAndClearEvents(this.GetEntitiesWithEvents(), cancellationToken).ConfigureAwait(false);
-///
-///        return result;
-///    }
-/// </code>
-/// </example>
 public class MediatRDomainEventDispatcher : IDomainEventDispatcher
 {
     private readonly IPublisher _publisher;

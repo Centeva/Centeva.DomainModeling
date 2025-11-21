@@ -195,18 +195,37 @@ public class EfRepository<T> : BaseRepository<T> where T : class, IAggregateRoot
 }
 ```
 
-Register your derived Repository class, the domain event dispatcher, and EF Core
+Register your derived Repository class and EF Core
 with your application's dependency injection container:
 
 ```csharp
+services.AddSingleton<DispatchDomainEventsInterceptor>();
+
+services.AddDbContext<ApplicationDbContext>((sp, options) => options
+    .UseSqlServer(connectionString)
+    .AddInterceptors(sp.GetRequiredService<DispatchDomainEventsInterceptor>()));
+
 services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
-services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
-services.AddDbContext...
-serviecs.AddMediatR...
+
+services.AddMediator();
+...
 ```
 
-See the documentation for the Entity Framework Core and MediatR packages for 
+Register your desired domain event dispatcher.  Install the package that
+contains your chosen implementation, either `Centeva.DomainModeling.MediatR`
+for [MediatR](https://mediatr.io/) support, or `Centeva.DomainModeling.Mediator` 
+for the source-generator based [Mediator](https://github.com/martinothamar/Mediator)
+library.
+
+```csharp
+services.AddScoped<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
+```
+
+__Note:__ You can only register one implementation.  MediatR is a commercially
+licensed library, while Mediator is open source and free to use.
+
+See the documentation for the Entity Framework Core and other packages for 
 more information on how to use them. 
 
 Use your repository by injecting it into your application's services. For
