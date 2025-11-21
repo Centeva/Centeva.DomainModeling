@@ -2,13 +2,13 @@ using Centeva.DomainModeling;
 using Centeva.DomainModeling.EFCore;
 using Centeva.DomainModeling.Mediator;
 using Centeva.DomainModeling.SampleApp.Persistence;
+using Centeva.DomainModeling.SampleApp.TodoItems;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -31,6 +31,8 @@ builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 builder.Services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
 
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 // Create database if it doesn't exist (will not run migrations to bring existing DB up to date)
@@ -52,6 +54,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+// Map minimal API endpoints
+app.MapTodoItemEndpoints();
 
 app.Run();
