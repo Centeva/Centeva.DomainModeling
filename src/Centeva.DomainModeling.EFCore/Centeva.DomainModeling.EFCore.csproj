@@ -4,8 +4,6 @@
     <Description>Entity Framework Core implementation of the Repository pattern from Centeva.DomainModeling</Description>
     <PackageProjectTags>repository;ddd;ef;entity framework;entity framework core;ef core</PackageProjectTags>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
