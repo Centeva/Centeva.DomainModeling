@@ -3,14 +3,6 @@
 public class BaseEntityTests
 {
     [Fact]
-    public void Constructor_ShouldInitializeEmptyEvents()
-    {
-        var entity = new TestEntity();
-
-        entity.DomainEvents.ShouldBeEmpty();
-    }
-
-    [Fact]
     public void Constructor_SetsDefaultId()
     {
         var entity = new TestEntity();
@@ -19,25 +11,33 @@ public class BaseEntityTests
     }
 
     [Fact]
-    public void RegisterDomainEvent_AddsDomainEventToEntity()
+    public void Constructor_AllowsIdToBeSet()
     {
-        var entity = new TestEntity();
+        var entity = new TestEntity { Id = 42 };
 
-        entity.AddTestEvent();
-
-        entity.DomainEvents.ShouldHaveSingleItem();
-        entity.DomainEvents.ShouldAllBe(x => x is TestEvent);
+        entity.Id.ShouldBe(42);
     }
 
-    class TestEntity : BaseEntity
+    [Fact]
+    public void Constructor_WithGuidId_SetsDefaultId()
     {
-        public void AddTestEvent()
-        {
-            RegisterDomainEvent(new TestEvent());
-        }
+        var entity = new TestEntityWithGuidId();
+        entity.Id.ShouldBe(default);
     }
 
-    class TestEvent : IDomainEvent
+    [Fact]
+    public void Constructor_WithGuidId_AllowsIdToBeSet()
+    {
+        var guid = Guid.NewGuid();
+        var entity = new TestEntityWithGuidId { Id = guid };
+        entity.Id.ShouldBe(guid);
+    }
+
+    private class TestEntity : BaseEntity
+    {
+    }
+
+    private class TestEntityWithGuidId : BaseEntity<Guid>
     {
     }
 }
