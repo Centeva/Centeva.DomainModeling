@@ -2,9 +2,8 @@
 
   <PropertyGroup>
     <Description>Provides building blocks for modeling the domain of a .NET solution, DDD-style.</Description>
+    <PackageProjectTags>repository;ddd</PackageProjectTags>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>

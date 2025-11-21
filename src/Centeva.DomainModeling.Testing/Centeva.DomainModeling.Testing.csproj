@@ -3,9 +3,7 @@
   <PropertyGroup>
     <Description>Unit testing helpers for projects that use Centeva.DomainModeling</Description>
     <PackageProjectTags>repository;ddd;testing;xunit</PackageProjectTags>
-    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <TargetFramework>net8.0</TargetFramework>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
