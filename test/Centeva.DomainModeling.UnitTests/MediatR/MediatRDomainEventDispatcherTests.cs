@@ -20,7 +20,7 @@ public class MediatRDomainEventDispatcherTests
     [Fact]
     public async Task DispatchAndClearEvents_DispatchesEvents()
     {
-        await _sut.DispatchAndClearEvents([_entity]);
+        await _sut.DispatchAndClearEvents([_entity], TestContext.Current.CancellationToken);
 
         Mock.Get(_publisher)
             .Verify(
@@ -31,7 +31,7 @@ public class MediatRDomainEventDispatcherTests
     [Fact]
     public async Task DispatchAndClearEvents_ClearsEvents()
     {
-        await _sut.DispatchAndClearEvents([_entity]);
+        await _sut.DispatchAndClearEvents([_entity], TestContext.Current.CancellationToken);
 
         _entity.DomainEvents.ShouldBeEmpty();
     }

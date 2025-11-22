@@ -19,7 +19,7 @@ public class DeleteTests
     public async Task DeleteAsync_RemovesFromRepository()
     {
         var entityToDelete = _entities[0];
-        await _repository.DeleteAsync(entityToDelete);
+        await _repository.DeleteAsync(entityToDelete, TestContext.Current.CancellationToken);
 
         _entities.ShouldNotContain(entityToDelete);
     }
@@ -28,7 +28,7 @@ public class DeleteTests
     public async Task DeleteAsync_WhenNotFound_DoesNothing()
     {
         var entityToDelete = new Person(Guid.NewGuid(), "Test");
-        await _repository.DeleteAsync(entityToDelete);
+        await _repository.DeleteAsync(entityToDelete, TestContext.Current.CancellationToken);
 
         _entities.ShouldNotContain(entityToDelete);
         _entities.Count.ShouldBe(3);
@@ -37,7 +37,7 @@ public class DeleteTests
     [Fact]
     public async Task DeleteRangeAsync_DeletesAllFromRepository()
     {
-        await _repository.DeleteRangeAsync(_entities.ToList());
+        await _repository.DeleteRangeAsync(_entities.ToList(), TestContext.Current.CancellationToken);
 
         _entities.ShouldBeEmpty();
     }

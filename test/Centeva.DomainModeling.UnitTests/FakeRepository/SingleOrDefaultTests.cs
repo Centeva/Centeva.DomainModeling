@@ -12,9 +12,9 @@ public class SingleOrDefaultTests
     [Fact]
     public async Task WithEntryMatchingSpec_ReturnsEntry()
     {
-        await _repository.AddRangeAsync(PersonSeed.Get());
+        await _repository.AddRangeAsync(PersonSeed.Get(), TestContext.Current.CancellationToken);
 
-        var result = await _repository.SingleOrDefaultAsync(new PersonByNameSpec(PersonSeed.ValidPersonName));
+        var result = await _repository.SingleOrDefaultAsync(new PersonByNameSpec(PersonSeed.ValidPersonName), TestContext.Current.CancellationToken);
 
         result.ShouldNotBeNull();
         result!.Id.ShouldBe(PersonSeed.ValidPersonId);
@@ -23,7 +23,7 @@ public class SingleOrDefaultTests
     [Fact]
     public async Task WithoutMatch_ReturnsNull()
     {
-        var result = await _repository.SingleOrDefaultAsync(new PersonByNameSpec("bad"));
+        var result = await _repository.SingleOrDefaultAsync(new PersonByNameSpec("bad"), TestContext.Current.CancellationToken);
 
         result.ShouldBeNull();
     }
@@ -31,7 +31,7 @@ public class SingleOrDefaultTests
     [Fact]
     public async Task WithMultipleMatches_ThrowsException()
     {
-        await _repository.AddRangeAsync(PersonSeed.Get());
+        await _repository.AddRangeAsync(PersonSeed.Get(), TestContext.Current.CancellationToken);
 
         var spec = new SingleResultSpecification<Person>(); // no filter
 
@@ -43,9 +43,9 @@ public class SingleOrDefaultTests
     [Fact]
     public async Task WithSelectSpec_ReturnsEntry()
     {
-        await _repository.AddRangeAsync(PersonSeed.Get());
+        await _repository.AddRangeAsync(PersonSeed.Get(), TestContext.Current.CancellationToken);
 
-        var result = await _repository.SingleOrDefaultAsync(new PersonNameSpec(PersonSeed.ValidPersonId));
+        var result = await _repository.SingleOrDefaultAsync(new PersonNameSpec(PersonSeed.ValidPersonId), TestContext.Current.CancellationToken);
 
         result.ShouldBe(PersonSeed.ValidPersonName);
     }

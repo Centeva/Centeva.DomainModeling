@@ -11,7 +11,7 @@ public class FirstOrDefaultAsyncTests : IntegrationTestBase
     [Fact]
     public async Task WithExpression_ProjectsToSimpleDto()
     {
-        var result = await _personRepository.FirstOrDefaultAsync<PersonDto>(new PersonSpec(), PersonDto.FromPerson, CancellationToken.None);
+        var result = await _personRepository.FirstOrDefaultAsync<PersonDto>(new PersonSpec(), PersonDto.FromPerson, TestContext.Current.CancellationToken);
 
         result.ShouldNotBeNull();
         result!.Name.ShouldNotBeNullOrWhiteSpace();
@@ -20,7 +20,7 @@ public class FirstOrDefaultAsyncTests : IntegrationTestBase
     [Fact]
     public async Task WithExpression_ProjectsToNestedDto()
     {
-        var result = await _personRepository.FirstOrDefaultAsync<PersonWithAddressesDto>(new PersonSpec(), PersonWithAddressesDto.FromPerson);
+        var result = await _personRepository.FirstOrDefaultAsync<PersonWithAddressesDto>(new PersonSpec(), PersonWithAddressesDto.FromPerson, TestContext.Current.CancellationToken);
 
         result.ShouldNotBeNull();
         result!.Addresses.ShouldNotBeEmpty();

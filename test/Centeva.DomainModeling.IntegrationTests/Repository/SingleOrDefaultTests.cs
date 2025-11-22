@@ -12,7 +12,7 @@ public class SingleOrDefaultAsyncTests : IntegrationTestBase
     [Fact]
     public async Task WithExpression_ProjectsToSimpleDto()
     {
-        var result = await _personRepository.SingleOrDefaultAsync<PersonDto>(new PersonByNameSpec(PersonSeed.ValidPersonName), PersonDto.FromPerson);
+        var result = await _personRepository.SingleOrDefaultAsync<PersonDto>(new PersonByNameSpec(PersonSeed.ValidPersonName), PersonDto.FromPerson, TestContext.Current.CancellationToken);
 
         result.ShouldNotBeNull();
         result!.Name.ShouldBe(PersonSeed.ValidPersonName);
@@ -21,7 +21,7 @@ public class SingleOrDefaultAsyncTests : IntegrationTestBase
     [Fact]
     public async Task WithExpression_ProjectsToNestedDto()
     {
-        var result = await _personRepository.SingleOrDefaultAsync<PersonWithAddressesDto>(new PersonByNameSpec(PersonSeed.ValidPersonName), PersonWithAddressesDto.FromPerson);
+        var result = await _personRepository.SingleOrDefaultAsync<PersonWithAddressesDto>(new PersonByNameSpec(PersonSeed.ValidPersonName), PersonWithAddressesDto.FromPerson, TestContext.Current.CancellationToken);
 
         result.ShouldNotBeNull();
         result!.Addresses.ShouldNotBeEmpty();
@@ -31,7 +31,7 @@ public class SingleOrDefaultAsyncTests : IntegrationTestBase
     [Fact]
     public async Task WithExpression_ThrowsExceptionWhenMultiple()
     {
-        var act = () => _personRepository.SingleOrDefaultAsync<PersonDto>(new PersonByNameSpec("Doe"), PersonDto.FromPerson);
+        var act = () => _personRepository.SingleOrDefaultAsync<PersonDto>(new PersonByNameSpec("Doe"), PersonDto.FromPerson, TestContext.Current.CancellationToken);
 
         await act.ShouldThrowAsync<InvalidOperationException>();
     }
@@ -39,7 +39,7 @@ public class SingleOrDefaultAsyncTests : IntegrationTestBase
     [Fact]
     public async Task WithExpression_ReturnsNullWhenNoMatches()
     {
-        var result = await _personRepository.SingleOrDefaultAsync<PersonDto>(new PersonByNameSpec("Not Found"), PersonDto.FromPerson);
+        var result = await _personRepository.SingleOrDefaultAsync<PersonDto>(new PersonByNameSpec("Not Found"), PersonDto.FromPerson, TestContext.Current.CancellationToken);
 
         result.ShouldBeNull();
     }

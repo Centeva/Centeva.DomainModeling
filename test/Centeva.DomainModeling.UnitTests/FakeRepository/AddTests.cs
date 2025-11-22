@@ -18,7 +18,7 @@ public class AddTests
     public async Task AddAsync_AddsToRepository()
     {
         var person = new Person(Guid.NewGuid(), "Test");
-        await _repository.AddAsync(person);
+        await _repository.AddAsync(person, TestContext.Current.CancellationToken);
 
         _entities.ShouldContain(x => x == person);
     }
@@ -27,7 +27,7 @@ public class AddTests
     public async Task AddAsync_ReturnsAddedEntity()
     {
         var person = new Person(Guid.NewGuid(), "Test");
-        var result = await _repository.AddAsync(person);
+        var result = await _repository.AddAsync(person, TestContext.Current.CancellationToken);
 
         result.ShouldBe(person);
     }
@@ -36,7 +36,7 @@ public class AddTests
     public async Task AddRangeAsync_AddsAllToRepository()
     {
         var people = PersonSeed.Get();
-        await _repository.AddRangeAsync(people);
+        await _repository.AddRangeAsync(people, TestContext.Current.CancellationToken);
 
         _entities.ShouldBeEquivalentTo(people);
     }
@@ -45,7 +45,7 @@ public class AddTests
     public async Task AddRangeAsync_ReturnsAddedEntities()
     {
         var people = PersonSeed.Get();
-        var result = await _repository.AddRangeAsync(people);
+        var result = await _repository.AddRangeAsync(people, TestContext.Current.CancellationToken);
 
         result.ShouldBeEquivalentTo(people);
     }

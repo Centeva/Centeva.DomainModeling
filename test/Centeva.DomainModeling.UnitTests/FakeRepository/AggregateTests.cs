@@ -11,9 +11,9 @@ public class AggregateTests
     [Fact]
     public async Task AnyAsync_ReturnsTrueWhenEntitiesExist()
     {
-        await _repository.AddRangeAsync(PersonSeed.Get());
+        await _repository.AddRangeAsync(PersonSeed.Get(), TestContext.Current.CancellationToken);
 
-        var result = await _repository.AnyAsync();
+        var result = await _repository.AnyAsync(TestContext.Current.CancellationToken);
 
         result.ShouldBeTrue();
     }
@@ -21,7 +21,7 @@ public class AggregateTests
     [Fact]
     public async Task AnyAsync_ReturnsFalseWithNoEntities()
     {
-        var result = await _repository.AnyAsync();
+        var result = await _repository.AnyAsync(TestContext.Current.CancellationToken);
 
         result.ShouldBeFalse();
     }
@@ -29,9 +29,9 @@ public class AggregateTests
     [Fact]
     public async Task AnyAsync_WithSpec_ReturnsTrueWhenMatchesExist()
     {
-        await _repository.AddRangeAsync(PersonSeed.Get());
+        await _repository.AddRangeAsync(PersonSeed.Get(), TestContext.Current.CancellationToken);
 
-        var result = await _repository.AnyAsync(new PersonByNameSpec(PersonSeed.ValidPersonName));
+        var result = await _repository.AnyAsync(new PersonByNameSpec(PersonSeed.ValidPersonName), TestContext.Current.CancellationToken);
 
         result.ShouldBeTrue();
     }
@@ -39,9 +39,9 @@ public class AggregateTests
     [Fact]
     public async Task AnyAsync_WithSpec_ReturnsFalseWhenNoMatchesExist()
     {
-        await _repository.AddRangeAsync(PersonSeed.Get());
+        await _repository.AddRangeAsync(PersonSeed.Get(), TestContext.Current.CancellationToken);
 
-        var result = await _repository.AnyAsync(new PersonByNameSpec("bad"));
+        var result = await _repository.AnyAsync(new PersonByNameSpec("bad"), TestContext.Current.CancellationToken);
 
         result.ShouldBeFalse();
     }
@@ -49,9 +49,9 @@ public class AggregateTests
     [Fact]
     public async Task CountAsync_CountsEntities()
     {
-        await _repository.AddRangeAsync(PersonSeed.Get());
+        await _repository.AddRangeAsync(PersonSeed.Get(), TestContext.Current.CancellationToken);
 
-        var result = await _repository.CountAsync();
+        var result = await _repository.CountAsync(TestContext.Current.CancellationToken);
 
         result.ShouldBe(3);
     }
@@ -59,9 +59,9 @@ public class AggregateTests
     [Fact]
     public async Task CountAsync_WithSpec_CountsMatchingEntities()
     {
-        await _repository.AddRangeAsync(PersonSeed.Get());
+        await _repository.AddRangeAsync(PersonSeed.Get(), TestContext.Current.CancellationToken);
 
-        var result = await _repository.CountAsync(new PersonByNameSpec(PersonSeed.ValidPersonName));
+        var result = await _repository.CountAsync(new PersonByNameSpec(PersonSeed.ValidPersonName), TestContext.Current.CancellationToken);
 
         result.ShouldBe(1);
     }
