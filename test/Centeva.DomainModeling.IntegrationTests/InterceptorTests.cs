@@ -16,7 +16,7 @@ public class InterceptorTests : IntegrationTestBase
         var person = new Person(Guid.NewGuid(), "Test");
 
         _dbContext.People.Add(person);
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
 
         Mock.Get(_dispatcher)
             .Verify<Task>(

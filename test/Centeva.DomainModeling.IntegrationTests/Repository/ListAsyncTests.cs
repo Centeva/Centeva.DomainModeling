@@ -10,7 +10,7 @@ public class ListAsyncTests : IntegrationTestBase
     [Fact]
     public async Task WithExpression_ProjectsToSimpleDto()
     {
-        var result = await _personRepository.ListAsync<PersonDto>(PersonDto.FromPerson);
+        var result = await _personRepository.ListAsync<PersonDto>(PersonDto.FromPerson, TestContext.Current.CancellationToken);
 
         result.ShouldNotBeNull();
         result.ShouldNotBeEmpty();
@@ -20,7 +20,7 @@ public class ListAsyncTests : IntegrationTestBase
     [Fact]
     public async Task WithExpression_ProjectsToNestedDto()
     {
-        var result = await _personRepository.ListAsync<PersonWithAddressesDto>(PersonWithAddressesDto.FromPerson);
+        var result = await _personRepository.ListAsync<PersonWithAddressesDto>(PersonWithAddressesDto.FromPerson, TestContext.Current.CancellationToken);
 
         result.ShouldNotBeNull();
         result.ShouldNotBeEmpty();

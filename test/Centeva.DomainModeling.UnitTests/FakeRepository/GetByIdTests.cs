@@ -10,9 +10,9 @@ public class GetByIdTests
     [Fact]
     public async Task ReturnsMatchingEntity()
     {
-        await _repository.AddRangeAsync(PersonSeed.Get());
+        await _repository.AddRangeAsync(PersonSeed.Get(), TestContext.Current.CancellationToken);
 
-        var result = await _repository.GetByIdAsync(PersonSeed.ValidPersonId);
+        var result = await _repository.GetByIdAsync(PersonSeed.ValidPersonId, TestContext.Current.CancellationToken);
 
         result.ShouldNotBeNull();
     }
@@ -20,7 +20,7 @@ public class GetByIdTests
     [Fact]
     public async Task ReturnsNullWhenNotFound()
     {
-        var result = await _repository.GetByIdAsync(Guid.NewGuid());
+        var result = await _repository.GetByIdAsync(Guid.NewGuid(), TestContext.Current.CancellationToken);
 
         result.ShouldBeNull();
     }

@@ -11,9 +11,9 @@ public class FirstOrDefaultTests
     [Fact]
     public async Task WithEntryMatchingSpec_ReturnsFirst()
     {
-        await _repository.AddRangeAsync(PersonSeed.Get());
+        await _repository.AddRangeAsync(PersonSeed.Get(), TestContext.Current.CancellationToken);
 
-        var result = await _repository.FirstOrDefaultAsync(new PersonByNameSpec(PersonSeed.ValidPersonName));
+        var result = await _repository.FirstOrDefaultAsync(new PersonByNameSpec(PersonSeed.ValidPersonName), TestContext.Current.CancellationToken);
 
         result.ShouldNotBeNull();
         result!.Id.ShouldBe(PersonSeed.ValidPersonId);
@@ -22,7 +22,7 @@ public class FirstOrDefaultTests
     [Fact]
     public async Task WithoutMatch_ReturnsNull()
     {
-        var result = await _repository.FirstOrDefaultAsync(new PersonByNameSpec("bad"));
+        var result = await _repository.FirstOrDefaultAsync(new PersonByNameSpec("bad"), TestContext.Current.CancellationToken);
 
         result.ShouldBeNull();
     }
@@ -30,7 +30,7 @@ public class FirstOrDefaultTests
     [Fact]
     public async Task WithExpression_ProjectsToAnotherType()
     {
-        await _repository.AddRangeAsync(PersonSeed.Get());
+        await _repository.AddRangeAsync(PersonSeed.Get(), TestContext.Current.CancellationToken);
 
         var result = await _repository.FirstOrDefaultAsync(new PersonByNameSpec(PersonSeed.ValidPersonName), x => x.Id, CancellationToken.None);
 
@@ -40,9 +40,9 @@ public class FirstOrDefaultTests
     [Fact]
     public async Task WithSelectSpec_ReturnsFirst()
     {
-        await _repository.AddRangeAsync(PersonSeed.Get());
+        await _repository.AddRangeAsync(PersonSeed.Get(), TestContext.Current.CancellationToken);
 
-        var result = await _repository.FirstOrDefaultAsync(new PersonNameSpec(PersonSeed.ValidPersonId));
+        var result = await _repository.FirstOrDefaultAsync(new PersonNameSpec(PersonSeed.ValidPersonId), TestContext.Current.CancellationToken);
 
         result.ShouldBe(PersonSeed.ValidPersonName);
     }
