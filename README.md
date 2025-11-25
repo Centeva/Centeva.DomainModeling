@@ -171,7 +171,8 @@ separate factory class for more complex cases.
 
 ## Getting Started
 
-Add a reference to `Centeva.DomainModeling` in your project.
+Add a reference to `Centeva.DomainModeling.MediatR` or `Centeva.DomainModeling.Mediator` 
+in your project, depending on which domain event dispatcher you want to use.
 
 You should only need to reference this package from the lowest layer of your
 solution. If you are using multiple projects to separate Core/Domain,
