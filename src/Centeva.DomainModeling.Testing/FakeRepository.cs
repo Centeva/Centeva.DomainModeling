@@ -143,14 +143,16 @@ public class FakeRepository<TEntity, TKey> : IRepository<TEntity>
 
     public Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
-        var existingEntry = _entities.FirstOrDefault(x => x.Id.Equals(entity.Id));
-
-        if (existingEntry != null)
+        var index = _entities.FindIndex(x => x.Id.Equals(entity.Id));
+        
+        if (index >= 0)
         {
-            _entities.Remove(existingEntry);
+            _entities[index] = entity;
         }
-
-        _entities.Add(entity);
+        else
+        {
+            _entities.Add(entity);
+        }
 
         return Task.CompletedTask;
     }
