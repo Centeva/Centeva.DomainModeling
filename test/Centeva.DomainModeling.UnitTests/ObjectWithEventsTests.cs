@@ -58,5 +58,6 @@ public class ObjectWithEventsTests
 
     private class TestEvent : IDomainEvent
     {
+        public DateTime DateOccurred { get; set; }
     }
 }
