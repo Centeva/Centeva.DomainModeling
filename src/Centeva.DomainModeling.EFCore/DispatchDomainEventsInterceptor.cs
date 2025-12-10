@@ -39,6 +39,14 @@ public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
         return result;
     }
 
+    public override int SavedChanges(SaveChangesCompletedEventData eventData, int result)
+    {
+        // Synchronous dispatching is not supported - use SaveChangesAsync in your
+        // application code to ensure domain events are dispatched.
+
+        return result;
+    }
+
     private async Task DispatchDomainEvents(DbContext context, CancellationToken cancellationToken)
     {
         var entitiesWithEvents = context.ChangeTracker
