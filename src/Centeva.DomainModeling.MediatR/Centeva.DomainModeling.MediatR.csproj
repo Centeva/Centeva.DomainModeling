@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>Implementation of Domain Event dispatching for Centeva.DomainModeling using the Mediator library</Description>
+    <Description>Implementation of Domain Event dispatching for Centeva.DomainModeling using the MediatR library</Description>
     <PackageProjectTags>ddd</PackageProjectTags>
     <TargetFramework>net8.0</TargetFramework>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
