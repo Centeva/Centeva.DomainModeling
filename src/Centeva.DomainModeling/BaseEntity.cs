@@ -6,7 +6,7 @@ namespace Centeva.DomainModeling;
 /// <typeparam name="TId">Type of <see cref="Id"/> property, typically int or Guid</typeparam>
 public abstract class BaseEntity<TId> : ObjectWithEvents
 {
-    public TId Id { get; set; } = default!;
+    public TId Id { get; init; } = default!;
 }
 
 /// <summary>
