@@ -51,11 +51,14 @@ public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
     {
         var entitiesWithEvents = context.ChangeTracker
             .Entries<ObjectWithEvents>()
+            .Where(e => e.Entity.DomainEvents.Any())
             .Select(e => e.Entity)
-            .Where(e => e.DomainEvents.Any())
             .ToList();
 
-        await _domainEventDispatcher.DispatchAndClearEvents(entitiesWithEvents, cancellationToken)
-            .ConfigureAwait(false);
+        if (entitiesWithEvents.Count > 0)
+        {
+            await _domainEventDispatcher.DispatchAndClearEvents(entitiesWithEvents, cancellationToken)
+                .ConfigureAwait(false);
+        }
     }
 }
