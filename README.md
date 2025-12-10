@@ -42,13 +42,13 @@ An entity is mutable and its properties can be changed. However, it is
 preferrable to avoid having public setters for all of those properties. Instead
 you should use methods to update the entity's properties. This allows you to
 enforce _invariants_ (validation rules) and to publish _Domain Events_ when the
-entity is changed. Use additional measures to protect an entity's invariants 
+entity is changed. Use additional measures to protect an entity's invariants
 such as constructors, guard clauses, and read-only collections.
 
 In most cases your project will involve persisting entities to some kind of data
-storage, such as a database. However, the details of such persistence should
-not be contained within the definitions of those entities. (Avoid things like
-Entity Framework annotation attributes like `[Table]`.)
+storage, such as a database. However, the details of such persistence should not
+be contained within the definitions of those entities. (Avoid things like Entity
+Framework annotation attributes like `[Table]`.)
 
 The `BaseEntity` class can be inherited for your project's entities.
 
@@ -62,8 +62,8 @@ The `BaseEntity` class can be inherited for your project's entities.
 A _Value Object_ represents something in your domain which determines its
 identity by its properties. Two value object instances are considered equal if
 their relevant properties are equal. Because of this, a value object is ideally
-immutable. For example, two Addresses are considered equal if they have the
-same street address, city, state, and zip code.
+immutable. For example, two Addresses are considered equal if they have the same
+street address, city, state, and zip code.
 
 Value object classes can and should contain business logic, especially for
 ensuring valid properties.
@@ -113,10 +113,10 @@ defines standard CRUD operations on a set of entities of the same type. If you
 are implementing Aggregates, your repositories should only operate on the root
 of each Aggregate, as child entities should never be directly accessed.
 
-Read-only operations are defined in `IReadRepository` while
-`IRepository` adds update operations to those. This not only better adheres
-to the Interface Segregation Principle, but allows implementers to add features
-such as caching that would only apply to read operations.
+Read-only operations are defined in `IReadRepository` while `IRepository` adds
+update operations to those. This not only better adheres to the Interface
+Segregation Principle, but allows implementers to add features such as caching
+that would only apply to read operations.
 
 You can inherit from these interfaces in your own project if you need to extend
 the default functionality.
@@ -142,9 +142,9 @@ examples.
 ### Domain Services
 
 _Domain Services_ are used to encapsulate domain logic that doesn't belong in an
-entity or value object. They are typically used to coordinate operations
-between multiple entities or aggregates. They are also useful for encapsulating
-domain logic that is not specific to a single entity or aggregate.
+entity or value object. They are typically used to coordinate operations between
+multiple entities or aggregates. They are also useful for encapsulating domain
+logic that is not specific to a single entity or aggregate.
 
 Domain Services can publish Domain Events. For example, a `CustomerService`
 might publish a `CustomerDeletedEvent` when a customer is deleted, since the
@@ -165,14 +165,15 @@ useful when:
 - There is a large amount of input data.
 - You need to create multiple aggregates at once.
 
-There is no base implementation of a Factory in this library. You can create
-one via a static method on an aggregate class for simple cases, or with a
-separate factory class for more complex cases.
+There is no base implementation of a Factory in this library. You can create one
+via a static method on an aggregate class for simple cases, or with a separate
+factory class for more complex cases.
 
 ## Getting Started
 
-Add a reference to `Centeva.DomainModeling.MediatR` or `Centeva.DomainModeling.Mediator` 
-in your project, depending on which domain event dispatcher you want to use.
+Add a reference to `Centeva.DomainModeling.MediatR` or
+`Centeva.DomainModeling.Mediator` in your project, depending on which domain
+event dispatcher you want to use.
 
 You should only need to reference this package from the lowest layer of your
 solution. If you are using multiple projects to separate Core/Domain,
@@ -196,8 +197,8 @@ public class EfRepository<T> : BaseRepository<T> where T : class, IAggregateRoot
 }
 ```
 
-Register your derived Repository class and EF Core
-with your application's dependency injection container:
+Register your derived Repository class and EF Core with your application's
+dependency injection container:
 
 ```csharp
 services.AddSingleton<DispatchDomainEventsInterceptor>();
@@ -214,9 +215,9 @@ services.AddMediator();
 ```
 
 Register your desired domain event dispatcher.  Install the package that
-contains your chosen implementation, either `Centeva.DomainModeling.MediatR`
-for [MediatR](https://mediatr.io/) support, or `Centeva.DomainModeling.Mediator` 
-for the source-generator based [Mediator](https://github.com/martinothamar/Mediator)
+contains your chosen implementation, either `Centeva.DomainModeling.MediatR` for
+[MediatR](https://mediatr.io/) support, or `Centeva.DomainModeling.Mediator` for
+the source-generator based [Mediator](https://github.com/martinothamar/Mediator)
 library.
 
 ```csharp
@@ -226,8 +227,8 @@ services.AddScoped<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
 __Note:__ You can only register one implementation.  MediatR is a commercially
 licensed library, while Mediator is open source and free to use.
 
-See the documentation for the Entity Framework Core and other packages for 
-more information on how to use them. 
+See the documentation for the Entity Framework Core and other packages for more
+information on how to use them.
 
 Use your repository by injecting it into your application's services. For
 example:
@@ -259,9 +260,9 @@ Use `dotnet pack` to generate a NuGet package. This library is versioned by
 
 ## Contributing
 
-Please use a Pull Request to suggest changes to this library. You should not
-add any functionality or dependency that is not appropriate for use at the
-lowest level (the "domain" level) of an application.
+Please use a Pull Request to suggest changes to this library. You should not add
+any functionality or dependency that is not appropriate for use at the lowest
+level (the "domain" level) of an application.
 
 ## Resources
 
