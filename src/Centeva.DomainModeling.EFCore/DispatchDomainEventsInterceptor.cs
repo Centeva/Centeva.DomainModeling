@@ -23,7 +23,7 @@ public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
 
     public DispatchDomainEventsInterceptor(IDomainEventDispatcher domainEventDispatcher)
     {
-        _domainEventDispatcher = domainEventDispatcher;
+        _domainEventDispatcher = domainEventDispatcher ?? throw new ArgumentNullException(nameof(domainEventDispatcher));
     }
     
     public override async ValueTask<int> SavedChangesAsync(
