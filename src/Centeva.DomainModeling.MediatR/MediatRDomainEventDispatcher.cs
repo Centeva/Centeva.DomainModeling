@@ -11,7 +11,7 @@ public class MediatRDomainEventDispatcher : IDomainEventDispatcher
 
     public MediatRDomainEventDispatcher(IPublisher publisher)
     {
-        _publisher = publisher;
+        _publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
     }
 
     public async Task DispatchAndClearEvents(IEnumerable<ObjectWithEvents> entitiesWithEvents, CancellationToken cancellationToken = default)
