@@ -1,8 +1,7 @@
 ﻿namespace Centeva.DomainModeling.UnitTests.Fixtures.Entities;
 
-public class Address
+public class Address : BaseEntity<int>
 {
-    public int Id { get; set; }
     public Guid PersonId { get; set; }
     public Person? Person { get; set; }
     public string? Street { get; set; }
