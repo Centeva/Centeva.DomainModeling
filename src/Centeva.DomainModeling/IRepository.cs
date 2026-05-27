@@ -20,7 +20,7 @@ public interface IRepository<T> : IReadRepository<T> where T : class
     /// <param name="cancellationToken"></param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The task result contains the <typeparamref name="IEnumerable<T>" />.
+    /// The task result contains the <see cref="IReadOnlyList{T}" />.
     /// </returns>
     Task<IReadOnlyList<T>> AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
 
