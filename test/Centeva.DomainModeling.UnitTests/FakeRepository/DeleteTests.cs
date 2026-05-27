@@ -1,4 +1,4 @@
-﻿using Centeva.DomainModeling.Testing;
+using Centeva.DomainModeling.Testing;
 using Centeva.DomainModeling.UnitTests.Fixtures.Entities;
 using Centeva.DomainModeling.UnitTests.Fixtures.Seeds;
 
@@ -21,7 +21,7 @@ public class DeleteTests
         var entityToDelete = _entities[0];
         await _repository.DeleteAsync(entityToDelete, TestContext.Current.CancellationToken);
 
-        _entities.ShouldNotContain(entityToDelete);
+        _entities.Should().NotContain(entityToDelete);
     }
 
     [Fact]
@@ -30,8 +30,8 @@ public class DeleteTests
         var entityToDelete = new Person(Guid.NewGuid(), "Test");
         await _repository.DeleteAsync(entityToDelete, TestContext.Current.CancellationToken);
 
-        _entities.ShouldNotContain(entityToDelete);
-        _entities.Count.ShouldBe(3);
+        _entities.Should().NotContain(entityToDelete);
+        _entities.Count.Should().Be(3);
     }
 
     [Fact]
@@ -39,6 +39,6 @@ public class DeleteTests
     {
         await _repository.DeleteRangeAsync(_entities.ToList(), TestContext.Current.CancellationToken);
 
-        _entities.ShouldBeEmpty();
+        _entities.Should().BeEmpty();
     }
 }

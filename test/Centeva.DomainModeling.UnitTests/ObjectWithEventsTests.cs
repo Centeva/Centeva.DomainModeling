@@ -1,4 +1,4 @@
-﻿namespace Centeva.DomainModeling.UnitTests;
+namespace Centeva.DomainModeling.UnitTests;
 
 public class ObjectWithEventsTests
 {
@@ -7,7 +7,7 @@ public class ObjectWithEventsTests
     {
         var entity = new TestEntity();
 
-        entity.DomainEvents.ShouldBeEmpty();
+        entity.DomainEvents.Should().BeEmpty();
     }
 
     [Fact]
@@ -17,8 +17,8 @@ public class ObjectWithEventsTests
 
         entity.AddTestEvent();
 
-        entity.DomainEvents.ShouldHaveSingleItem();
-        entity.DomainEvents.ShouldAllBe(x => x is TestEvent);
+        entity.DomainEvents.Should().HaveCount(1);
+        entity.DomainEvents.Should().OnlyContain(x => x is TestEvent);
     }
 
     [Fact]
@@ -30,8 +30,8 @@ public class ObjectWithEventsTests
         entity.AddTestEvent();
         entity.AddTestEvent();
 
-        entity.DomainEvents.Count().ShouldBe(3);
-        entity.DomainEvents.ShouldAllBe(x => x is TestEvent);
+        entity.DomainEvents.Count().Should().Be(3);
+        entity.DomainEvents.Should().OnlyContain(x => x is TestEvent);
     }
 
     [Fact]
@@ -43,9 +43,9 @@ public class ObjectWithEventsTests
         var events = entity.DomainEvents;
 
         // Should return a read-only collection
-        events.ShouldNotBeNull();
+        events.Should().NotBeNull();
         // Verify it's the IEnumerable abstraction
-        events.GetType().Name.ShouldContain("ReadOnly");
+        events.GetType().Name.Should().Contain("ReadOnly");
     }
 
     private class TestEntity : ObjectWithEvents

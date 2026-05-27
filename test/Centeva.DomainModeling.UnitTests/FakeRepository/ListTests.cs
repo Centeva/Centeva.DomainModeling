@@ -1,4 +1,4 @@
-﻿using Centeva.DomainModeling.Testing;
+using Centeva.DomainModeling.Testing;
 using Centeva.DomainModeling.UnitTests.Fixtures.Entities;
 using Centeva.DomainModeling.UnitTests.Fixtures.Seeds;
 using Centeva.DomainModeling.UnitTests.Fixtures.Specs;
@@ -15,7 +15,7 @@ public class ListTests
 
         var result = await _repository.ListAsync(TestContext.Current.CancellationToken);
 
-        result.Count.ShouldBe(3);
+        result.Count.Should().Be(3);
     }
 
     [Fact]
@@ -23,7 +23,7 @@ public class ListTests
     {
         var result = await _repository.ListAsync(TestContext.Current.CancellationToken);
 
-        result.ShouldBeEmpty();
+        result.Should().BeEmpty();
     }
 
     [Fact]
@@ -33,7 +33,7 @@ public class ListTests
 
         var result = await _repository.ListAsync(new PersonByNameSpec("Doe"), TestContext.Current.CancellationToken);
 
-        result.Count.ShouldBe(2);
+        result.Count.Should().Be(2);
     }
 
     [Fact]
@@ -44,7 +44,7 @@ public class ListTests
 
         var result = await _repository.ListAsync(x => x.Name, TestContext.Current.CancellationToken);
 
-        result.ShouldBeEquivalentTo(entities.Select(x => x.Name).ToList());
+        result.Should().BeEquivalentTo(entities.Select(x => x.Name).ToList());
     }
 
     [Fact]
@@ -55,7 +55,7 @@ public class ListTests
 
         var result = await _repository.ListAsync(new PersonByNameSpec("Doe"), x => x.Name, TestContext.Current.CancellationToken);
 
-        result.ShouldBeEquivalentTo(entities.Where(x => x.Name.Contains("Doe")).Select(x => x.Name).ToList());
+        result.Should().BeEquivalentTo(entities.Where(x => x.Name.Contains("Doe")).Select(x => x.Name).ToList());
     }
 
     [Fact]
@@ -66,7 +66,7 @@ public class ListTests
 
         var result = await _repository.ListAsync(new PersonNameSpec(PersonSeed.ValidPersonId), TestContext.Current.CancellationToken);
 
-        result.Count.ShouldBe(1);
-        result.ShouldContain(PersonSeed.ValidPersonName);
+        result.Count.Should().Be(1);
+        result.Should().Contain(PersonSeed.ValidPersonName);
     }
 }

@@ -1,4 +1,4 @@
-﻿using Centeva.DomainModeling.MediatR;
+using Centeva.DomainModeling.MediatR;
 using Centeva.DomainModeling.UnitTests.Fixtures.Entities;
 using MediatR;
 
@@ -33,6 +33,6 @@ public class MediatRDomainEventDispatcherTests
     {
         await _sut.DispatchAndClearEvents([_entity], TestContext.Current.CancellationToken);
 
-        _entity.DomainEvents.ShouldBeEmpty();
+        _entity.DomainEvents.Should().BeEmpty();
     }
 }

@@ -1,4 +1,4 @@
-﻿using Centeva.DomainModeling.IntegrationTests.Fixtures;
+using Centeva.DomainModeling.IntegrationTests.Fixtures;
 using Centeva.DomainModeling.UnitTests.Fixtures.ProjectedModels;
 using Centeva.DomainModeling.UnitTests.Fixtures.Specs;
 
@@ -13,8 +13,8 @@ public class FirstOrDefaultAsyncTests : IntegrationTestBase
     {
         var result = await _personRepository.FirstOrDefaultAsync<PersonDto>(new PersonSpec(), PersonDto.FromPerson, TestContext.Current.CancellationToken);
 
-        result.ShouldNotBeNull();
-        result!.Name.ShouldNotBeNullOrWhiteSpace();
+        result.Should().NotBeNull();
+        result!.Name.Should().NotBeNullOrWhiteSpace();
     }
 
     [Fact]
@@ -22,8 +22,8 @@ public class FirstOrDefaultAsyncTests : IntegrationTestBase
     {
         var result = await _personRepository.FirstOrDefaultAsync<PersonWithAddressesDto>(new PersonSpec(), PersonWithAddressesDto.FromPerson, TestContext.Current.CancellationToken);
 
-        result.ShouldNotBeNull();
-        result!.Addresses.ShouldNotBeEmpty();
-        result.Addresses[0].Street.ShouldNotBeNullOrWhiteSpace();
+        result.Should().NotBeNull();
+        result!.Addresses.Should().NotBeEmpty();
+        result.Addresses[0].Street.Should().NotBeNullOrWhiteSpace();
     }
 }

@@ -1,21 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Description>Implementation of Domain Event dispatching for Centeva.DomainModeling using the MediatR library</Description>
     <PackageProjectTags>ddd</PackageProjectTags>
     <TargetFramework>net8.0</TargetFramework>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
-    
+
   <ItemGroup>
-    <!-- Needed for nuget package -->
-    <None Include="..\..\README.md" Pack="true" PackagePath="" />
     <None Include="..\..\icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="MediatR" />
   </ItemGroup>
 
   <ItemGroup>

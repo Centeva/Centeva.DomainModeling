@@ -1,4 +1,4 @@
-﻿using Centeva.DomainModeling.IntegrationTests.Fixtures;
+using Centeva.DomainModeling.IntegrationTests.Fixtures;
 using Centeva.DomainModeling.UnitTests.Fixtures.ProjectedModels;
 using Centeva.DomainModeling.UnitTests.Fixtures.Seeds;
 using Centeva.DomainModeling.UnitTests.Fixtures.Specs;
@@ -14,8 +14,8 @@ public class SingleOrDefaultAsyncTests : IntegrationTestBase
     {
         var result = await _personRepository.SingleOrDefaultAsync<PersonDto>(new PersonByNameSpec(PersonSeed.ValidPersonName), PersonDto.FromPerson, TestContext.Current.CancellationToken);
 
-        result.ShouldNotBeNull();
-        result!.Name.ShouldBe(PersonSeed.ValidPersonName);
+        result.Should().NotBeNull();
+        result!.Name.Should().Be(PersonSeed.ValidPersonName);
     }
 
     [Fact]
@@ -23,9 +23,9 @@ public class SingleOrDefaultAsyncTests : IntegrationTestBase
     {
         var result = await _personRepository.SingleOrDefaultAsync<PersonWithAddressesDto>(new PersonByNameSpec(PersonSeed.ValidPersonName), PersonWithAddressesDto.FromPerson, TestContext.Current.CancellationToken);
 
-        result.ShouldNotBeNull();
-        result!.Addresses.ShouldNotBeEmpty();
-        result.Addresses[0].Street.ShouldNotBeNullOrWhiteSpace();
+        result.Should().NotBeNull();
+        result!.Addresses.Should().NotBeEmpty();
+        result.Addresses[0].Street.Should().NotBeNullOrWhiteSpace();
     }
 
     [Fact]
@@ -33,7 +33,7 @@ public class SingleOrDefaultAsyncTests : IntegrationTestBase
     {
         var act = () => _personRepository.SingleOrDefaultAsync<PersonDto>(new PersonByNameSpec("Doe"), PersonDto.FromPerson, TestContext.Current.CancellationToken);
 
-        await act.ShouldThrowAsync<InvalidOperationException>();
+        await act.Should().ThrowAsync<InvalidOperationException>();
     }
 
     [Fact]
@@ -41,6 +41,6 @@ public class SingleOrDefaultAsyncTests : IntegrationTestBase
     {
         var result = await _personRepository.SingleOrDefaultAsync<PersonDto>(new PersonByNameSpec("Not Found"), PersonDto.FromPerson, TestContext.Current.CancellationToken);
 
-        result.ShouldBeNull();
+        result.Should().BeNull();
     }
 }

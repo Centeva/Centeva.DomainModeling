@@ -4,18 +4,15 @@
     <Description>Entity Framework Core implementation of the Repository pattern from Centeva.DomainModeling</Description>
     <PackageProjectTags>repository;ddd;ef;entity framework;entity framework core;ef core</PackageProjectTags>
     <TargetFramework>net8.0</TargetFramework>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Needed for nuget package -->
-    <None Include="..\..\README.md" Pack="true" PackagePath="" />
     <None Include="..\..\icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="9.3.1" />
+    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿using Centeva.DomainModeling.Testing;
+using Centeva.DomainModeling.Testing;
 using Centeva.DomainModeling.UnitTests.Fixtures.Entities;
 
 namespace Centeva.DomainModeling.UnitTests.FakeRepository;
@@ -20,8 +20,8 @@ public class UpdateTests
         var update = new Person(_entities[0].Id, "New name");
         await _repository.UpdateAsync(update, TestContext.Current.CancellationToken);
 
-        _entities.Count.ShouldBe(1);
-        _entities.ShouldContain(x => x.Id == update.Id && x.Name == update.Name);
+        _entities.Count.Should().Be(1);
+        _entities.Should().Contain(x => x.Id == update.Id && x.Name == update.Name);
     }
 
     [Fact]
@@ -36,8 +36,8 @@ public class UpdateTests
 
         await _repository.UpdateRangeAsync(update, TestContext.Current.CancellationToken);
 
-        _entities.Count.ShouldBe(2);
-        _entities.ShouldContain(first => first.Id == update[0].Id && first.Name == update[0].Name);
-        _entities.ShouldContain(second => second.Id == update[1].Id && second.Name == update[1].Name);
+        _entities.Count.Should().Be(2);
+        _entities.Should().Contain(first => first.Id == update[0].Id && first.Name == update[0].Name);
+        _entities.Should().Contain(second => second.Id == update[1].Id && second.Name == update[1].Name);
     }
 }

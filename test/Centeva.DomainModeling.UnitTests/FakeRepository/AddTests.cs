@@ -1,4 +1,4 @@
-﻿using Centeva.DomainModeling.Testing;
+using Centeva.DomainModeling.Testing;
 using Centeva.DomainModeling.UnitTests.Fixtures.Entities;
 using Centeva.DomainModeling.UnitTests.Fixtures.Seeds;
 
@@ -20,7 +20,7 @@ public class AddTests
         var person = new Person(Guid.NewGuid(), "Test");
         await _repository.AddAsync(person, TestContext.Current.CancellationToken);
 
-        _entities.ShouldContain(x => x == person);
+        _entities.Should().Contain(x => x == person);
     }
 
     [Fact]
@@ -29,7 +29,7 @@ public class AddTests
         var person = new Person(Guid.NewGuid(), "Test");
         var result = await _repository.AddAsync(person, TestContext.Current.CancellationToken);
 
-        result.ShouldBe(person);
+        result.Should().Be(person);
     }
 
     [Fact]
@@ -38,7 +38,7 @@ public class AddTests
         var people = PersonSeed.Get();
         await _repository.AddRangeAsync(people, TestContext.Current.CancellationToken);
 
-        _entities.ShouldBeEquivalentTo(people);
+        _entities.Should().BeEquivalentTo(people);
     }
 
     [Fact]
@@ -47,6 +47,6 @@ public class AddTests
         var people = PersonSeed.Get();
         var result = await _repository.AddRangeAsync(people, TestContext.Current.CancellationToken);
 
-        result.ShouldBeEquivalentTo(people);
+        result.Should().BeEquivalentTo(people);
     }
 }

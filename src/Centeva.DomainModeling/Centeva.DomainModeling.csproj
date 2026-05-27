@@ -4,18 +4,15 @@
     <Description>Provides building blocks for modeling the domain of a .NET solution, DDD-style.</Description>
     <PackageProjectTags>repository;ddd</PackageProjectTags>
     <TargetFramework>net8.0</TargetFramework>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Needed for nuget package -->
-    <None Include="..\..\README.md" Pack="true" PackagePath="" />
     <None Include="..\..\icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.Specification" Version="9.3.1" />
+    <PackageReference Include="Ardalis.Specification" />
   </ItemGroup>
 
   <ItemGroup>

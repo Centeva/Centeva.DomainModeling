@@ -1,4 +1,4 @@
-﻿using Centeva.DomainModeling.Testing;
+using Centeva.DomainModeling.Testing;
 using Centeva.DomainModeling.UnitTests.Fixtures.Entities;
 using Centeva.DomainModeling.UnitTests.Fixtures.Seeds;
 
@@ -14,7 +14,7 @@ public class GetByIdTests
 
         var result = await _repository.GetByIdAsync(PersonSeed.ValidPersonId, TestContext.Current.CancellationToken);
 
-        result.ShouldNotBeNull();
+        result.Should().NotBeNull();
     }
 
     [Fact]
@@ -22,6 +22,6 @@ public class GetByIdTests
     {
         var result = await _repository.GetByIdAsync(Guid.NewGuid(), TestContext.Current.CancellationToken);
 
-        result.ShouldBeNull();
+        result.Should().BeNull();
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Centeva.DomainModeling.UnitTests;
+namespace Centeva.DomainModeling.UnitTests;
 
 // From https://github.com/dotnet-architecture/eShopOnContainers/blob/dev/src/Services/Ordering/Ordering.UnitTests/Domain/SeedWork/ValueObjectTests.cs
 public class ValueObjectTests
@@ -11,7 +11,7 @@ public class ValueObjectTests
         var result = EqualityComparer<ValueObject>.Default.Equals(instanceA, instanceB);
 
         // Assert
-        result.ShouldBeTrue(reason);
+        result.Should().BeTrue(reason);
     }
 
     [Theory]
@@ -22,7 +22,7 @@ public class ValueObjectTests
         var result = EqualityComparer<ValueObject>.Default.Equals(instanceA, instanceB);
 
         // Assert
-        result.ShouldBeFalse(reason);
+        result.Should().BeFalse(reason);
     }
 
     private static readonly ValueObject APrettyValueObject = new ValueObjectA(1, "2", Guid.Parse("97ea43f0-6fef-4fb7-8c67-9114a7ff6ec0"), new ComplexObject(2, "3"));

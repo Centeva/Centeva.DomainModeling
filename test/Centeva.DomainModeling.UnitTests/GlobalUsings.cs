@@ -1,3 +1,3 @@
-﻿global using Moq;
-global using Shouldly;
+global using AwesomeAssertions;
+global using Moq;
 global using Xunit;

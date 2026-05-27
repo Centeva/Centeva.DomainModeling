@@ -1,4 +1,4 @@
-﻿using Centeva.DomainModeling.IntegrationTests.Fixtures;
+using Centeva.DomainModeling.IntegrationTests.Fixtures;
 using Centeva.DomainModeling.UnitTests.Fixtures.ProjectedModels;
 
 namespace Centeva.DomainModeling.IntegrationTests.Repository;
@@ -12,9 +12,9 @@ public class ListAsyncTests : IntegrationTestBase
     {
         var result = await _personRepository.ListAsync<PersonDto>(PersonDto.FromPerson, TestContext.Current.CancellationToken);
 
-        result.ShouldNotBeNull();
-        result.ShouldNotBeEmpty();
-        result[0].Name.ShouldNotBeNullOrWhiteSpace();
+        result.Should().NotBeNull();
+        result.Should().NotBeEmpty();
+        result[0].Name.Should().NotBeNullOrWhiteSpace();
     }
 
     [Fact]
@@ -22,9 +22,9 @@ public class ListAsyncTests : IntegrationTestBase
     {
         var result = await _personRepository.ListAsync<PersonWithAddressesDto>(PersonWithAddressesDto.FromPerson, TestContext.Current.CancellationToken);
 
-        result.ShouldNotBeNull();
-        result.ShouldNotBeEmpty();
-        result[0].Addresses.ShouldNotBeEmpty();
-        result[0].Addresses[0].Street.ShouldNotBeNullOrWhiteSpace();
+        result.Should().NotBeNull();
+        result.Should().NotBeEmpty();
+        result[0].Addresses.Should().NotBeEmpty();
+        result[0].Addresses[0].Street.Should().NotBeNullOrWhiteSpace();
     }
 }

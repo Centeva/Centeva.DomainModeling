@@ -1,4 +1,4 @@
-﻿namespace Centeva.DomainModeling.UnitTests;
+namespace Centeva.DomainModeling.UnitTests;
 
 public class BaseEntityTests
 {
@@ -7,7 +7,7 @@ public class BaseEntityTests
     {
         var entity = new TestEntity();
 
-        entity.Id.ShouldBe(default);
+        entity.Id.Should().Be((int)default);
     }
 
     [Fact]
@@ -15,14 +15,14 @@ public class BaseEntityTests
     {
         var entity = new TestEntity { Id = 42 };
 
-        entity.Id.ShouldBe(42);
+        entity.Id.Should().Be(42);
     }
 
     [Fact]
     public void Constructor_WithGuidId_SetsDefaultId()
     {
         var entity = new TestEntityWithGuidId();
-        entity.Id.ShouldBe(default);
+        entity.Id.Should().Be(Guid.Empty);
     }
 
     [Fact]
@@ -30,7 +30,7 @@ public class BaseEntityTests
     {
         var guid = Guid.NewGuid();
         var entity = new TestEntityWithGuidId { Id = guid };
-        entity.Id.ShouldBe(guid);
+        entity.Id.Should().Be(guid);
     }
 
     private class TestEntity : BaseEntity

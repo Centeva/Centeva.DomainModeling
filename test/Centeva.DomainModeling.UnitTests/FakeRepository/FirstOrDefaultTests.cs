@@ -1,4 +1,4 @@
-﻿using Centeva.DomainModeling.Testing;
+using Centeva.DomainModeling.Testing;
 using Centeva.DomainModeling.UnitTests.Fixtures.Entities;
 using Centeva.DomainModeling.UnitTests.Fixtures.Seeds;
 using Centeva.DomainModeling.UnitTests.Fixtures.Specs;
@@ -15,8 +15,8 @@ public class FirstOrDefaultTests
 
         var result = await _repository.FirstOrDefaultAsync(new PersonByNameSpec(PersonSeed.ValidPersonName), TestContext.Current.CancellationToken);
 
-        result.ShouldNotBeNull();
-        result!.Id.ShouldBe(PersonSeed.ValidPersonId);
+        result.Should().NotBeNull();
+        result!.Id.Should().Be(PersonSeed.ValidPersonId);
     }
 
     [Fact]
@@ -24,7 +24,7 @@ public class FirstOrDefaultTests
     {
         var result = await _repository.FirstOrDefaultAsync(new PersonByNameSpec("bad"), TestContext.Current.CancellationToken);
 
-        result.ShouldBeNull();
+        result.Should().BeNull();
     }
 
     [Fact]
@@ -34,7 +34,7 @@ public class FirstOrDefaultTests
 
         var result = await _repository.FirstOrDefaultAsync(new PersonByNameSpec(PersonSeed.ValidPersonName), x => x.Id, CancellationToken.None);
 
-        result.ShouldBe(PersonSeed.ValidPersonId);
+        result.Should().Be(PersonSeed.ValidPersonId);
     }
 
     [Fact]
@@ -44,6 +44,6 @@ public class FirstOrDefaultTests
 
         var result = await _repository.FirstOrDefaultAsync(new PersonNameSpec(PersonSeed.ValidPersonId), TestContext.Current.CancellationToken);
 
-        result.ShouldBe(PersonSeed.ValidPersonName);
+        result.Should().Be(PersonSeed.ValidPersonName);
     }
 }

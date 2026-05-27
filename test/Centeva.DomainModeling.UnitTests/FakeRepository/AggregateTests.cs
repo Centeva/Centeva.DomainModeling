@@ -1,4 +1,4 @@
-﻿using Centeva.DomainModeling.Testing;
+using Centeva.DomainModeling.Testing;
 using Centeva.DomainModeling.UnitTests.Fixtures.Entities;
 using Centeva.DomainModeling.UnitTests.Fixtures.Seeds;
 using Centeva.DomainModeling.UnitTests.Fixtures.Specs;
@@ -15,7 +15,7 @@ public class AggregateTests
 
         var result = await _repository.AnyAsync(TestContext.Current.CancellationToken);
 
-        result.ShouldBeTrue();
+        result.Should().BeTrue();
     }
 
     [Fact]
@@ -23,7 +23,7 @@ public class AggregateTests
     {
         var result = await _repository.AnyAsync(TestContext.Current.CancellationToken);
 
-        result.ShouldBeFalse();
+        result.Should().BeFalse();
     }
 
     [Fact]
@@ -33,7 +33,7 @@ public class AggregateTests
 
         var result = await _repository.AnyAsync(new PersonByNameSpec(PersonSeed.ValidPersonName), TestContext.Current.CancellationToken);
 
-        result.ShouldBeTrue();
+        result.Should().BeTrue();
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class AggregateTests
 
         var result = await _repository.AnyAsync(new PersonByNameSpec("bad"), TestContext.Current.CancellationToken);
 
-        result.ShouldBeFalse();
+        result.Should().BeFalse();
     }
 
     [Fact]
@@ -53,7 +53,7 @@ public class AggregateTests
 
         var result = await _repository.CountAsync(TestContext.Current.CancellationToken);
 
-        result.ShouldBe(3);
+        result.Should().Be(3);
     }
 
     [Fact]
@@ -63,6 +63,6 @@ public class AggregateTests
 
         var result = await _repository.CountAsync(new PersonByNameSpec(PersonSeed.ValidPersonName), TestContext.Current.CancellationToken);
 
-        result.ShouldBe(1);
+        result.Should().Be(1);
     }
 }

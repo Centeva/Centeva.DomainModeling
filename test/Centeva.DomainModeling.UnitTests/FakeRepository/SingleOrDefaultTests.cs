@@ -1,4 +1,4 @@
-﻿using Ardalis.Specification;
+using Ardalis.Specification;
 using Centeva.DomainModeling.Testing;
 using Centeva.DomainModeling.UnitTests.Fixtures.Entities;
 using Centeva.DomainModeling.UnitTests.Fixtures.Seeds;
@@ -16,8 +16,8 @@ public class SingleOrDefaultTests
 
         var result = await _repository.SingleOrDefaultAsync(new PersonByNameSpec(PersonSeed.ValidPersonName), TestContext.Current.CancellationToken);
 
-        result.ShouldNotBeNull();
-        result!.Id.ShouldBe(PersonSeed.ValidPersonId);
+        result.Should().NotBeNull();
+        result!.Id.Should().Be(PersonSeed.ValidPersonId);
     }
 
     [Fact]
@@ -25,7 +25,7 @@ public class SingleOrDefaultTests
     {
         var result = await _repository.SingleOrDefaultAsync(new PersonByNameSpec("bad"), TestContext.Current.CancellationToken);
 
-        result.ShouldBeNull();
+        result.Should().BeNull();
     }
 
     [Fact]
@@ -37,7 +37,7 @@ public class SingleOrDefaultTests
 
         var act = () => _repository.SingleOrDefaultAsync(spec);
 
-        await act.ShouldThrowAsync<Exception>();
+        await act.Should().ThrowAsync<Exception>();
     }
 
     [Fact]
@@ -47,6 +47,6 @@ public class SingleOrDefaultTests
 
         var result = await _repository.SingleOrDefaultAsync(new PersonNameSpec(PersonSeed.ValidPersonId), TestContext.Current.CancellationToken);
 
-        result.ShouldBe(PersonSeed.ValidPersonName);
+        result.Should().Be(PersonSeed.ValidPersonName);
     }
 }
