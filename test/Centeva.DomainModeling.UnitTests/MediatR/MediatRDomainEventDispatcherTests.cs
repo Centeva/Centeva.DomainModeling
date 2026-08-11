@@ -35,4 +35,37 @@ public class MediatRDomainEventDispatcherTests
 
         _entity.DomainEvents.Should().BeEmpty();
     }
+
+    [Fact]
+    public async Task DispatchAndClearEvents_DispatchesAndClearsEventsFromCustomIHasDomainEventsImplementer()
+    {
+        var customEmitter = new CustomEventEmitter();
+        customEmitter.RaiseTestEvent();
+
+        await _sut.DispatchAndClearEvents([customEmitter], TestContext.Current.CancellationToken);
+
+        Mock.Get(_publisher)
+            .Verify(
+                x => x.Publish(It.Is<object>(e => e is CustomEventEmitter.CustomTestEvent), It.IsAny<CancellationToken>()),
+                Times.Once);
+        customEmitter.DomainEvents.Should().BeEmpty();
+    }
+
+    // Verifies the dispatcher works with any IHasDomainEvents implementer, not just types
+    // derived from ObjectWithEvents.
+    private sealed class CustomEventEmitter : IHasDomainEvents
+    {
+        private readonly List<IDomainEvent> _events = [];
+
+        public IReadOnlyCollection<IDomainEvent> DomainEvents => _events;
+
+        public void ClearDomainEvents() => _events.Clear();
+
+        public void RaiseTestEvent() => _events.Add(new CustomTestEvent());
+
+        public sealed class CustomTestEvent : INotification, IDomainEvent
+        {
+            public DateTime DateOccurred { get; } = DateTime.UtcNow;
+        }
+    }
 }

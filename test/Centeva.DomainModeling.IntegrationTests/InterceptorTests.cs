@@ -1,4 +1,4 @@
-﻿using Centeva.DomainModeling.IntegrationTests.Fixtures;
+using Centeva.DomainModeling.IntegrationTests.Fixtures;
 using Centeva.DomainModeling.UnitTests.Fixtures.Entities;
 using Moq;
 
@@ -20,7 +20,7 @@ public class InterceptorTests : IntegrationTestBase
 
         Mock.Get(_dispatcher)
             .Verify<Task>(
-                x => x.DispatchAndClearEvents(It.IsAny<IEnumerable<ObjectWithEvents>>(), It.IsAny<CancellationToken>()),
+                x => x.DispatchAndClearEvents(It.IsAny<IEnumerable<IHasDomainEvents>>(), It.IsAny<CancellationToken>()),
                 Times.Once);
     }
 }

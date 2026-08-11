@@ -1,6 +1,6 @@
-﻿namespace Centeva.DomainModeling;
+namespace Centeva.DomainModeling;
 
-public interface IRepository<T> : IReadRepository<T> where T : class
+public interface IRepository<T> : IReadRepository<T> where T : class, IAggregateRoot
 {
     /// <summary>
     /// Adds an entity in the database.

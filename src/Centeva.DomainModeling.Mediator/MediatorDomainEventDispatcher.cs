@@ -1,4 +1,4 @@
-﻿
+
 using Mediator;
 
 namespace Centeva.DomainModeling.Mediator;
@@ -15,7 +15,7 @@ public class MediatorDomainEventDispatcher : IDomainEventDispatcher
         _publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
     }
 
-    public async Task DispatchAndClearEvents(IEnumerable<ObjectWithEvents> entitiesWithEvents, CancellationToken cancellationToken = default)
+    public async Task DispatchAndClearEvents(IEnumerable<IHasDomainEvents> entitiesWithEvents, CancellationToken cancellationToken = default)
     {
         foreach (var entity in entitiesWithEvents)
         {

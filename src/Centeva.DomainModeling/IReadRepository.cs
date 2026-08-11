@@ -1,9 +1,9 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using Ardalis.Specification;
 
 namespace Centeva.DomainModeling;
 
-public interface IReadRepository<T> where T : class
+public interface IReadRepository<T> where T : class, IAggregateRoot
 {
     /// <summary>
     /// Finds an entity with the given primary key value.

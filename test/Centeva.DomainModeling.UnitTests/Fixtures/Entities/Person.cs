@@ -1,6 +1,6 @@
-﻿namespace Centeva.DomainModeling.UnitTests.Fixtures.Entities;
+namespace Centeva.DomainModeling.UnitTests.Fixtures.Entities;
 
-public class Person : BaseEntity<Guid>
+public class Person : BaseEntity<Guid>, IAggregateRoot
 {
     public string Name { get; init; }
     public List<Address> Addresses { get; init; } = new();

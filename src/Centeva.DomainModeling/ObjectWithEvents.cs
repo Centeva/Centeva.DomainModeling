@@ -1,21 +1,28 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Centeva.DomainModeling;
 
 /// <summary>
 /// Base class for objects (typically aggregate roots) that raise domain events.
 /// </summary>
-/// <remarks>
-/// This is used instead of an interface so that methods can be protected/internal
-/// </remarks>
-public abstract class ObjectWithEvents
+public abstract class ObjectWithEvents : IHasDomainEvents
 {
     private readonly List<IDomainEvent> _domainEvents = [];
 
     [NotMapped]
-    public IEnumerable<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
+    public void ClearDomainEvents() => _domainEvents.Clear();
+
+    /// <summary>
+    /// Registers a domain event to be dispatched at persistence time.
+    /// </summary>
+    /// <remarks>
+    /// Domain events should only be raised from aggregate roots (types implementing
+    /// <see cref="IAggregateRoot"/>).  Child entities should mutate state via methods
+    /// on their root, which then raises the event, so that the aggregate remains the
+    /// consistency boundary for its invariants.
+    /// </remarks>
+    /// <param name="domainEvent">The domain event to register.</param>
     protected void RegisterDomainEvent(IDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
-
-    internal void ClearDomainEvents() => _domainEvents.Clear();
 }
