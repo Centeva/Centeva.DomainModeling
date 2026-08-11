@@ -3,22 +3,6 @@ namespace Centeva.DomainModeling.UnitTests;
 public class BaseEntityTests
 {
     [Fact]
-    public void Constructor_SetsDefaultId()
-    {
-        var entity = new TestEntity();
-
-        entity.Id.Should().Be((int)default);
-    }
-
-    [Fact]
-    public void Constructor_AllowsIdToBeSet()
-    {
-        var entity = new TestEntity { Id = 42 };
-
-        entity.Id.Should().Be(42);
-    }
-
-    [Fact]
     public void Constructor_WithGuidId_SetsDefaultId()
     {
         var entity = new TestEntityWithGuidId();
@@ -33,11 +17,23 @@ public class BaseEntityTests
         entity.Id.Should().Be(guid);
     }
 
-    private class TestEntity : BaseEntity
+    [Fact]
+    public void Constructor_WithStronglyTypedId_AllowsIdToBeSet()
     {
+        var id = new CustomerId(Guid.NewGuid());
+        var entity = new TestEntityWithStronglyTypedId { Id = id };
+
+        entity.Id.Should().Be(id);
+        entity.Id.Value.Should().Be(id.Value);
     }
 
     private class TestEntityWithGuidId : BaseEntity<Guid>
+    {
+    }
+
+    private readonly record struct CustomerId(Guid Value);
+
+    private class TestEntityWithStronglyTypedId : BaseEntity<CustomerId>
     {
     }
 }

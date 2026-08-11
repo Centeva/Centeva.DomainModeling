@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 
 namespace Centeva.DomainModeling.MediatR;
 
@@ -14,7 +14,7 @@ public class MediatRDomainEventDispatcher : IDomainEventDispatcher
         _publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
     }
 
-    public async Task DispatchAndClearEvents(IEnumerable<ObjectWithEvents> entitiesWithEvents, CancellationToken cancellationToken = default)
+    public async Task DispatchAndClearEvents(IEnumerable<IHasDomainEvents> entitiesWithEvents, CancellationToken cancellationToken = default)
     {
         foreach (var entity in entitiesWithEvents)
         {

@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +12,7 @@ namespace Centeva.DomainModeling.EFCore;
 /// Based on <see cref="Ardalis.Specification.EntityFrameworkCore.RepositoryBase{T}"/> but methods are duplicated to reduce coupling and unexpected changes.
 /// </remarks>
 /// <typeparam name="T"></typeparam>
-public abstract class BaseRepository<T> : IRepository<T> where T : class
+public abstract class BaseRepository<T> : IRepository<T> where T : class, IAggregateRoot
 {
     protected readonly DbContext _dbContext;
     private readonly ISpecificationEvaluator _specificationEvaluator;

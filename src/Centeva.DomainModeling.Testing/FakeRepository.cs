@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using Ardalis.Specification;
 
 namespace Centeva.DomainModeling.Testing;
@@ -7,18 +7,10 @@ namespace Centeva.DomainModeling.Testing;
 /// In-memory Repository implementation for use in unit tests.
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public class FakeRepository<TEntity> : FakeRepository<TEntity, int> where TEntity : BaseEntity
-{
-}
-
-/// <summary>
-/// In-memory Repository implementation for use in unit tests.
-/// </summary>
-/// <typeparam name="TEntity"></typeparam>
 /// <typeparam name="TKey"></typeparam>
 public class FakeRepository<TEntity, TKey> : IRepository<TEntity>
-    where TEntity : BaseEntity<TKey>
-    where TKey : notnull
+    where TEntity : BaseEntity<TKey>, IAggregateRoot
+    where TKey : struct, IEquatable<TKey>
 {
     private readonly List<TEntity> _entities;
 

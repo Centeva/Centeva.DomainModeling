@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Centeva.DomainModeling.EFCore;
@@ -50,8 +50,8 @@ public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
     private async Task DispatchDomainEvents(DbContext context, CancellationToken cancellationToken)
     {
         var entitiesWithEvents = context.ChangeTracker
-            .Entries<ObjectWithEvents>()
-            .Where(e => e.Entity.DomainEvents.Any())
+            .Entries<IHasDomainEvents>()
+            .Where(e => e.Entity.DomainEvents.Count > 0)
             .Select(e => e.Entity)
             .ToList();
 
