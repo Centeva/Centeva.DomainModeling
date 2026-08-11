@@ -3,7 +3,7 @@
 namespace Centeva.DomainModeling;
 
 /// <summary>
-/// Base class for objects (typically entities) that have domain events
+/// Base class for objects (typically aggregate roots) that raise domain events.
 /// </summary>
 /// <remarks>
 /// This is used instead of an interface so that methods can be protected/internal

@@ -14,7 +14,7 @@ public interface IRepository<T> : IReadRepository<T> where T : class
     Task<T> AddAsync(T entity, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Adds the given entities in the database
+    /// Adds the given entities in the database.
     /// </summary>
     /// <param name="entities"></param>
     /// <param name="cancellationToken"></param>
@@ -25,7 +25,7 @@ public interface IRepository<T> : IReadRepository<T> where T : class
     Task<IReadOnlyList<T>> AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Updates an entity in the database
+    /// Updates an entity in the database.
     /// </summary>
     /// <param name="entity">The entity to update.</param>
     /// <param name="cancellationToken"></param>
@@ -33,7 +33,7 @@ public interface IRepository<T> : IReadRepository<T> where T : class
     Task UpdateAsync(T entity, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Updates the given entities in the database
+    /// Updates the given entities in the database.
     /// </summary>
     /// <param name="entities">The entities to update.</param>
     /// <param name="cancellationToken"></param>
@@ -41,7 +41,7 @@ public interface IRepository<T> : IReadRepository<T> where T : class
     Task UpdateRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Removes an entity in the database
+    /// Removes an entity in the database.
     /// </summary>
     /// <param name="entity">The entity to delete.</param>
     /// <param name="cancellationToken"></param>
@@ -49,7 +49,7 @@ public interface IRepository<T> : IReadRepository<T> where T : class
     Task DeleteAsync(T entity, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Removes the given entities in the database
+    /// Removes the given entities in the database.
     /// </summary>
     /// <param name="entities">The entities to remove.</param>
     /// <param name="cancellationToken"></param>

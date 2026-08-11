@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 namespace Centeva.DomainModeling.SampleApp.TodoItems;
 
 /// <summary>
-/// Minimal API endpoints for TodoItems
+/// Minimal API endpoints for TodoItems.
 /// </summary>
 public static class TodoItemEndpoints
 {
