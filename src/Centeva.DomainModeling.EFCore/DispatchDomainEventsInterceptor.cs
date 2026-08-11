@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 namespace Centeva.DomainModeling.EFCore;
 
 /// <summary>
-/// Used to dispatch domain events after saving entities to the database
+/// Used to dispatch domain events after saving entities to the database.
 /// </summary>
 /// <example>
 /// Register this interceptor when you configure EF Core in Program.cs:

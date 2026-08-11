@@ -4,7 +4,7 @@ using Ardalis.Specification;
 namespace Centeva.DomainModeling.Testing;
 
 /// <summary>
-/// In-memory Repository implementation for use in unit tests
+/// In-memory Repository implementation for use in unit tests.
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
 public class FakeRepository<TEntity> : FakeRepository<TEntity, int> where TEntity : BaseEntity
@@ -12,7 +12,7 @@ public class FakeRepository<TEntity> : FakeRepository<TEntity, int> where TEntit
 }
 
 /// <summary>
-/// In-memory Repository implementation for use in unit tests
+/// In-memory Repository implementation for use in unit tests.
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
 /// <typeparam name="TKey"></typeparam>
