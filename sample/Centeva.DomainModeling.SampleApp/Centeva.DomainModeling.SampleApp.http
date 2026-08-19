@@ -1,16 +1,48 @@
 @Centeva.DomainModeling.SampleApp_HostAddress = https://localhost:7219
 
-POST {{Centeva.DomainModeling.SampleApp_HostAddress}}/todoitems
+### Open a new account
+POST {{Centeva.DomainModeling.SampleApp_HostAddress}}/accounts
 Content-Type: application/json
 
 {
-  "name": "Test",
-  "description": "This is a test"
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "initialDeposit": 500.00,
+  "currency": "USD"
 }
 
 ###
 
-@id=0
-GET {{Centeva.DomainModeling.SampleApp_HostAddress}}/todoitems/{{id}}
+### Get account by id (replace with a real id from the POST response)
+@accountId = 7cc958fd-977e-4462-9f8c-43175b009f86
+GET {{Centeva.DomainModeling.SampleApp_HostAddress}}/accounts/{{accountId}}
+
+###
+
+### Get account by account number (replace with a real account number from the POST response)
+@accountNumber = ACC-00000000000000000000000000000000
+GET {{Centeva.DomainModeling.SampleApp_HostAddress}}/accounts/by-number/{{accountNumber}}
+
+###
+
+### Deposit funds
+POST {{Centeva.DomainModeling.SampleApp_HostAddress}}/accounts/{{accountId}}/deposit
+Content-Type: application/json
+
+{
+  "amount": 250.00,
+  "currency": "USD"
+}
+
+###
+
+### Withdraw funds
+POST {{Centeva.DomainModeling.SampleApp_HostAddress}}/accounts/{{accountId}}/withdraw
+Content-Type: application/json
+
+{
+  "amount": 100.00,
+  "currency": "USD"
+}
 
 ###

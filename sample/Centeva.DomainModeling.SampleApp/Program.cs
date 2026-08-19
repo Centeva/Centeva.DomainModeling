@@ -1,9 +1,10 @@
 using Centeva.DomainModeling;
 using Centeva.DomainModeling.EFCore;
 using Centeva.DomainModeling.Mediator;
+using Centeva.DomainModeling.SampleApp.BankAccounts;
 using Centeva.DomainModeling.SampleApp.Persistence;
-using Centeva.DomainModeling.SampleApp.TodoItems;
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,19 +36,20 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// Create database if it doesn't exist (will not run migrations to bring existing DB up to date)
+// Create database / run migrations
 if (app.Environment.IsDevelopment())
 {
     await using var serviceScope = app.Services.CreateAsyncScope();
     await using var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-    await dbContext.Database.EnsureCreatedAsync();
+    await dbContext.Database.MigrateAsync();
 }
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();
@@ -55,6 +57,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 // Map minimal API endpoints
-app.MapTodoItemEndpoints();
+app.MapBankAccountEndpoints();
 
 app.Run();
