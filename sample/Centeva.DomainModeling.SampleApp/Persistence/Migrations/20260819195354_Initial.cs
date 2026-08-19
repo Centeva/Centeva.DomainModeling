@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Centeva.DomainModeling.SampleApp.Migrations;
+namespace Centeva.DomainModeling.SampleApp.Persistence.Migrations;
 
 /// <inheritdoc />
 public partial class Initial : Migration
