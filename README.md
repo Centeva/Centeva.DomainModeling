@@ -7,6 +7,7 @@ layer for your application using some Domain Driven Design tactical patterns.
 
 - [.NET 8](https://dot.net)
 - [MediatR](https://github.com/jbogard/MediatR)
+- [Mediator](https://github.com/martinothamar/Mediator)
 - [Ardalis.Specification](https://github.com/ardalis/Specification)
 
 ## Technical Patterns
