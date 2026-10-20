@@ -18,6 +18,15 @@ public class MediatRDomainEventDispatcherTests
     }
 
     [Fact]
+    public void Constructor_ThrowsWhenPublisherIsNull()
+    {
+        var act = () => new MediatRDomainEventDispatcher(null!);
+
+        act.Should().Throw<ArgumentNullException>()
+            .WithParameterName("publisher");
+    }
+
+    [Fact]
     public async Task DispatchAndClearEvents_DispatchesEvents()
     {
         await _sut.DispatchAndClearEvents([_entity], TestContext.Current.CancellationToken);

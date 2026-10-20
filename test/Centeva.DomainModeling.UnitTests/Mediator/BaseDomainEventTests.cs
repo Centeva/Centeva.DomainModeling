@@ -1,4 +1,3 @@
-
 namespace Centeva.DomainModeling.UnitTests.Mediator;
 
 public class BaseDomainEventTests
