@@ -25,6 +25,83 @@ public class ValueObjectTests
         result.Should().BeFalse(reason);
     }
 
+    [Fact]
+    public void Equals_Null_ReturnsFalse()
+    {
+        // Act
+        var result = APrettyValueObject.Equals(null);
+
+        // Assert
+        result.Should().BeFalse();
+    }
+
+    [Theory]
+    [MemberData(nameof(EqualValueObjects))]
+    public void EqualOperator_EqualValueObjects_ReturnsTrue(ValueObject? instanceA, ValueObject? instanceB, string reason)
+    {
+        // Act
+        var result = ValueObjectOperators.AreEqual(instanceA, instanceB);
+
+        // Assert
+        result.Should().BeTrue(reason);
+    }
+
+    [Theory]
+    [MemberData(nameof(NonEqualValueObjects))]
+    public void EqualOperator_NonEqualValueObjects_ReturnsFalse(ValueObject? instanceA, ValueObject? instanceB, string reason)
+    {
+        // Act
+        var result = ValueObjectOperators.AreEqual(instanceA, instanceB);
+
+        // Assert
+        result.Should().BeFalse(reason);
+    }
+
+    [Theory]
+    [MemberData(nameof(EqualValueObjects))]
+    public void NotEqualOperator_EqualValueObjects_ReturnsFalse(ValueObject? instanceA, ValueObject? instanceB, string reason)
+    {
+        // Act
+        var result = ValueObjectOperators.AreNotEqual(instanceA, instanceB);
+
+        // Assert
+        result.Should().BeFalse(reason);
+    }
+
+    [Theory]
+    [MemberData(nameof(NonEqualValueObjects))]
+    public void NotEqualOperator_NonEqualValueObjects_ReturnsTrue(ValueObject? instanceA, ValueObject? instanceB, string reason)
+    {
+        // Act
+        var result = ValueObjectOperators.AreNotEqual(instanceA, instanceB);
+
+        // Assert
+        result.Should().BeTrue(reason);
+    }
+
+    [Theory]
+    [MemberData(nameof(EqualValueObjects))]
+    public void GetHashCode_EqualValueObjects_ReturnsSameHash(ValueObject? instanceA, ValueObject? instanceB, string reason)
+    {
+        // Act
+        var hashA = instanceA?.GetHashCode();
+        var hashB = instanceB?.GetHashCode();
+
+        // Assert
+        hashA.Should().Be(hashB, reason);
+    }
+
+    [Fact]
+    public void GetCopy_ReturnsEqualButDistinctInstance()
+    {
+        // Act
+        var copy = APrettyValueObject.GetCopy();
+
+        // Assert
+        copy.Should().NotBeSameAs(APrettyValueObject);
+        copy.Should().Be(APrettyValueObject);
+    }
+
     private static readonly ValueObject APrettyValueObject = new ValueObjectA(1, "2", Guid.Parse("97ea43f0-6fef-4fb7-8c67-9114a7ff6ec0"), new ComplexObject(2, "3"));
 
     public static readonly TheoryData<ValueObject?, ValueObject?, string> EqualValueObjects = new()
@@ -92,9 +169,33 @@ public class ValueObjectTests
             new ValueObjectB(1, "2",  1, 2, 3, 5 ),
             new ValueObjectB(1, "2",  1, 2, 3, 4 ),
             "they should be not be equal because the 'C' lists are not equal"
+        },
+        {
+            APrettyValueObject,
+            null,
+            "they should not be equal because the second is null"
+        },
+        {
+            null,
+            APrettyValueObject,
+            "they should not be equal because the first is null"
         }
-
     };
+
+    /// <summary>
+    /// Exposes the protected operator helpers that derived value objects use to implement == and !=.
+    /// </summary>
+    private class ValueObjectOperators : ValueObject
+    {
+        public static bool AreEqual(ValueObject? left, ValueObject? right) => EqualOperator(left, right);
+
+        public static bool AreNotEqual(ValueObject? left, ValueObject? right) => NotEqualOperator(left, right);
+
+        protected override IEnumerable<object?> GetEqualityComponents()
+        {
+            yield break;
+        }
+    }
 
     private class ValueObjectA : ValueObject
     {
