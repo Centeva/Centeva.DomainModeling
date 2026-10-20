@@ -10,6 +10,39 @@ public class SingleOrDefaultAsyncTests : IntegrationTestBase
     public SingleOrDefaultAsyncTests(SharedDatabaseFixture fixture) : base(fixture) { }
 
     [Fact]
+    public async Task WithSpecification_ReturnsSingleMatch()
+    {
+        var result = await _personRepository.SingleOrDefaultAsync(new PersonByNameSpec(PersonSeed.ValidPersonName), TestContext.Current.CancellationToken);
+
+        result.Should().NotBeNull();
+        result!.Id.Should().Be(PersonSeed.ValidPersonId);
+    }
+
+    [Fact]
+    public async Task WithSpecification_ThrowsExceptionWhenMultiple()
+    {
+        var act = () => _personRepository.SingleOrDefaultAsync(new PersonByNameSpec("Doe"), TestContext.Current.CancellationToken);
+
+        await act.Should().ThrowAsync<InvalidOperationException>();
+    }
+
+    [Fact]
+    public async Task WithSpecification_ReturnsNullWhenNoMatches()
+    {
+        var result = await _personRepository.SingleOrDefaultAsync(new PersonByNameSpec("Not Found"), TestContext.Current.CancellationToken);
+
+        result.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task WithResultSpecification_ReturnsProjectedResult()
+    {
+        var result = await _personRepository.SingleOrDefaultAsync(new PersonNameSpec(PersonSeed.ValidPersonId2), TestContext.Current.CancellationToken);
+
+        result.Should().Be("Jane Doe");
+    }
+
+    [Fact]
     public async Task WithExpression_ProjectsToSimpleDto()
     {
         var result = await _personRepository.SingleOrDefaultAsync<PersonDto>(new PersonByNameSpec(PersonSeed.ValidPersonName), PersonDto.FromPerson, TestContext.Current.CancellationToken);
