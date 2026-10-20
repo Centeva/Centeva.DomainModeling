@@ -41,6 +41,16 @@ public class SingleOrDefaultTests
     }
 
     [Fact]
+    public async Task WithExpression_ProjectsToAnotherType()
+    {
+        await _repository.AddRangeAsync(PersonSeed.Get(), TestContext.Current.CancellationToken);
+
+        var result = await _repository.SingleOrDefaultAsync(new PersonByNameSpec(PersonSeed.ValidPersonName), x => x.Id, TestContext.Current.CancellationToken);
+
+        result.Should().Be(PersonSeed.ValidPersonId);
+    }
+
+    [Fact]
     public async Task WithSelectSpec_ReturnsEntry()
     {
         await _repository.AddRangeAsync(PersonSeed.Get(), TestContext.Current.CancellationToken);

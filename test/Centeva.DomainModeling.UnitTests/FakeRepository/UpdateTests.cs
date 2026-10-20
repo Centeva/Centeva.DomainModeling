@@ -25,6 +25,16 @@ public class UpdateTests
     }
 
     [Fact]
+    public async Task UpdateAsync_AddsEntityWhenNoMatch()
+    {
+        var update = new Person(Guid.NewGuid(), "New person");
+        await _repository.UpdateAsync(update, TestContext.Current.CancellationToken);
+
+        _entities.Count.Should().Be(2);
+        _entities.Should().Contain(update);
+    }
+
+    [Fact]
     public async Task UpdateRangeAsync_ModifiesMatchingEntities()
     {
         _entities.Add(new Person(Guid.NewGuid(), "Test 2"));
