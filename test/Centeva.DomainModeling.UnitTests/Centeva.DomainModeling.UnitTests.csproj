@@ -11,10 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="AwesomeAssertions" />
-    <PackageReference Include="coverlet.collector">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" />
     <PackageReference Include="Mediator.Abstractions" />
     <PackageReference Include="Moq" />
     <PackageReference Include="xunit.v3" />
