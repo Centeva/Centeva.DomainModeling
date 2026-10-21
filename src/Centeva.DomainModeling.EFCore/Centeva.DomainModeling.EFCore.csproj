@@ -3,7 +3,6 @@
   <PropertyGroup>
     <Description>Entity Framework Core implementation of the Repository pattern from Centeva.DomainModeling</Description>
     <PackageProjectTags>repository;ddd;ef;entity framework;entity framework core;ef core</PackageProjectTags>
-    <TargetFramework>net8.0</TargetFramework>
     <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
   </PropertyGroup>
 
