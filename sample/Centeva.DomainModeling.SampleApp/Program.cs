@@ -16,14 +16,14 @@ builder.Services.AddOpenApi();
 // Mediator
 builder.Services
     .AddMediator()
-    .AddSingleton<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
+    .AddScoped<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
 
 // Configure EF Core
 var folder = Environment.SpecialFolder.LocalApplicationData;
 var path = Environment.GetFolderPath(folder);
 var dbPath = Path.Join(path, "Centeva.DomainModeling.SampleApp.db");
 
-builder.Services.AddSingleton<DispatchDomainEventsInterceptor>();
+builder.Services.AddScoped<DispatchDomainEventsInterceptor>();
 builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
 {
     options.AddInterceptors(sp.GetRequiredService<DispatchDomainEventsInterceptor>());
