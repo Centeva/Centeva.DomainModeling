@@ -14,16 +14,11 @@ public class MediatRDomainEventDispatcher : IDomainEventDispatcher
         _publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
     }
 
-    public async Task DispatchAndClearEvents(IEnumerable<IHasDomainEvents> entitiesWithEvents, CancellationToken cancellationToken = default)
+    public async Task DispatchAsync(IEnumerable<IDomainEvent> domainEvents, CancellationToken cancellationToken = default)
     {
-        foreach (var entity in entitiesWithEvents)
+        foreach (var domainEvent in domainEvents)
         {
-            var events = entity.DomainEvents.ToArray();
-            entity.ClearDomainEvents();
-            foreach (var domainEvent in events)
-            {
-                await _publisher.Publish(domainEvent, cancellationToken).ConfigureAwait(false);
-            }
+            await _publisher.Publish(domainEvent, cancellationToken).ConfigureAwait(false);
         }
     }
 }

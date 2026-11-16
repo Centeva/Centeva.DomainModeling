@@ -49,15 +49,11 @@ public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
 
     private async Task DispatchDomainEvents(DbContext context, CancellationToken cancellationToken)
     {
-        var entitiesWithEvents = context.ChangeTracker
-            .Entries<IHasDomainEvents>()
-            .Where(e => e.Entity.DomainEvents.Count > 0)
-            .Select(e => e.Entity)
-            .ToList();
+        var domainEvents = context.CollectAndClearDomainEvents();
 
-        if (entitiesWithEvents.Count > 0)
+        if (domainEvents.Count > 0)
         {
-            await _domainEventDispatcher.DispatchAndClearEvents(entitiesWithEvents, cancellationToken)
+            await _domainEventDispatcher.DispatchAsync(domainEvents, cancellationToken)
                 .ConfigureAwait(false);
         }
     }

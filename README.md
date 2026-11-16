@@ -133,9 +133,11 @@ gets a protected `RegisterDomainEvent` method for free. You can also implement
 `IHasDomainEvents` directly on an object that isn't an entity if you need to
 raise events from somewhere else.
 
-You will use the `IDomainEventDispatcher` in your application to publish and
-handle these events, likely inside of your Entity Framework `DbContext` or a
-domain service.
+`IDomainEventDispatcher` publishes domain events so they can be handled.  It
+only publishes the events it is given; collecting events from entities and
+clearing them is done by the caller.  In most applications you won't call it
+directly: an EF Core interceptor collects events from tracked entities when you
+save changes and dispatches them (`DispatchDomainEventsInterceptor`).
 
 ### Repositories
 

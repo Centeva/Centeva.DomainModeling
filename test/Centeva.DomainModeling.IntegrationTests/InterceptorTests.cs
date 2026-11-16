@@ -33,8 +33,22 @@ public class InterceptorTests : IntegrationTestBase
 
         Mock.Get(_dispatcher)
             .Verify<Task>(
-                x => x.DispatchAndClearEvents(It.IsAny<IEnumerable<IHasDomainEvents>>(), It.IsAny<CancellationToken>()),
+                x => x.DispatchAsync(
+                    It.Is<IEnumerable<IDomainEvent>>(events =>
+                        events.Count() == 1 && events.Single() is PersonCreatedEvent),
+                    It.IsAny<CancellationToken>()),
                 Times.Once);
+    }
+
+    [Fact]
+    public async Task PostSaveEventDispatchingInterceptor_ClearsEventsFromEntities()
+    {
+        var person = new Person(Guid.NewGuid(), "Test");
+
+        _dbContext.People.Add(person);
+        await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
+
+        person.DomainEvents.Should().BeEmpty();
     }
 
     [Fact]
@@ -45,7 +59,7 @@ public class InterceptorTests : IntegrationTestBase
 
         Mock.Get(_dispatcher)
             .Verify<Task>(
-                x => x.DispatchAndClearEvents(It.IsAny<IEnumerable<IHasDomainEvents>>(), It.IsAny<CancellationToken>()),
+                x => x.DispatchAsync(It.IsAny<IEnumerable<IDomainEvent>>(), It.IsAny<CancellationToken>()),
                 Times.Never);
     }
 
@@ -60,7 +74,7 @@ public class InterceptorTests : IntegrationTestBase
         result.Should().Be(1);
         Mock.Get(_dispatcher)
             .Verify<Task>(
-                x => x.DispatchAndClearEvents(It.IsAny<IEnumerable<IHasDomainEvents>>(), It.IsAny<CancellationToken>()),
+                x => x.DispatchAsync(It.IsAny<IEnumerable<IDomainEvent>>(), It.IsAny<CancellationToken>()),
                 Times.Never);
     }
 }
