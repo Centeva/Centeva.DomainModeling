@@ -15,8 +15,8 @@ public interface IHasDomainEvents
     IReadOnlyCollection<IDomainEvent> DomainEvents { get; }
 
     /// <summary>
-    /// Clears all currently registered domain events.  Typically called by a dispatcher
-    /// after the events have been published.
+    /// Clears all currently registered domain events.  Typically called by an EF Core
+    /// interceptor once it has collected the events for publishing.
     /// </summary>
     void ClearDomainEvents();
 }

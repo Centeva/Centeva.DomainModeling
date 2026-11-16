@@ -127,7 +127,8 @@ events will be of interest to other parts of your model, and can be _handled_ to
 produce side effects, such as sending emails or updating other entities.
 
 Domain event dispatch is defined by the `IHasDomainEvents` interface, which
-exposes a `DomainEvents` list and a way to clear it after publishing.
+exposes a `DomainEvents` list and a way to clear it once the events have been
+collected for publishing.
 `BaseEntity<TId>` (via `ObjectWithEvents`) implements this for you, so any entity
 gets a protected `RegisterDomainEvent` method for free. You can also implement
 `IHasDomainEvents` directly on an object that isn't an entity if you need to
@@ -236,7 +237,7 @@ Register your derived Repository class and EF Core with your application's
 dependency injection container:
 
 ```csharp
-services.AddSingleton<DispatchDomainEventsInterceptor>();
+services.AddScoped<DispatchDomainEventsInterceptor>();
 
 services.AddDbContext<ApplicationDbContext>((sp, options) => options
     .UseSqlServer(connectionString)

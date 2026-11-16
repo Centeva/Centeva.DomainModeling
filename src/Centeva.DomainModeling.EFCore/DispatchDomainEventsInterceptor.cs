@@ -7,9 +7,11 @@ namespace Centeva.DomainModeling.EFCore;
 /// Used to dispatch domain events after saving entities to the database.
 /// </summary>
 /// <example>
-/// Register this interceptor when you configure EF Core in Program.cs:
+/// Register this interceptor when you configure EF Core in Program.cs.  Register it as scoped,
+/// so that it and the <see cref="IDomainEventDispatcher"/> come from the same scope as the
+/// <c>DbContext</c>:
 /// <code>
-///    services.AddSingleton&lt;DispatchDomainEventsInterceptor&gt;();
+///    services.AddScoped&lt;DispatchDomainEventsInterceptor&gt;();
 ///
 ///    services.AddDbContext&lt;ApplicationDbContext&gt;((sp, options) =&gt; options
 ///        .UseSqlServer(connectionString)
