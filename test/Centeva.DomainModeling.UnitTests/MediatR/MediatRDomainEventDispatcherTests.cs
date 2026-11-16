@@ -1,5 +1,4 @@
 using Centeva.DomainModeling.MediatR;
-using Centeva.DomainModeling.UnitTests.Fixtures.Entities;
 using MediatR;
 
 namespace Centeva.DomainModeling.UnitTests.MediatR;
@@ -8,13 +7,10 @@ public class MediatRDomainEventDispatcherTests
 {
     private readonly IPublisher _publisher = Mock.Of<IPublisher>();
     private readonly MediatRDomainEventDispatcher _sut;
-    private readonly Person _entity;
 
     public MediatRDomainEventDispatcherTests()
     {
         _sut = new MediatRDomainEventDispatcher(_publisher);
-
-        _entity = new Person(Guid.NewGuid(), "Joe Test");
     }
 
     [Fact]
@@ -27,54 +23,33 @@ public class MediatRDomainEventDispatcherTests
     }
 
     [Fact]
-    public async Task DispatchAndClearEvents_DispatchesEvents()
+    public async Task DispatchAsync_PublishesEachEventInOrder()
     {
-        await _sut.DispatchAndClearEvents([_entity], TestContext.Current.CancellationToken);
-
+        var first = new TestEvent();
+        var second = new TestEvent();
+        var published = new List<object>();
         Mock.Get(_publisher)
-            .Verify(
-                x => x.Publish(It.Is<object>(x => x is PersonCreatedEvent), It.IsAny<CancellationToken>()),
-                Times.Once);
+            .Setup(x => x.Publish(It.IsAny<object>(), It.IsAny<CancellationToken>()))
+            .Callback<object, CancellationToken>((e, _) => published.Add(e));
+
+        await _sut.DispatchAsync([first, second], TestContext.Current.CancellationToken);
+
+        published.Should().Equal(first, second);
     }
 
     [Fact]
-    public async Task DispatchAndClearEvents_ClearsEvents()
+    public async Task DispatchAsync_PublishesNothingWhenNoEvents()
     {
-        await _sut.DispatchAndClearEvents([_entity], TestContext.Current.CancellationToken);
-
-        _entity.DomainEvents.Should().BeEmpty();
-    }
-
-    [Fact]
-    public async Task DispatchAndClearEvents_DispatchesAndClearsEventsFromCustomIHasDomainEventsImplementer()
-    {
-        var customEmitter = new CustomEventEmitter();
-        customEmitter.RaiseTestEvent();
-
-        await _sut.DispatchAndClearEvents([customEmitter], TestContext.Current.CancellationToken);
+        await _sut.DispatchAsync([], TestContext.Current.CancellationToken);
 
         Mock.Get(_publisher)
             .Verify(
-                x => x.Publish(It.Is<object>(e => e is CustomEventEmitter.CustomTestEvent), It.IsAny<CancellationToken>()),
-                Times.Once);
-        customEmitter.DomainEvents.Should().BeEmpty();
+                x => x.Publish(It.IsAny<object>(), It.IsAny<CancellationToken>()),
+                Times.Never);
     }
 
-    // Verifies the dispatcher works with any IHasDomainEvents implementer, not just types
-    // derived from ObjectWithEvents.
-    private sealed class CustomEventEmitter : IHasDomainEvents
+    private sealed class TestEvent : INotification, IDomainEvent
     {
-        private readonly List<IDomainEvent> _events = [];
-
-        public IReadOnlyCollection<IDomainEvent> DomainEvents => _events;
-
-        public void ClearDomainEvents() => _events.Clear();
-
-        public void RaiseTestEvent() => _events.Add(new CustomTestEvent());
-
-        public sealed class CustomTestEvent : INotification, IDomainEvent
-        {
-            public DateTime DateOccurred { get; } = DateTime.UtcNow;
-        }
+        public DateTime DateOccurred { get; } = DateTime.UtcNow;
     }
 }
