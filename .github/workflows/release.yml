@@ -6,6 +6,7 @@ on:
 permissions:
   contents: write
   packages: write
+  id-token: write # Required for nuget.org Trusted Publishing (OIDC)
 
 jobs:
   package:
@@ -44,6 +45,13 @@ jobs:
         if: github.event.release.prerelease
         run: dotnet nuget push packages/*.nupkg --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Log in to nuget.org via Trusted Publishing (stable only)
+        if: "!github.event.release.prerelease"
+        id: nuget-login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ secrets.NUGET_USER }} # nuget.org profile name (not email)
+
       - name: Push to nuget.org (stable only)
         if: "!github.event.release.prerelease"
-        run: dotnet nuget push packages/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push packages/*.nupkg --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
