@@ -9,9 +9,12 @@ public class BaseDomainEventTests
     [Fact]
     public void Constructor_ShouldSetOccurredToCurrentTime()
     {
+        var before = DateTime.UtcNow;
         var newEvent = new TestEvent();
+        var after = DateTime.UtcNow;
 
-        // Not really another way to test this
-        newEvent.DateOccurred.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromMilliseconds(100));
+        // Bounded by readings taken on either side, so a slow test runner can't cause a failure
+        newEvent.DateOccurred.Should().BeOnOrAfter(before).And.BeOnOrBefore(after);
+        newEvent.DateOccurred.Kind.Should().Be(DateTimeKind.Utc);
     }
 }
